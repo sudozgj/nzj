@@ -3,59 +3,62 @@ package org.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.jws.soap.SOAPBinding.Use;
+import javax.servlet.http.HttpSession;
+
 import org.model.User;
+import org.model.UserDetail;
 import org.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.tool.JsonObject;
 
 @Controller
 public class UserController {
 	@Autowired
 	private UserService uService;
 
-	@RequestMapping("/test")
-	@ResponseBody
-	public Object test()throws Exception{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("a", "as");
-		map.put("b", 3);
-		return map;
-	}
-	
+	//-----------------------------------User-----------------------------------------
 	@RequestMapping("/register")
 	@ResponseBody
-	public Object register(User u)throws Exception{
-		return uService.register(u);
+	public Object register(HttpSession session,User u,int code)throws Exception{
+		System.out.println("	phone: "+u.getPhone());
+		System.out.println("	password: "+u.getPassword());
+		return uService.register(session,u,code);
 	}
 	
-//	@RequestMapping("/register")
-//	@ResponseBody
-//	public Object register(User u) throws Exception {
-//		UserDao uDao = new UserDaoImp();
-//		User user = new User();
-//		user.setUsername(u.getUsername());
-//		user.setPassword(u.getPassword());
-//		user.setAck(false);
-//		long uid = uDao.addUser(user);
-//		if (uid != -1) {
-//			return JsonObject.getResult(1, "添加用户成功", true);
-//		} else {
-//			return JsonObject.getResult(0, "添加用户失败", false);
-//		}
-//	}
-//
-//	@RequestMapping("/login")
-//	@ResponseBody
-//	public Object login(User u, HttpSession session) throws Exception {
-//		UserDao uDao = new UserDaoImp();
-//		User user = uDao.getUser(u.getUsername(), u.getPassword());
-//		if (user != null) {
-//			session.setAttribute("user", user);
-//			return JsonObject.getResult(1, "登录成功", true);
-//		} else {
-//			return JsonObject.getResult(0, "用户名或密码错误", false);
-//		}
-//	}
+	@RequestMapping("/login")
+	@ResponseBody
+	public Object login(HttpSession session,Long phone,String password)throws Exception{
+		System.out.println("	phone: "+phone);
+		System.out.println("	password: "+password);
+		return uService.login(session, phone, password);
+	}
+	
+	@RequestMapping("/getSession")
+	@ResponseBody
+	public Object getSession(HttpSession session)throws Exception{
+		return uService.getSession(session);
+	}
+	
+	@RequestMapping("/getValidateCode")
+	@ResponseBody
+	public Object getValidateCode(HttpSession session,Long phone) throws Exception{
+		return uService.getValidateCode(session, phone);
+	}
+	
+	//-----------------------------------UserDetail-----------------------------------------
+	@RequestMapping("/addUserDetail")
+	@ResponseBody
+	public Object addUserDetail(HttpSession session,UserDetail ud)throws Exception{
+		return uService.addUserDetail(session, ud);
+	}
+	
+	@RequestMapping("/updateUserDetail")
+	@ResponseBody
+	public Object updateUserDetail(UserDetail ud)throws Exception{
+		return uService.updateUserDetail(ud);
+	}
 }
