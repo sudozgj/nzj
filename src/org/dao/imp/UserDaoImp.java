@@ -1,15 +1,12 @@
 package org.dao.imp;
 
-import java.util.Date;
-
 import org.dao.UserDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.model.User;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
-
-import org.model.User;
 
 @Service
 public class UserDaoImp implements UserDao {

@@ -6,6 +6,7 @@ import org.dao.imp.UserDaoImp;
 import org.dao.imp.UserDetailDaoImp;
 import org.model.User;
 import org.model.UserDetail;
+import org.tool.readProperties;
 
 public class test01 {
 	public static void main(String[] args) {
@@ -26,9 +27,11 @@ public class test01 {
 		System.out.println(uDao.updateUser(u));*/
 		
 		//--------UserDetailDao测试--------
-		UserDetailDao udDao = new UserDetailDaoImp();
-		UserDetail ud = new UserDetail(4L, "zgj", "sy", "小明", 345345435L, 123L, "sa","http://fsdfa.jpg",null);
+//		UserDetailDao udDao = new UserDetailDaoImp();
+//		UserDetail ud = new UserDetail(4L, "zgj", "sy", "小明", 345345435L, 123L, "sa","http://fsdfa.jpg",null);
+//		
+//		System.out.println(udDao.addUserDetail(ud));
 		
-		System.out.println(udDao.addUserDetail(ud));
+		System.out.println(new readProperties().getP("IP"));
 	}
 }
