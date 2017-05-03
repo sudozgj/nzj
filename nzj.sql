@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2017-05-02 18:58:08
+Date: 2017-05-03 20:14:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,22 +50,32 @@ CREATE TABLE `aunt` (
   `address` varchar(255) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aunt
 -- ----------------------------
+INSERT INTO `aunt` VALUES ('13', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
+INSERT INTO `aunt` VALUES ('14', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
+INSERT INTO `aunt` VALUES ('15', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
+INSERT INTO `aunt` VALUES ('16', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
+INSERT INTO `aunt` VALUES ('17', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
+INSERT INTO `aunt` VALUES ('18', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
+INSERT INTO `aunt` VALUES ('19', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
+INSERT INTO `aunt` VALUES ('20', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
+INSERT INTO `aunt` VALUES ('21', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
+INSERT INTO `aunt` VALUES ('22', 'fcc', '2', '3', '4', '5', '6', '7', '8', '9', '0', '11', '12', '13', '14', '6');
 
 -- ----------------------------
 -- Table structure for `aunt_appliance`
 -- ----------------------------
 DROP TABLE IF EXISTS `aunt_appliance`;
 CREATE TABLE `aunt_appliance` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `aunt_id` bigint(20) NOT NULL,
   `appliance_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aunt_appliance
@@ -80,7 +90,7 @@ CREATE TABLE `aunt_certificate` (
   `aunt_id` bigint(20) NOT NULL,
   `certificate_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aunt_certificate
@@ -92,8 +102,11 @@ CREATE TABLE `aunt_certificate` (
 DROP TABLE IF EXISTS `aunt_contact`;
 CREATE TABLE `aunt_contact` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `cname` varchar(255) NOT NULL,
+  `relation` varchar(255) NOT NULL,
+  `workstatus` varchar(255) NOT NULL,
+  `cphone` varchar(255) NOT NULL,
   `aunt_id` bigint(20) NOT NULL,
-  `contact_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -110,7 +123,7 @@ CREATE TABLE `aunt_cooking` (
   `aunt_id` bigint(20) NOT NULL,
   `cooking_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aunt_cooking
@@ -125,7 +138,7 @@ CREATE TABLE `aunt_job` (
   `aunt_id` bigint(20) NOT NULL,
   `job_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aunt_job
@@ -140,7 +153,7 @@ CREATE TABLE `aunt_language` (
   `aunt_id` bigint(20) NOT NULL,
   `language_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aunt_language
@@ -170,7 +183,7 @@ CREATE TABLE `aunt_skill` (
   `aunt_id` bigint(20) NOT NULL,
   `skill_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aunt_skill
@@ -182,8 +195,9 @@ CREATE TABLE `aunt_skill` (
 DROP TABLE IF EXISTS `aunt_work`;
 CREATE TABLE `aunt_work` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `time` varchar(255) NOT NULL,
+  `work` varchar(255) NOT NULL,
   `aunt_id` bigint(20) NOT NULL,
-  `work_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -203,23 +217,6 @@ CREATE TABLE `certificate` (
 
 -- ----------------------------
 -- Records of certificate
--- ----------------------------
-
--- ----------------------------
--- Table structure for `contact`
--- ----------------------------
-DROP TABLE IF EXISTS `contact`;
-CREATE TABLE `contact` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `relation` varchar(255) NOT NULL,
-  `workstatus` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of contact
 -- ----------------------------
 
 -- ----------------------------
@@ -328,18 +325,3 @@ CREATE TABLE `user_detail` (
 INSERT INTO `user_detail` VALUES ('1', '4', 'zgj', 'sy', '小明', '345345435', '123', 'sa', 'http://fsdfa.jpg', '');
 INSERT INTO `user_detail` VALUES ('2', '8', 'r', 'ew', '23', '1239', '7603', 'g3', '', 'http23');
 INSERT INTO `user_detail` VALUES ('3', '7', 'gggggg23g', 'ew', '23', '1239', '7603', 'g3', null, 'http23');
-
--- ----------------------------
--- Table structure for `work`
--- ----------------------------
-DROP TABLE IF EXISTS `work`;
-CREATE TABLE `work` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `time` varchar(255) NOT NULL,
-  `work` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of work
--- ----------------------------
