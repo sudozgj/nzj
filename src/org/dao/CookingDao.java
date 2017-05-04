@@ -32,4 +32,10 @@ public interface CookingDao {
 		 * @return
 		 */
 		public List getCookingList();
+		/**
+		 * 4.2通过阿姨的id查出会的所有的烹饪能力
+		 * @param auntId
+		 * @return
+		 */
+		public List getCookingByAuntId(long auntId);
 }

@@ -2,21 +2,21 @@ package org.dao.imp;
 
 import java.util.List;
 
-import org.dao.LanguageDao;
+import org.dao.SkillDao;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.model.Language;
-import org.model.User;
+import org.model.Cooking;
+import org.model.Skill;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
 
 @Service
-public class LanguageDaoImp implements LanguageDao {
+public class SkillDaoImp implements SkillDao{
 
 	@Override
-	public long addLanguage(Language l) {
+	public long addSkill(Skill l) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -33,11 +33,11 @@ public class LanguageDaoImp implements LanguageDao {
 	}
 
 	@Override
-	public boolean deleteLanguage(long id) {
+	public boolean deleteSkill(long id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			Language l = (Language) session.load(Language.class, id);
+			Skill l = (Skill) session.load(Skill.class, id);
 			session.delete(l);
 
 			return true;
@@ -50,7 +50,7 @@ public class LanguageDaoImp implements LanguageDao {
 	}
 
 	@Override
-	public boolean updateLanguage(Language l) {
+	public boolean updateSkill(Skill l) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -67,29 +67,29 @@ public class LanguageDaoImp implements LanguageDao {
 	}
 
 	@Override
-	public List getLanguageList() {
+	public List getSkillList() {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			Query query = session.createQuery("from Language order by id");
+			Query query = session.createQuery("from Skill order by id");
 			List l = (List) query.list();
 			return l;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return null; 
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}
 	}
 
 	@Override
-	public List getLanguageByAuntId(long auntId) {
+	public List getSkillByAuntId(long auntId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select l.name from aunt_language al,language l where al.language_id=l.id and al.aunt_id=?";
+			String sql = "select s.name from aunt_skill ask,skill s where ask.skill_id=s.id and ask.aunt_id=?";
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setParameter(0, auntId);
 			

@@ -32,4 +32,10 @@ public interface ApplianceDao {
 	 * @return
 	 */
 	public List getApplianceList();
+	/**
+	 * 4.2通过阿姨id查询所会加点
+	 * @param auntId
+	 * @return
+	 */
+	public List getApplianceByAuntId(long auntId);
 }

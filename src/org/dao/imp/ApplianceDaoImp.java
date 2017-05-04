@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.dao.ApplianceDao;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.model.Appliance;
 import org.model.Language;
+import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
 
+@Service
 public class ApplianceDaoImp implements ApplianceDao{
 
 	@Override
@@ -74,8 +77,28 @@ public class ApplianceDaoImp implements ApplianceDao{
 			return l;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;			//注意，这里应该返回对象，因为phone能用，返回的是null
+			return null;
 		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List getApplianceByAuntId(long auntId) {
+		try {
+			Session session =HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			String sql = "select a.name from aunt_appliance aa,appliance a where aa.appliance_id=a.id and aa.aunt_id=?";
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setParameter(0, auntId);
+			
+			List list = sqlQuery.list();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally{
 			HibernateSessionFactory.closeSession();
 		}
 	}

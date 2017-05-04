@@ -36,4 +36,13 @@ public interface AuntService {
 	 * @return
 	 */
 	public Object deleteAunt(long id);
+	
+	/**
+	 * 3获取阿姨列表
+	 * @param session
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public Object getAuntList(HttpSession session,Integer start,Integer limit);
 }

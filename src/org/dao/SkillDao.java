@@ -32,4 +32,10 @@ public interface SkillDao {
 	 * @return
 	 */
 	public List getSkillList();
+	/**
+	 * 4.2通过阿姨的id查出会的所有的基本技能
+	 * @param auntId
+	 * @return
+	 */
+	public List getSkillByAuntId(long auntId);
 }

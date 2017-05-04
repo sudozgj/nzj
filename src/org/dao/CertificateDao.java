@@ -32,4 +32,10 @@ public interface CertificateDao {
 	 * @return
 	 */
 	public List getCertificateList();
+	/**
+	 * 4.2通过阿姨的id查出会的所有的证书
+	 * @param auntId
+	 * @return
+	 */
+	public List getCertificateByAuntId(long auntId);
 }

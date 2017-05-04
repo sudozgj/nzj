@@ -2,21 +2,20 @@ package org.dao.imp;
 
 import java.util.List;
 
-import org.dao.LanguageDao;
+import org.dao.CertificateDao;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.model.Language;
-import org.model.User;
+import org.model.Certificate;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
 
 @Service
-public class LanguageDaoImp implements LanguageDao {
+public class CertificateDaoImp implements CertificateDao{
 
 	@Override
-	public long addLanguage(Language l) {
+	public long addCertificate(Certificate l) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -33,11 +32,11 @@ public class LanguageDaoImp implements LanguageDao {
 	}
 
 	@Override
-	public boolean deleteLanguage(long id) {
+	public boolean deleteCertificate(long id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			Language l = (Language) session.load(Language.class, id);
+			Certificate l = (Certificate) session.load(Certificate.class, id);
 			session.delete(l);
 
 			return true;
@@ -50,7 +49,7 @@ public class LanguageDaoImp implements LanguageDao {
 	}
 
 	@Override
-	public boolean updateLanguage(Language l) {
+	public boolean updateCertificate(Certificate l) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -67,29 +66,29 @@ public class LanguageDaoImp implements LanguageDao {
 	}
 
 	@Override
-	public List getLanguageList() {
+	public List getCertificateList() {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			Query query = session.createQuery("from Language order by id");
+			Query query = session.createQuery("from Certificate order by id");
 			List l = (List) query.list();
 			return l;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return null; 
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}
 	}
 
 	@Override
-	public List getLanguageByAuntId(long auntId) {
+	public List getCertificateByAuntId(long auntId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select l.name from aunt_language al,language l where al.language_id=l.id and al.aunt_id=?";
+			String sql = "select c.name from aunt_certificate ac,certificate c where ac.certificate_id=c.id and ac.aunt_id=?";
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setParameter(0, auntId);
 			

@@ -32,4 +32,9 @@ public interface LanguageDao {
 	 * @return
 	 */
 	public List getLanguageList();
+	/**
+	 * 4.2通过阿姨的id查出会的所有的语言
+	 * @return
+	 */
+	public List getLanguageByAuntId(long auntId);
 }

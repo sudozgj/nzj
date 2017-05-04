@@ -32,4 +32,10 @@ public interface JobDao {
 	 * @return
 	 */
 	public List getJobList();
+	/**
+	 * 4.2通过阿姨的id查出会的所有的岗位
+	 * @param auntId
+	 * @return
+	 */
+	public List getJobByAuntId(long auntId);
 }

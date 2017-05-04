@@ -24,19 +24,26 @@ public class AuntController {
 	public Object addAunt(HttpSession session, HttpServletRequest request,
 			Aunt a, Long[] languageId, Long[] cookingId, Long[] skillId,
 			Long[] applianceId, Long[] certificateId, Long[] jobId,
-			AuntContactForm c,AuntWorkForm w,
+			AuntContactForm c, AuntWorkForm w,
 			@RequestParam("file") CommonsMultipartFile file) throws Exception {
 
-		for(String aa:c.getCname())
-			System.out.println(aa);
-		
+		for (String aa : c.getCname())
+			System.out.println("联系人名字：" + aa);
+
 		return aService.addAunt(session, request, a, languageId, cookingId,
 				skillId, applianceId, certificateId, jobId, c, w, file);
 	}
-	
+
 	@RequestMapping("/deleteAunt")
 	@ResponseBody
-	public Object deleteAunt(long id)throws Exception{
+	public Object deleteAunt(long id) throws Exception {
 		return aService.deleteAunt(id);
+	}
+
+	@RequestMapping("/getAuntList")
+	@ResponseBody
+	public Object getAuntList(HttpSession session, Integer start, Integer limit)
+			throws Exception {
+		return aService.getAuntList(session, start, limit);
 	}
 }
