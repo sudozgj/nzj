@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户详细信息</title>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<link href="css/user_info.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript">
+		$(function(){
+			$('#btn_user_info').click(function() {
+				var formData = new FormData(document.getElementById("user_info"));
+				$.ajax({
+					type: "post",
+					url: "addUserDetail",
+					data: formData,
+					async: false,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(data) {
+						alert("12:"+data.msg);
+					},
+					error: function(data) {
+						alert("error");
+					}
+				});
+			});
+		});
+			
+		</script>
+	</head>
+
+	<body>
+		<div class="clsContent">
+			<div class="user_head">
+				<h3>用户详细信息</h3>
+			</div>
+			<form id="user_info">
+				<div>
+					<div id="user_info_label">用户名：</div> 
+					<div id="user_info_text"><input type="text" name="username" /></div>
+				</div>
+				<div>
+					<div id="user_info_label">公司：</div>
+					<div id="user_info_text"><input type="text" name="company" /></div>
+				</div>
+				<div>
+					<div id="user_info_label">联系人：</div>
+					<div id="user_info_text"><input type="text" name="contact" /></div>
+				</div>
+				<div>
+					<div id="user_info_label">电话：</div>
+					<div id="user_info_text"><input type="text" name="telephone" /></div>
+				</div>
+				<div>
+					<div id="user_info_label">座机：</div>
+					<div id="user_info_text"><input type="text" name="phone" /></div>
+				</div>
+				<div>
+					<div id="user_info_label">门店地址：</div>
+					<div id="user_info_text"><input type="text" name="address" /></div>
+				</div>
+				<div>
+					<div id="user_info_label">身份证正面：</div>
+					<div id="user_info_text"><input type="file" name="file" /></div>
+				</div>
+				<div>
+					<div id="user_info_label">营业执照：</div>
+					<div id="user_info_text"><input type="file" name="file" /></div>
+				</div>
+				<div>
+					<button type="button" id="btn_user_info">确定</button>
+				</div>
+			</form>
+		</div>
+		
+	</body>
+
+</html>

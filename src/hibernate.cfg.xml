@@ -17,6 +17,8 @@
 	<property name="connection.provider_class">
 		org.hibernate.connection.ProxoolConnectionProvider
 	</property>
+	
+	
 	<property name="myeclipse.connection.profile">nzj</property>
 	<mapping resource="org/model/Appliance.hbm.xml" />
 	<mapping resource="org/model/Aunt.hbm.xml" />
@@ -36,6 +38,8 @@
 	<mapping resource="org/model/Skill.hbm.xml" />
 	<mapping resource="org/model/User.hbm.xml" />
 	<mapping resource="org/model/UserDetail.hbm.xml" />
+
+
 
 </session-factory>
 

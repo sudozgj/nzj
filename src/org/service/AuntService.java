@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.Form.AuntContactForm;
-import org.Form.AuntWorlForm;
+import org.Form.AuntWorkForm;
 import org.model.Aunt;
 import org.model.AuntContact;
 import org.model.AuntWork;
@@ -26,7 +26,7 @@ public interface AuntService {
 	public Object addAunt(HttpSession session, HttpServletRequest request,
 			Aunt a, Long[] languageId, Long[] cookingId, Long[] skillId,
 			Long[] applianceId, Long[] certificateId, Long[] jobId,
-			@RequestBody List<AuntContact> c, @RequestBody List<AuntWork> w,
+			AuntContactForm c, AuntWorkForm w,
 			@RequestParam("file") CommonsMultipartFile file)
 			throws IllegalStateException, IOException;
 }

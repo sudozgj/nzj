@@ -58,7 +58,7 @@ public class UserServiceImp implements UserService {
 			session.setAttribute("user", u);
 			return JsonObject.getResult(1, "success", true);
 		} else
-			return JsonObject.getResult(0, "登录失败", false);
+			return JsonObject.getResult(0, "用户名或密码错误", false);
 	}
 
 	@Override

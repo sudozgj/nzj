@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+
+	<head>
+
+		<meta charset="utf-8">
+		<title>注册</title>
+		<link rel="icon" href="logo.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- CSS -->
+		<!--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>-->
+		<link rel="stylesheet" href="css/login/css/reset.css">
+		<link rel="stylesheet" href="css/login/css/supersized.css">
+		<link rel="stylesheet" href="css/login/css/style.css">
+		<script type="text/javascript">
+			
+
+			
+
+			function reg() {
+				if($('.auth_code_btn').text() == '发送') {
+					$.ajax({
+						type: "post",
+						url: "http://192.168.1.226:8080/nzj/user/getValidateCode",
+						dataType: "json",
+						data: {
+							'phone': $('.phone').val(),
+						},
+						success: function(data) {
+//							$('.auth_code_btn').text('确定');
+							var count = 60;
+			var countdown = setInterval(CountDown, 1000);
+						},
+						function CountDown() {
+//				alert("dd");
+                $('.auth_code_btn').attr('disabled',true);
+//				$(''.auth_code_btn").attr("disabled", true);
+				$('.auth_code_btn').val('倒计时：' + count);
+				if(count == 0) {
+					$("#auth_code_btn").val("发送").removeAttr("disabled");
+					clearInterval(countdown);
+				}
+				count--;
+			}
+						error: function(jqXHR) {
+							alert("网络异常");
+						}
+					});
+				} 
+				//				$.ajax({
+				//					type: "post",
+				//					url: "http://192.168.1.226:8080/nzj/user/getValidateCode",
+				//					dataType: "json",
+				//					data: {
+				//						'phone': $('.phone').val(),
+				//					},
+				//					success: function(data) {
+				//						$.ajax({
+				//							type: "post",
+				//							url: "http://192.168.1.226:8080/nzj/user/validateSms",
+				//							dataType: "json",
+				//							data: {
+				//								'validateCode': '13066803937',
+				//							},
+				//							success: function(data) {
+				//
+				//							},
+				//							error: function(jqXHR) {
+				//								alert("网络异常");
+				//							}
+				//						});
+				//					},
+				//					error: function(jqXHR) {
+				//						alert("网络异常");
+				//					}
+				//				});
+			}
+		</script>
+	</head>
+
+	<body>
+		<div style="width: 700px; height: 550px; background-color:rgba(255,255,255,0.5); position: absolute;text-align: center;left:0; right:0;top: 0;bottom: 0; margin: auto;>
+        <div class=" page-container ">
+            <h1 style="margin: 60px 0 0 0; ">注册</h1>
+            <div class="login-box ">
+                <input type="text " name="phone " class="phone " value="13066803937 ">
+                <input type="text " name="mobile " class="mobile " placeholder="请输入密码！ ">
+                <input type="text " name="templateId " class="templateId " value="请确认密码 ">
+                <div style="float: left; color: #3d3b4f; ">
+                	验证码：<input class="auth_code ">
+                    <button type="button " class="auth_code_btn " onclick="reg() ">发送</button>
+                </div> 
+                <button type="submit ">注册</button>
+                <div class="error "><span>+</span></div>
+            </div>
+            <!--<div class="connect ">
+                <p>Or connect with:</p>
+                <p>
+                    <a class="facebook " href=" "></a>
+                    <a class="twitter " href=" "></a>
+                </p>
+            </div>-->
+        </div>
+        </div>
+
+        
+        <script src="js/login/js/jquery-1.8.2.min.js "></script>
+        <script src="js/login/js/supersized.3.2.7.min.js "></script>
+        <script src="js/login/js/supersized-reg.js "></script>
+        <script src="js/login/js/scripts.js "></script>
+
+    </body>
+
+</html>

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.Form.AuntContactForm;
+import org.Form.AuntWorkForm;
 import org.dao.AuntDao;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,29 +20,12 @@ import org.util.HibernateSessionFactory;
 @Service
 public class AuntDaoImp implements AuntDao {
 
-	// @Override
-	// public long addAunt(Aunt l) {
-	// try {
-	// Session session = HibernateSessionFactory.getSession();
-	// Transaction ts = session.beginTransaction();
-	//
-	// long id = (Long) session.save(l);
-	// ts.commit();
-	// return id;
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// return -1;
-	// } finally {
-	// HibernateSessionFactory.closeSession();
-	// }
-	// }
-
 	@Override
 	public boolean addAunt(Aunt a, final Long[] languageId,
 			final Long[] cookingId, final Long[] skillId,
 			final Long[] applianceId, final Long[] certificateId,
-			final Long[] jobId, final List<AuntContact> c,
-			final List<AuntWork> w, final String url) {
+			final Long[] jobId, final AuntContactForm c, final AuntWorkForm w,
+			final String url) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -112,12 +97,12 @@ public class AuntDaoImp implements AuntDao {
 					String sql7 = "insert into aunt_contact(cname,relation,workstatus,cphone,aunt_id) values(?,?,?,?,?)";
 					PreparedStatement stmt7 = conn.prepareStatement(sql7);
 					conn.setAutoCommit(false);
-					for (AuntContact ac : c) {
-						stmt7.setString(1, ac.getCname());
-						stmt7.setString(2, ac.getRelation());
-						stmt7.setString(3, ac.getWorkstatus());
-						stmt7.setString(4, ac.getCphone());
-						stmt7.setLong(5, id);
+					for(int i=0;i<c.getCname().length;i++){
+						stmt7.setString(1,c.getCname()[i]);
+						stmt7.setString(2,c.getRelation()[i]);
+						stmt7.setString(3,c.getWorkstatus()[i]);
+						stmt7.setString(4,c.getCphone()[i]);
+						stmt7.setLong(5,id);
 						stmt7.addBatch();
 					}
 					stmt7.executeBatch();
@@ -125,9 +110,9 @@ public class AuntDaoImp implements AuntDao {
 					String sql8 = "insert into aunt_work(time,work,aunt_id) values(?,?,?)";
 					PreparedStatement stmt8 = conn.prepareStatement(sql8);
 					conn.setAutoCommit(false);
-					for (AuntWork aw : w) {
-						stmt8.setString(1, aw.getTime());
-						stmt8.setString(2, aw.getWork());
+					for(int i=0;i<w.getTime().length;i++){
+						stmt8.setString(1, w.getTime()[i]);
+						stmt8.setString(2, w.getWork()[i]);
 						stmt8.setLong(3, id);
 						stmt8.addBatch();
 					}
@@ -154,8 +139,21 @@ public class AuntDaoImp implements AuntDao {
 
 	@Override
 	public boolean deleteAunt(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Aunt a = (Aunt) session.load(Aunt.class, id);
+			session.delete(a);
+			
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
 	}
 
 	@Override

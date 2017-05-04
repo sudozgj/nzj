@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				font-size: 15px;
+			}
+			
+			#divFrame {
+				border: solid 1px #666;
+				width: 60%;
+				margin: 20px 20% 20px 20%;
+			}
+			
+			#divFrame .clsHead {
+				background-color: #eee;
+				padding: 8px;
+				height: 30px;
+				cursor: hand;
+			}
+			
+			#divFrame .clsHead h2 {
+				padding: 0px;
+				margin: 0;
+				/*font-size: 24px;*/
+			}
+			
+			#divFrame .zhuxiu1 span {
+				float: right;
+				margin-top: -45px;
+			}
+			
+			#divFrame .jingyan1 span {
+				float: right;
+				margin-top: -45px;
+			}
+			
+			#divFrame .lianxi1 span {
+				float: right;
+				margin-top: -45px;
+			}
+			
+			#divFrame .clsContent {
+				padding: 8px;
+			}
+			
+			#divFrame .clsContent ul {
+				list-style-type: none;
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			#divFrame .clsContent ul li {
+				float: left;
+				width: 95px;
+				height: 23px;
+				line-height: 23px;
+				list-style-type: none;
+			}
+			
+			#divFrame .clsBot {
+				float: right;
+				padding-top: 5px;
+				padding-bottom: 5px;
+			}
+			
+			.GetFocus {
+				background-color: #87CEFA;
+			}
+			
+			.t1 {
+				/*position: absolute;*/
+				/*left: 390px;*/
+				float: right;
+				top: 50px;
+				background: #FFB733;
+				text-align: end;
+			}
+			
+			.t2 {
+				position: absolute;
+				left: 390px;
+				top: 155px;
+				text-decoration: none;
+			}
+			
+			.style1 {
+				width: 118px;
+			}
+			
+			.clsContent a {
+				text-decoration: none;
+			}
+			
+			.zhuxiu1 h4 {
+				background-color: #eee;
+				padding: 8px;
+				height: 18px;
+				cursor: hand;
+			}
+			
+			.zhuxiu1 .yincang1 td {
+				display: none;
+			}
+			
+			.zhuxiu1 .yincang2 td {
+				display: none;
+			}
+			
+			.zhuxiu1 .yincang3 td {
+				display: none;
+			}
+			
+			#btnclass a {
+				text-decoration: none;
+			}
+		</style>
+		<script src="js/jquery-1.9.1.min.js" type="text/JavaScript"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.t2>a').click(function() {
+					$('tr:even:not(#style1)').css('background-color', '#666');
+				})
+			})
+			$(function() {
+				$('.zhu1>a').click(function() {
+					if($('.zhu1>a').text() == '点开') {
+						$('table .yincang1 td').show(2000).addClass('GetFocus');
+						$('.zhu1>a').text('隐藏');
+					} else {
+						$('table .yincang1 td').hide(2000);
+						$('.zhu1>a').text('点开');
+					}
+				})
+
+				$('.zhu2>a').click(function() {
+					if($('.zhu2>a').text() == '点开') {
+						$('table .yincang2 td').show(2000).addClass('GetFocus');
+						$('.zhu2>a').text('隐藏');
+					} else {
+						$('table .yincang2 td').hide(2000);
+						$('.zhu2>a').text('点开');
+					}
+				})
+
+				$('.zhu3>a').click(function() {
+					if($('.zhu3>a').text() == '点开') {
+						$('table .yincang3 td').show(2000).addClass('GetFocus');
+						$('.zhu3>a').text('隐藏');
+					} else {
+						$('table .yincang3 td').hide(2000);
+						$('.zhu3>a').text('点开');
+					}
+				})
+				$('#btnclass').click(function() {
+					$('#divFrame').css('background-color', '#FFC0CB');
+				})
+			})
+		</script>
+	</head>
+
+	<body>
+		<div id="divFrame">
+			<div class="clsHead">
+				<h2 align="center">阿姨信息表</h2>
+			</div>
+			<div class="clsContent">
+				<div style="float: left; width: 80%; height: auto; background: #0088CC;">
+					<table>
+						<tr>
+							<td class="style1">
+								姓名:耿宇丹
+							</td>
+							<td>
+								年龄:22岁
+							</td>
+						</tr>
+						<tr>
+							<td class="style1">
+								民族:汉
+							</td>
+							<td>
+								出生年月:1991年6月
+							</td>
+						</tr>
+						<tr>
+							<td class="style1">
+								技术职称:.NET
+							</td>
+							<td>
+								毕业院校:河北软件职业技术学院
+							</td>
+						</tr>
+						<tr>
+							<td class="style1">
+								专业:软件开发
+							</td>
+							<td>
+								户口所在地:河北省藁城市
+							</td>
+						</tr>
+						<tr>
+							<td class="style1">
+								学历:大专
+							</td>
+							<td>
+								现从事实业:编程
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="t1">
+					<img alt="" src="images/bao.jpg" width="100px" height="100px" />
+				</div>
+				<div>
+					<table class="zhuxiu1" width="485px">
+						<tr>
+							<td>
+								<h4>
+                            主修课程</h4>
+								<span class="zhu1"><a href="#">点开</a></span>
+							</td>
+						</tr>
+						<tr class="yincang1">
+							<td>
+								HTML、CSS编程等、JavaScript、SqlServer数据库以及C#等、C++基础等、以及简单的Windows8开发
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--<div>-->
+					<!--<table class="zhuxiu1" width="485px">
+						<tr>
+							<td>
+								<h4>
+                            项目经验</h4>
+								<span class="zhu2"><a href="#">点开</a></span>
+							</td>
+						</tr>
+						<tr class="yincang2">
+							<td>
+								1、仿京东购物网站
+							</td>
+						</tr>
+						<tr class="yincang2">
+							<td>
+								2、仿KFC网上订餐
+							</td>
+						</tr>
+						<tr class="yincang2">
+							<td>
+								3、仿CSDN学习大本营
+							</td>
+						</tr>
+						<tr class="yincang2">
+							<td>
+								4、仿CSDN博客
+							</td>
+						</tr>
+						<tr class="yincang2">
+							<td>
+								5、仿图书管理系统
+							</td>
+						</tr>
+						<tr class="yincang2">
+							<td>
+								6、Windows8商店应用等内容
+							</td>
+						</tr>
+					</table>-->
+				<!--</div>-->
+				<!--<div>
+					<table class="zhuxiu1" width="485px">
+						<tr>
+							<td>
+								<h4>
+                            联系方式</h4>
+								<span class="zhu3"><a href="#">点开</a></span>
+							</td>
+						</tr>
+						<tr class="yincang3">
+							<td>
+								通讯地址：河北省藁城市&nbsp;&nbsp;&nbsp; 邮政编码：052160
+							</td>
+						</tr>
+						<tr class="yincang3">
+							<td>
+								联系电话：15031982895&nbsp;&nbsp;&nbsp; Email地址：179435414@qq.com </td>
+						</tr>
+					</table>
+				</div>-->
+				
+			</div>
+		</div>
+	</body>
+
+</html>
