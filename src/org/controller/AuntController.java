@@ -1,19 +1,14 @@
 package org.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.Form.AuntContactForm;
 import org.Form.AuntWorkForm;
 import org.model.Aunt;
-import org.model.AuntContact;
-import org.model.AuntWork;
 import org.service.AuntService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,16 +24,19 @@ public class AuntController {
 	public Object addAunt(HttpSession session, HttpServletRequest request,
 			Aunt a, Long[] languageId, Long[] cookingId, Long[] skillId,
 			Long[] applianceId, Long[] certificateId, Long[] jobId,
-			AuntContactForm c, AuntWorkForm w,
+			AuntContactForm c,AuntWorkForm w,
 			@RequestParam("file") CommonsMultipartFile file) throws Exception {
 
+		for(String aa:c.getCname())
+			System.out.println(aa);
+		
 		return aService.addAunt(session, request, a, languageId, cookingId,
 				skillId, applianceId, certificateId, jobId, c, w, file);
-
-		// System.out.println(c.size());
-		// System.out.println(w.size());
-		// System.out.println(c.getLi().size());
-		// System.out.println(w.getLi().size());
-		// return null;
+	}
+	
+	@RequestMapping("/deleteAunt")
+	@ResponseBody
+	public Object deleteAunt(long id)throws Exception{
+		return aService.deleteAunt(id);
 	}
 }

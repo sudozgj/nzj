@@ -3,19 +3,22 @@ package org.dao.imp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.Form.AuntContactForm;
 import org.Form.AuntWorkForm;
 import org.dao.AuntDao;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
 import org.model.Aunt;
-import org.model.AuntContact;
-import org.model.AuntWork;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VAunt;
+import org.view.VAuntId;
 
 @Service
 public class AuntDaoImp implements AuntDao {
@@ -97,12 +100,12 @@ public class AuntDaoImp implements AuntDao {
 					String sql7 = "insert into aunt_contact(cname,relation,workstatus,cphone,aunt_id) values(?,?,?,?,?)";
 					PreparedStatement stmt7 = conn.prepareStatement(sql7);
 					conn.setAutoCommit(false);
-					for(int i=0;i<c.getCname().length;i++){
-						stmt7.setString(1,c.getCname()[i]);
-						stmt7.setString(2,c.getRelation()[i]);
-						stmt7.setString(3,c.getWorkstatus()[i]);
-						stmt7.setString(4,c.getCphone()[i]);
-						stmt7.setLong(5,id);
+					for (int i = 0; i < c.getCname().length; i++) {
+						stmt7.setString(1, c.getCname()[i]);
+						stmt7.setString(2, c.getRelation()[i]);
+						stmt7.setString(3, c.getWorkstatus()[i]);
+						stmt7.setString(4, c.getCphone()[i]);
+						stmt7.setLong(5, id);
 						stmt7.addBatch();
 					}
 					stmt7.executeBatch();
@@ -110,7 +113,7 @@ public class AuntDaoImp implements AuntDao {
 					String sql8 = "insert into aunt_work(time,work,aunt_id) values(?,?,?)";
 					PreparedStatement stmt8 = conn.prepareStatement(sql8);
 					conn.setAutoCommit(false);
-					for(int i=0;i<w.getTime().length;i++){
+					for (int i = 0; i < w.getTime().length; i++) {
 						stmt8.setString(1, w.getTime()[i]);
 						stmt8.setString(2, w.getWork()[i]);
 						stmt8.setLong(3, id);
@@ -142,11 +145,56 @@ public class AuntDaoImp implements AuntDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
+
 			Aunt a = (Aunt) session.load(Aunt.class, id);
 			session.delete(a);
-			
-			
+
+			SQLQuery sqlQuery1 = session
+					.createSQLQuery("delete from aunt_language where aunt_id=?");
+			sqlQuery1.setParameter(0, id);
+			sqlQuery1.executeUpdate();
+
+			SQLQuery sqlQuery2 = session
+					.createSQLQuery("delete from aunt_cooking where aunt_id=?");
+			sqlQuery2.setParameter(0, id);
+			sqlQuery2.executeUpdate();
+
+			SQLQuery sqlQuery3 = session
+					.createSQLQuery("delete from aunt_skill where aunt_id=?");
+			sqlQuery3.setParameter(0, id);
+			sqlQuery3.executeUpdate();
+
+			SQLQuery sqlQuery4 = session
+					.createSQLQuery("delete from aunt_appliance where aunt_id=?");
+			sqlQuery4.setParameter(0, id);
+			sqlQuery4.executeUpdate();
+
+			SQLQuery sqlQuery5 = session
+					.createSQLQuery("delete from aunt_certificate where aunt_id=?");
+			sqlQuery5.setParameter(0, id);
+			sqlQuery5.executeUpdate();
+
+			SQLQuery sqlQuery6 = session
+					.createSQLQuery("delete from aunt_job where aunt_id=?");
+			sqlQuery6.setParameter(0, id);
+			sqlQuery6.executeUpdate();
+
+			SQLQuery sqlQuery7 = session
+					.createSQLQuery("delete from aunt_contact where aunt_id=?");
+			sqlQuery7.setParameter(0, id);
+			sqlQuery7.executeUpdate();
+
+			SQLQuery sqlQuery8 = session
+					.createSQLQuery("delete from aunt_work where aunt_id=?");
+			sqlQuery8.setParameter(0, id);
+			sqlQuery8.executeUpdate();
+
+			SQLQuery sqlQuery9 = session
+					.createSQLQuery("delete from aunt_photo where aunt_id=?");
+			sqlQuery9.setParameter(0, id);
+			sqlQuery9.executeUpdate();
+
+			ts.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -163,9 +211,77 @@ public class AuntDaoImp implements AuntDao {
 	}
 
 	@Override
-	public List getAuntList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<VAuntId> getAuntList(Integer start, Integer limit,Long userId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "select * from v_aunt where user_id=? order by id";
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.addEntity(VAunt.class);
+			sqlQuery.setParameter(0, userId);
+			if(start==null){
+				start=0;
+			}
+			sqlQuery.setFirstResult(start);
+			if(limit==null){
+				limit=15;
+				sqlQuery.setMaxResults(limit);
+			}else if(limit==-1){
+				
+			}else{
+				sqlQuery.setMaxResults(limit);
+			}
+			List<VAunt> li = sqlQuery.list();
+			List<VAuntId> list = new ArrayList<>();
+			for(VAunt a:li)
+				list.add(a.getId());
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Aunt getAunt(String idnumber) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session.createQuery("from Aunt where idnumber=?");
+			query.setParameter(0, idnumber);
+			query.setMaxResults(1);
+			Aunt a = (Aunt) query.uniqueResult();
+
+			return a;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Aunt();
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Long getAuntCount() {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session.createQuery("select count(id) from Aunt");
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
 	}
 
 }

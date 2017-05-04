@@ -40,6 +40,9 @@ public class AuntServiceImp implements AuntService {
 
 		User u = (User) session.getAttribute("user");
 		if (u != null) {
+			if(aDao.getAunt(a.getIdnumber())!=null){		//验证是否重复插入阿姨，根据身份证号判断
+				return JsonObject.getResult(-2, "此身份证已用，请核实", false);
+			}
 
 			String photoName = file.getOriginalFilename();
 			// String path = request.getRealPath("/"); // 项目路径
@@ -86,4 +89,14 @@ public class AuntServiceImp implements AuntService {
 		}
 	}
 
+	@Override
+	public Object deleteAunt(long id) {
+		if(aDao.deleteAunt(id))
+			return JsonObject.getResult(1, "删除阿姨成功", true);
+		else
+			return JsonObject.getResult(0, "删除阿姨失败", false);
+	}
+
+	
+	
 }

@@ -29,4 +29,11 @@ public interface AuntService {
 			AuntContactForm c, AuntWorkForm w,
 			@RequestParam("file") CommonsMultipartFile file)
 			throws IllegalStateException, IOException;
+	
+	/**
+	 * 2删除阿姨
+	 * @param id
+	 * @return
+	 */
+	public Object deleteAunt(long id);
 }
