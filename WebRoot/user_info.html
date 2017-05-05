@@ -6,28 +6,41 @@
 		<title>用户详细信息</title>
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 		<link href="css/user_info.css" rel="stylesheet" type="text/css" />
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript">
-		$(function(){
-			$('#btn_user_info').click(function() {
-				var formData = new FormData(document.getElementById("user_info"));
-				$.ajax({
-					type: "post",
-					url: "addUserDetail",
-					data: formData,
-					async: false,
-					cache: false,
-					contentType: false,
-					processData: false,
-					success: function(data) {
-						alert("12:"+data.msg);
-					},
-					error: function(data) {
-						alert("error");
-					}
+			$(function() {
+				$('#btn_user_info').click(function() {
+					var formData = new FormData(document.getElementById("user_info"));
+					$.ajax({
+						type: "post",
+						url: "updateUserDetail",
+						data: formData,
+						async: false,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function(data) {
+							//							main_code(data.code,data.msg);
+							if(data.code == -999) {
+								if(confirm("用户登录已失效，是否重新登录？")) {
+									location.href = "login.html";
+								}
+							} else if(data.code == 1) {
+								if(confirm("修改成功，是否跳转到主页？")) {
+									location.href = "index.html";
+								}
+							} else {
+								alert(data.msg);
+							}
+						},
+						error: function(data) {
+							alert("error");
+						}
+					});
+
 				});
 			});
-		});
-			
 		</script>
 	</head>
 
@@ -38,7 +51,10 @@
 			</div>
 			<form id="user_info">
 				<div>
-					<div id="user_info_label">用户名：</div> 
+					<a href="index.html">返回主页</a>
+				</div>
+				<div>
+					<div id="user_info_label">用户名：</div>
 					<div id="user_info_text"><input type="text" name="username" /></div>
 				</div>
 				<div>
@@ -61,20 +77,19 @@
 					<div id="user_info_label">门店地址：</div>
 					<div id="user_info_text"><input type="text" name="address" /></div>
 				</div>
-				<div>
+				<!--<div>
 					<div id="user_info_label">身份证正面：</div>
 					<div id="user_info_text"><input type="file" name="file" /></div>
 				</div>
 				<div>
 					<div id="user_info_label">营业执照：</div>
 					<div id="user_info_text"><input type="file" name="file" /></div>
-				</div>
+				</div>-->
 				<div>
 					<button type="button" id="btn_user_info">确定</button>
 				</div>
 			</form>
 		</div>
-		
 	</body>
 
 </html>

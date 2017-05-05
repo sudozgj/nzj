@@ -1,60 +1,32 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">  
-<HTML>  
-<HEAD>  
-<TITLE> New Document </TITLE>  
-<META NAME="Generator" CONTENT="EditPlus">  
-<META NAME="Author" CONTENT="">  
-<META NAME="Keywords" CONTENT="">  
-<META NAME="Description" CONTENT="">  
-<script src="js/jquery-1.9.1.min.js"></script>  
-<script>  
-  
-   //注意input的id和tr的id要一样  
-   function addRowByID(currentRowID){  
-       //遍历每一行，找到指定id的行的位置i,然后在该行后添加新行  
-       $.each( $('table:first tbody tr'), function(i, tr){  
-           if($(this).attr('id')==currentRowID){  
-               //获取当前行  
-               var currentRow=$('table:first tbody tr:eq('+i+')');  
-               //要添加的行的id  
-               var addRowID=currentRowID+1;  
-               str = "<tr id = '"+addRowID+"'><td>"+addRowID+"</td><td>row"+addRowID+"</td>"+  
-               "<td><input id= '"+addRowID+"' type='button' value='添加行' onclick='addRowByID(this.id);' /></td></tr>";  
-               //当前行之后插入一行  
-               currentRow.after(str);  
-           }  
-       });  
-   }  
-</script>  
-</HEAD>  
-  
-<BODY>  
-   <table border="1" bordercolor="green">  
-       <thead>  
-           <tr>  
-               <th>id</th>  
-               <th>value</th>  
-               <th>button</th>  
-           </tr>  
-       </thead>  
-       <tbody>  
-           <!-- 这里是input的id和tr的id要一样 -->  
-           <tr id='aaa'>  
-               <td>0</td>  
-               <td>row0</td>  
-               <td><input id='aaa' type="button" value="添加行" onclick="addRowByID(this.id);" /></td>  
-           </tr>  
-           <tr id='bbb'>  
-               <td>1</td>  
-               <td>row1</td>  
-               <td><input id='bbb' type="button" value="添加行" onclick="addRowByID(this.id);" /></td>  
-           </tr>  
-           <tr id='ccc'>  
-               <td>2</td>  
-               <td>row2</td>  
-               <td><input id='ccc' type="button" value="添加行" onclick="addRowByID(this.id);" /></td>  
-           </tr>  
-       </tbody>  
-   </table>  
-</BODY>  
-</HTML>  
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>无标题文档</title>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	</head>
+
+	<body>
+		<input type="button" id="btn" value="免费获取验证码" onclick="settime(this)" />
+		<script type="text/javascript">
+			var countdown = 10;
+
+			function settime(val) {
+				if(countdown == 0) {
+					val.removeAttribute("disabled");
+					val.value = "免费获取验证码s";
+					countdown = 10;
+				} else {
+					val.setAttribute("disabled", true);
+					val.value = "重新发送(" + countdown + ")";
+					countdown--;
+					setTimeout(function() {
+						settime(val)
+					}, 1000)
+				}
+			};
+		</script>
+	</body>
+
+</html>

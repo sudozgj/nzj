@@ -46,4 +46,10 @@ public class AuntController {
 			throws Exception {
 		return aService.getAuntList(session, start, limit);
 	}
+	
+	@RequestMapping("/updateAunt")
+	@ResponseBody
+	public Object updateAunt(Aunt a)throws Exception{
+		return aService.updateAunt(a);
+	}
 }

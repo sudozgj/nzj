@@ -14,7 +14,7 @@ public class UserDetail implements java.io.Serializable {
 	private String company;
 	private String contact;
 	private Long telephone;
-	private Long phone;
+	private Long dphone;
 	private String address;
 	private String charterurl;
 	private String idcardurl;
@@ -27,32 +27,31 @@ public class UserDetail implements java.io.Serializable {
 
 	/** minimal constructor */
 	public UserDetail(Long userId, String username, String company,
-			String contact, Long telephone, Long phone, String address) {
+			String contact, Long telephone, Long dphone, String address) {
 		this.userId = userId;
 		this.username = username;
 		this.company = company;
 		this.contact = contact;
 		this.telephone = telephone;
-		this.phone = phone;
+		this.dphone = dphone;
 		this.address = address;
 	}
 
 	/** full constructor */
 	public UserDetail(Long userId, String username, String company,
-			String contact, Long telephone, Long phone, String address,
+			String contact, Long telephone, Long dphone, String address,
 			String charterurl, String idcardurl) {
 		this.userId = userId;
 		this.username = username;
 		this.company = company;
 		this.contact = contact;
 		this.telephone = telephone;
-		this.phone = phone;
+		this.dphone = dphone;
 		this.address = address;
 		this.charterurl = charterurl;
 		this.idcardurl = idcardurl;
 	}
 
-	// Property accessors
 	public Long getId() {
 		return id;
 	}
@@ -101,12 +100,12 @@ public class UserDetail implements java.io.Serializable {
 		this.telephone = telephone;
 	}
 
-	public Long getPhone() {
-		return phone;
+	public Long getDphone() {
+		return dphone;
 	}
 
-	public void setPhone(Long phone) {
-		this.phone = phone;
+	public void setDphone(Long dphone) {
+		this.dphone = dphone;
 	}
 
 	public String getAddress() {

@@ -2,11 +2,14 @@ package org.dao.imp;
 
 import org.dao.UserDao;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.model.User;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VUser;
+import org.view.VUserId;
 
 @Service
 public class UserDaoImp implements UserDao {
@@ -102,21 +105,20 @@ public class UserDaoImp implements UserDao {
 	}
 
 	@Override
-	public User getUserById(Long id) {
+	public VUserId getUserById(Long id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
-			Transaction ts = session.beginTransaction();
+			SQLQuery sqlQuery = session.createSQLQuery("select * from v_user where id=?");
+			sqlQuery.setParameter(0, id);
+			sqlQuery.addEntity(VUser.class);
+			sqlQuery.setMaxResults(1);
 
-			Query query = session.createQuery("from User where id=?");
-			query.setParameter(0, id);
-			query.setMaxResults(1);
-			User u = (User) query.uniqueResult();
-			return u;
+			VUser v = (VUser) sqlQuery.uniqueResult();
+			
+			return v.getId();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		} finally {
-			HibernateSessionFactory.closeSession();
 		}
 	}
 

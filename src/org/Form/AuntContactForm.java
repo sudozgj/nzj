@@ -1,6 +1,6 @@
 package org.Form;
 
-
+//用于接收前端传来的数组组装成的对象
 public class AuntContactForm implements java.io.Serializable {
 	private Long[] id;
 	private String[] cname;

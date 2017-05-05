@@ -176,4 +176,12 @@ public class AuntServiceImp implements AuntService {
 		}
 	}
 
+	@Override
+	public Object updateAunt(Aunt a) {
+		if(aDao.updateAunt(a))
+			return JsonObject.getResult(1, "修改阿姨基本信息成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨基本信息失败", false);
+	}
+
 }

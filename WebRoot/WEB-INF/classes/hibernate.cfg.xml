@@ -22,14 +22,8 @@
 	<property name="myeclipse.connection.profile">nzj</property>
 	<mapping resource="org/model/Appliance.hbm.xml" />
 	<mapping resource="org/model/Aunt.hbm.xml" />
-	<mapping resource="org/model/AuntAppliance.hbm.xml" />
-	<mapping resource="org/model/AuntCertificate.hbm.xml" />
 	<mapping resource="org/model/AuntContact.hbm.xml" />
-	<mapping resource="org/model/AuntCooking.hbm.xml" />
-	<mapping resource="org/model/AuntJob.hbm.xml" />
-	<mapping resource="org/model/AuntLanguage.hbm.xml" />
 	<mapping resource="org/model/AuntPhoto.hbm.xml" />
-	<mapping resource="org/model/AuntSkill.hbm.xml" />
 	<mapping resource="org/model/AuntWork.hbm.xml" />
 	<mapping resource="org/model/Certificate.hbm.xml" />
 	<mapping resource="org/model/Cooking.hbm.xml" />
@@ -38,9 +32,10 @@
 	<mapping resource="org/model/Skill.hbm.xml" />
 	<mapping resource="org/model/User.hbm.xml" />
 	<mapping resource="org/model/UserDetail.hbm.xml" />
+	<mapping resource="org/model/Employer.hbm.xml" />
+
 	<mapping resource="org/view/VAunt.hbm.xml" />
-
-
+	<mapping resource="org/view/VUser.hbm.xml" />
 
 </session-factory>
 

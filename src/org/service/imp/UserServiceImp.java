@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tool.JsonObject;
 import org.tool.SendPost;
+import org.view.VUserId;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -130,5 +131,16 @@ public class UserServiceImp implements UserService {
 			return JsonObject.getResult(1, "修改详细信息成功", true);
 		else
 			return JsonObject.getResult(0, "修改详细信息失败", false);
+	}
+
+	@Override
+	public Object getUser(HttpSession session) {
+		User u = (User) session.getAttribute("user");
+		if(u==null){
+			System.out.println("	getUser--未登录");
+			return JsonObject.getResult(-999, "请先登录", "getUser");
+		}
+		VUserId v = uDao.getUserById(u.getId());
+		return JsonObject.getResult(1, "获取当前用户信息", v);
 	}
 }

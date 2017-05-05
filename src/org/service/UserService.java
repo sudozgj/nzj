@@ -38,5 +38,16 @@ public interface UserService {
 	 * @return
 	 */
 	public Object addUserDetail(HttpSession session,UserDetail ud);
+	/**
+	 * 6修改用户详细信息
+	 * @param ud
+	 * @return
+	 */
 	public Object updateUserDetail(UserDetail ud);
+	/**
+	 * 7获取当前用户信息
+	 * @param session
+	 * @return
+	 */
+	public Object getUser(HttpSession session);
 }

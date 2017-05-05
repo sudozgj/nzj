@@ -45,4 +45,11 @@ public interface AuntService {
 	 * @return
 	 */
 	public Object getAuntList(HttpSession session,Integer start,Integer limit);
+	
+	/**
+	 * 4修改阿姨基本信息（不包括从表）
+	 * @param a
+	 * @return
+	 */
+	public Object updateAunt(Aunt a);
 }

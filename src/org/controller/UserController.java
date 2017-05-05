@@ -44,6 +44,12 @@ public class UserController {
 		return uService.getValidateCode(session, phone);
 	}
 	
+	@RequestMapping("/getUser")
+	@ResponseBody
+	public Object getUser(HttpSession session)throws Exception{
+		return uService.getUser(session);
+	}
+	
 	//-----------------------------------UserDetail-----------------------------------------
 	@RequestMapping("/addUserDetail")
 	@ResponseBody

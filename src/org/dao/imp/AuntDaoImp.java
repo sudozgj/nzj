@@ -128,6 +128,17 @@ public class AuntDaoImp implements AuntDao {
 					stmt9.setLong(2, id);
 					stmt9.addBatch();
 					stmt9.executeBatch();
+					
+					stmt1.close();
+					stmt2.close();
+					stmt3.close();
+					stmt4.close();
+					stmt5.close();
+					stmt6.close();
+					stmt7.close();
+					stmt8.close();
+					stmt9.close();
+					conn.close();
 				}
 			});
 			ts.commit();
@@ -206,8 +217,19 @@ public class AuntDaoImp implements AuntDao {
 
 	@Override
 	public boolean updateAunt(Aunt l) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			Session session  =HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			session.update(l);
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
 	}
 
 	@Override

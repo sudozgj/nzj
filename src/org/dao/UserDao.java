@@ -1,6 +1,7 @@
 package org.dao;
 
 import org.model.User;
+import org.view.VUserId;
 
 public interface UserDao {
 	//-----------------------------------增---------------------------------------
@@ -39,9 +40,9 @@ public interface UserDao {
 	 */
 	public User getUser(Long phone,String password);
 	/**
-	 * 4.3通过id获取用户
+	 * 4.3通过id获取用户，视图形（User+UserDetail）
 	 * @param id
 	 * @return
 	 */
-	public User getUserById(Long id);
+	public VUserId getUserById(Long id);
 }
