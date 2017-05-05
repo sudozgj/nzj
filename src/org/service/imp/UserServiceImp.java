@@ -113,7 +113,7 @@ public class UserServiceImp implements UserService {
 				System.out.println("	addUserDetail--未登录");
 				return JsonObject.getResult(-999, "请先登录", "addUserDetail");
 			}
-			ud.setUserid(u.getId());
+			ud.setUserId(u.getId());
 			if (udDao.addUserDetail(ud) != -1) {
 				return JsonObject.getResult(1, "添加详细信息成功", true);
 			} else {

@@ -132,7 +132,7 @@ public class AuntServiceImp implements AuntService {
 		User u = (User) session.getAttribute("user");
 		if (u != null) {
 			List<VAuntId> li = aDao.getAuntList(start, limit, u.getId());
-			Long count = aDao.getAuntCount();
+			Long count = aDao.getAuntCount(u.getId());
 			List list = new ArrayList();
 			for(VAuntId va:li){
 				Map<String, Object> aMap = new HashMap();

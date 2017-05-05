@@ -32,7 +32,7 @@ public interface AuntDao {
 
 	// -----------------------------------改---------------------------------------
 	/**
-	 * 3.1修改阿姨
+	 * 3.1修改阿姨，只修改主表
 	 * @param l
 	 * @return
 	 */
@@ -51,8 +51,8 @@ public interface AuntDao {
 	 */
 	public Aunt getAunt(String idnumber);
 	/**
-	 * 4.3获取阿姨总数
+	 * 4.3获取阿姨总数，只统计当前加盟商的数据，如果是总部，则全部
 	 * @return
 	 */
-	public Long getAuntCount();
+	public Long getAuntCount(Long userId);
 }

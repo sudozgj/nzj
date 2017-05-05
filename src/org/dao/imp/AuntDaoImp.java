@@ -267,12 +267,18 @@ public class AuntDaoImp implements AuntDao {
 	}
 
 	@Override
-	public Long getAuntCount() {
+	public Long getAuntCount(Long userId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			Query query = session.createQuery("select count(id) from Aunt");
+			Query query;
+			if(userId!=1){	//分部
+				query = session.createQuery("select count(id) from Aunt where userId=?");
+				query.setParameter(0, userId);
+			}else{	//总部
+				query = session.createQuery("select count(id) from Aunt");
+			}
 			query.setMaxResults(1);
 			Long count = (Long) query.uniqueResult();
 			return count;

@@ -9,7 +9,7 @@ public class UserDetail implements java.io.Serializable {
 	// Fields
 
 	private Long id;
-	private Long userid;
+	private Long userId;
 	private String username;
 	private String company;
 	private String contact;
@@ -26,9 +26,9 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public UserDetail(Long userid, String username, String company,
+	public UserDetail(Long userId, String username, String company,
 			String contact, Long telephone, Long phone, String address) {
-		this.userid = userid;
+		this.userId = userId;
 		this.username = username;
 		this.company = company;
 		this.contact = contact;
@@ -38,10 +38,10 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public UserDetail(Long userid, String username, String company,
+	public UserDetail(Long userId, String username, String company,
 			String contact, Long telephone, Long phone, String address,
 			String charterurl, String idcardurl) {
-		this.userid = userid;
+		this.userId = userId;
 		this.username = username;
 		this.company = company;
 		this.contact = contact;
@@ -53,25 +53,24 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	// Property accessors
-
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Long getUserid() {
-		return this.userid;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUserid(Long userid) {
-		this.userid = userid;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {
-		return this.username;
+		return username;
 	}
 
 	public void setUsername(String username) {
@@ -79,7 +78,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getCompany() {
-		return this.company;
+		return company;
 	}
 
 	public void setCompany(String company) {
@@ -87,7 +86,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getContact() {
-		return this.contact;
+		return contact;
 	}
 
 	public void setContact(String contact) {
@@ -95,7 +94,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public Long getTelephone() {
-		return this.telephone;
+		return telephone;
 	}
 
 	public void setTelephone(Long telephone) {
@@ -103,7 +102,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public Long getPhone() {
-		return this.phone;
+		return phone;
 	}
 
 	public void setPhone(Long phone) {
@@ -111,7 +110,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getAddress() {
-		return this.address;
+		return address;
 	}
 
 	public void setAddress(String address) {
@@ -119,7 +118,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getCharterurl() {
-		return this.charterurl;
+		return charterurl;
 	}
 
 	public void setCharterurl(String charterurl) {
@@ -127,11 +126,10 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getIdcardurl() {
-		return this.idcardurl;
+		return idcardurl;
 	}
 
 	public void setIdcardurl(String idcardurl) {
 		this.idcardurl = idcardurl;
 	}
-
 }
