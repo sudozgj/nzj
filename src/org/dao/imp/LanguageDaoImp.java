@@ -104,4 +104,33 @@ public class LanguageDaoImp implements LanguageDao {
 		}
 	}
 
+	@Override
+	public boolean updateLanguageByAuntId(long AuntId, long[] laId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			SQLQuery sqlQuery1 = session
+					.createSQLQuery("delete from aunt_language where aunt_id=?");
+			sqlQuery1.setParameter(0, AuntId);
+			sqlQuery1.executeUpdate();
+
+			for (long l : laId) {
+				SQLQuery sqlQuery2 = session
+						.createSQLQuery("insert into aunt_language(aunt_id,language_id) values(?,?)");
+
+				sqlQuery2.setParameter(0, AuntId);
+				sqlQuery2.setParameter(1, l);
+				sqlQuery2.executeUpdate();
+			}
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
 }

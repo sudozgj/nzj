@@ -26,6 +26,13 @@ public interface ApplianceDao {
 	 * @return
 	 */
 	public boolean updateAppliance(Appliance l);
+	/**
+	 * 3.2修改阿姨的家用电器，通过阿姨id，电器id，修改的是关联表
+	 * @param AuntId
+	 * @param apId
+	 * @return
+	 */
+	public boolean updateApplianceByAuntId(long AuntId,long[] apId);
 	//-----------------------------------查---------------------------------------
 	/**
 	 * 4.1查询家用电器
@@ -33,7 +40,7 @@ public interface ApplianceDao {
 	 */
 	public List getApplianceList();
 	/**
-	 * 4.2通过阿姨id查询所会加点
+	 * 4.2通过阿姨id查询所会家电
 	 * @param auntId
 	 * @return
 	 */

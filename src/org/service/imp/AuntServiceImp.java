@@ -42,7 +42,7 @@ import org.view.VAuntId;
 public class AuntServiceImp implements AuntService {
 	@Autowired
 	private AuntDao aDao;
-	
+
 	@Autowired
 	private LanguageDao lDao;
 	@Autowired
@@ -59,7 +59,9 @@ public class AuntServiceImp implements AuntService {
 	private AuntContactDao acDao;
 	@Autowired
 	private AuntWorkDao awDao;
-	
+	@Autowired
+	private AuntPhotoDao aphDao;
+
 	@Override
 	public Object addAunt(HttpSession session, HttpServletRequest request,
 			Aunt a, Long[] languageId, Long[] cookingId, Long[] skillId,
@@ -115,7 +117,7 @@ public class AuntServiceImp implements AuntService {
 				return JsonObject.getResult(-1, "添加阿姨失败", false);
 			}
 		} else {
-			return JsonObject.getResult(0, "请先登录，才能添加阿姨", false);
+			return JsonObject.getResult(-999, "请先登录，才能添加阿姨", false);
 		}
 	}
 
@@ -134,9 +136,9 @@ public class AuntServiceImp implements AuntService {
 			List<VAuntId> li = aDao.getAuntList(start, limit, u.getId());
 			Long count = aDao.getAuntCount(u.getId());
 			List list = new ArrayList();
-			for(VAuntId va:li){
+			for (VAuntId va : li) {
 				Map<String, Object> aMap = new HashMap();
-				Long auntId = va.getId();	//阿姨id
+				Long auntId = va.getId(); // 阿姨id
 				aMap.put("id", va.getId());
 				aMap.put("name", va.getName());
 				aMap.put("age", va.getAge());
@@ -148,23 +150,23 @@ public class AuntServiceImp implements AuntService {
 				aMap.put("nation", va.getNation());
 				aMap.put("height", va.getHeight());
 				aMap.put("weight", va.getWeight());
-				aMap.put("sight", va.getSigh());
+				aMap.put("sigh", va.getSigh());
 				aMap.put("idnumber", va.getIdnumber());
 				aMap.put("phone", va.getPhone());
 				aMap.put("address", va.getAddress());
-				aMap.put("url", va.getUrl());		//照片通过视图组合进来了，不需要像下面一下添加
+				aMap.put("url", va.getUrl()); // 照片通过视图组合进来了，不需要像下面一下添加
 				aMap.put("userId", va.getUserId());
-				
+
 				aMap.put("language", lDao.getLanguageByAuntId(auntId));
 				aMap.put("cooking", cDao.getCookingByAuntId(auntId));
 				aMap.put("skill", sDao.getSkillByAuntId(auntId));
 				aMap.put("appliance", apDao.getApplianceByAuntId(auntId));
 				aMap.put("certificate", ceDao.getCertificateByAuntId(auntId));
 				aMap.put("job", jDao.getJobByAuntId(auntId));
-				
+
 				aMap.put("contact", acDao.getContactByAuntId(auntId));
 				aMap.put("work", awDao.getWorkByAuntId(auntId));
-				
+
 				list.add(aMap);
 			}
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -172,16 +174,121 @@ public class AuntServiceImp implements AuntService {
 			map.put("count", count);
 			return JsonObject.getResult(1, "阿姨列表", map);
 		} else {
-			return JsonObject.getResult(0, "请先登录，才能获取阿姨列表", false);
+			return JsonObject.getResult(-999, "请先登录，才能获取阿姨列表", false);
 		}
 	}
 
 	@Override
 	public Object updateAunt(Aunt a) {
-		if(aDao.updateAunt(a))
+		if (aDao.updateAunt(a))
 			return JsonObject.getResult(1, "修改阿姨基本信息成功", true);
 		else
 			return JsonObject.getResult(0, "修改阿姨基本信息失败", false);
+	}
+
+	@Override
+	public Object updateAuntLanguage(long AuntId, long[] laId) {
+		if (lDao.updateLanguageByAuntId(AuntId, laId))
+			return JsonObject.getResult(1, "修改阿姨语言成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨语言失败", false);
+	}
+
+	@Override
+	public Object updateAuntCooking(long AuntId, long[] coId) {
+		if (cDao.updateCookingByAuntId(AuntId, coId))
+			return JsonObject.getResult(1, "修改阿姨烹饪技能成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨烹饪技能失败", false);
+	}
+
+	@Override
+	public Object updateAuntSkill(long AuntId, long[] skId) {
+		if (sDao.updateSkillByAuntId(AuntId, skId))
+			return JsonObject.getResult(1, "修改阿姨基本技能成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨基本技能失败", false);
+	}
+
+	@Override
+	public Object updateAuntAppliance(long AuntId, long[] apId) {
+		if (apDao.updateApplianceByAuntId(AuntId, apId))
+			return JsonObject.getResult(1, "修改阿姨家电技能成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨家电技能失败", false);
+	}
+
+	@Override
+	public Object updateAuntCertificate(long AuntId, long[] ceId) {
+		if (ceDao.updateCertificateByAuntId(AuntId, ceId))
+			return JsonObject.getResult(1, "修改阿姨证书成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨证书失败", false);
+	}
+
+	@Override
+	public Object updateAuntJob(long AuntId, long[] joId) {
+		if (jDao.updateJobByAuntId(AuntId, joId))
+			return JsonObject.getResult(1, "修改阿姨岗位成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨岗位失败", false);
+	}
+
+	@Override
+	public Object updateAuntContact(long AuntId, AuntContactForm c) {
+		if (acDao.updateContactByAuntId(AuntId, c))
+			return JsonObject.getResult(1, "修改阿姨紧急联系人成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨紧急联系人失败", false);
+	}
+
+	@Override
+	public Object updataAuntWork(long AuntId, AuntWorkForm w) {
+		if (awDao.updateWorkByAuntId(AuntId, w))
+			return JsonObject.getResult(1, "修改阿姨工作经历成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨工作经历失败", false);
+	}
+
+	@Override
+	public Object updateAuntPhoto(HttpServletRequest request, long AuntId,
+			@RequestParam("file") CommonsMultipartFile file)
+			throws IllegalStateException, IOException {
+
+		String photoName = file.getOriginalFilename();
+
+		photoName = new Date().getTime() / 1000 + "_"
+				+ new Random().nextInt(10)
+				+ photoName.substring(photoName.indexOf("."));
+
+		String rPath = request.getSession().getServletContext()
+				.getRealPath("/"); // 项目根目录 ...\nzj\
+
+		String upDir = "upload" + File.separator + "aunt_photo";
+
+		String path = rPath + upDir; // 图片保存的完整目录
+
+		// System.out.println("保存目录目录：" + path);
+		// System.out.println("保存文件夹：" + upDir);
+		// System.out.println("上传文件名字：" + photoName);
+
+		File dir = new File(path);
+		if (!dir.exists() && !dir.isDirectory()) { // 路径不存在则创建
+			dir.mkdirs();
+		}
+		String fPath = path + File.separator + photoName; // 文件最终路径
+		String url = new readProperties().getP("server") + "upload/aunt_photo/"
+				+ photoName; // 保存的url
+		// System.out.println("url:" + url);
+
+		File f = new File(fPath);
+		file.transferTo(f);
+		//------------------------图片上传完成-----------------------------
+		
+		if (aphDao.updatePhotoByAuntId(AuntId, url))
+			return JsonObject.getResult(1, "修改阿姨工作经历成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨工作经历失败", false);
 	}
 
 }

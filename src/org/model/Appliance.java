@@ -21,6 +21,11 @@ public class Appliance implements java.io.Serializable {
 	public Appliance(String name) {
 		this.name = name;
 	}
+	
+	public Appliance(Long id,String name){
+		this.id=id;
+		this.name=name;
+	}
 
 	// Property accessors
 

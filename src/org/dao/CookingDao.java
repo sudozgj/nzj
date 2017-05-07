@@ -26,6 +26,13 @@ public interface CookingDao {
 		 * @return
 		 */
 		public boolean updateCooking(Cooking l);
+		/**
+		 * 3.2修改阿姨的烹饪技能
+		 * @param AuntId
+		 * @param coId
+		 * @return
+		 */
+		public boolean updateCookingByAuntId(long AuntId,long[] coId);
 		//-----------------------------------查---------------------------------------
 		/**
 		 * 4.1查询烹饪能力

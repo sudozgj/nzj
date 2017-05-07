@@ -26,6 +26,13 @@ public interface SkillDao {
 	 * @return
 	 */
 	public boolean updateSkill(Skill l);
+	/**
+	 * 3.2修改阿姨的基本技能
+	 * @param AuntId
+	 * @param skId
+	 * @return
+	 */
+	public boolean updateSkillByAuntId(long AuntId,long[] skId);
 	//-----------------------------------查---------------------------------------
 	/**
 	 * 4.1查询基本技能

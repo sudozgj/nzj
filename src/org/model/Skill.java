@@ -21,7 +21,12 @@ public class Skill implements java.io.Serializable {
 	public Skill(String name) {
 		this.name = name;
 	}
-
+	
+	public Skill(Long id,String name){
+		this.id=id;
+		this.name=name;
+	}
+	
 	// Property accessors
 
 	public Long getId() {

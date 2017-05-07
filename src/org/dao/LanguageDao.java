@@ -26,6 +26,13 @@ public interface LanguageDao {
 	 * @return
 	 */
 	public boolean updateLanguage(Language l);
+	/**
+	 * 3.2修改阿姨的语言
+	 * @param AuntId
+	 * @param laId
+	 * @return
+	 */
+	public boolean updateLanguageByAuntId(long AuntId,long[] laId);
 	//-----------------------------------查---------------------------------------
 	/**
 	 * 4.1查询语言

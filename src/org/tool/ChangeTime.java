@@ -25,7 +25,7 @@ public class ChangeTime {
 	public static String date2TimeStamp(String date_str, String format) {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat(format);
-			return String.valueOf(sdf.parse(date_str).getTime() / 1000);
+			return String.valueOf(sdf.parse(date_str).getTime()/1000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

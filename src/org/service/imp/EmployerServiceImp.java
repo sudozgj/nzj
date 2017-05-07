@@ -33,7 +33,7 @@ public class EmployerServiceImp implements EmployerService {
 			//获取当前用户的userid
 			e.setUserId(u.getId());
 			//将时间戳转换为Integer类型存入数据库
-			e.setTime(Integer.parseInt(new ChangeTime().date2TimeStamp(eTime, "YYYY-MM-dd")));
+			e.setTime(Long.parseLong(new ChangeTime().date2TimeStamp(eTime, "YYYY-MM-dd")));
 			if (eDao.addEmployer(e) != -1) {
 				return JsonObject.getResult(1, "添加成功", true);
 			} else {
@@ -43,8 +43,8 @@ public class EmployerServiceImp implements EmployerService {
 	}
 
 	@Override
-	public Object deleteEmployer(String id) {
-		if (eDao.deleteEmployer(Long.parseLong(id)) == true) {
+	public Object deleteEmployer(Long id) {
+		if (eDao.deleteEmployer(id)) {
 			return JsonObject.getResult(1, "删除成功", true);
 		} else {
 			return JsonObject.getResult(0, "删除失败", false);
@@ -53,8 +53,8 @@ public class EmployerServiceImp implements EmployerService {
 
 	@Override
 	public Object updateEmployer(Employer e, String eTime) {
-		e.setTime(Integer.parseInt(new ChangeTime().date2TimeStamp(eTime, "YYYY-MM-dd")));
-		if (eDao.updateEmployer(e) == true) {
+		e.setTime(Long.parseLong(new ChangeTime().date2TimeStamp(eTime, "yyyy-MM-dd")));
+		if (eDao.updateEmployer(e)) {
 			return JsonObject.getResult(1, "修改成功", true);
 		} else {
 			return JsonObject.getResult(0, "修改失败", false);
@@ -70,7 +70,7 @@ public class EmployerServiceImp implements EmployerService {
 			return JsonObject.getResult(-999, "请先登录", "getEmployerList");
 		}
 		long count = eDao.getEmployerCountById(u.getId());
-		List li = eDao.getEmployerList(start, limit);
+		List li = eDao.getEmployerList(start, limit,u.getId());
 		map.put("count", count);
 		map.put("result", li);
 		return JsonObject.getResult(1, "获取列表", map);

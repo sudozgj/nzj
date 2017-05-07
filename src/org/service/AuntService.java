@@ -29,27 +29,113 @@ public interface AuntService {
 			AuntContactForm c, AuntWorkForm w,
 			@RequestParam("file") CommonsMultipartFile file)
 			throws IllegalStateException, IOException;
-	
+
 	/**
 	 * 2删除阿姨
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public Object deleteAunt(long id);
-	
+
 	/**
 	 * 3获取阿姨列表
+	 * 
 	 * @param session
 	 * @param start
 	 * @param limit
 	 * @return
 	 */
-	public Object getAuntList(HttpSession session,Integer start,Integer limit);
-	
+	public Object getAuntList(HttpSession session, Integer start, Integer limit);
+
 	/**
 	 * 4修改阿姨基本信息（不包括从表）
+	 * 
 	 * @param a
 	 * @return
 	 */
 	public Object updateAunt(Aunt a);
+
+	/**
+	 * 4.1修改阿姨语言
+	 * 
+	 * @param AuntId
+	 * @param laId
+	 * @return
+	 */
+	public Object updateAuntLanguage(long AuntId, long[] laId);
+
+	/**
+	 * 4.2修改阿姨烹饪技能
+	 * 
+	 * @param AuntId
+	 * @param coId
+	 * @return
+	 */
+	public Object updateAuntCooking(long AuntId, long[] coId);
+
+	/**
+	 * 4.3修改阿姨基本技能
+	 * 
+	 * @param AuntId
+	 * @param skId
+	 * @return
+	 */
+	public Object updateAuntSkill(long AuntId, long[] skId);
+
+	/**
+	 * 4.4修改阿姨家用电器
+	 * 
+	 * @param AuntId
+	 * @param apId
+	 * @return
+	 */
+	public Object updateAuntAppliance(long AuntId, long[] apId);
+
+	/**
+	 * 4.5修改阿姨证书
+	 * 
+	 * @param AuntId
+	 * @param ceId
+	 * @return
+	 */
+	public Object updateAuntCertificate(long AuntId, long[] ceId);
+
+	/**
+	 * 4.6修改阿姨岗位
+	 * 
+	 * @param AuntId
+	 * @param joId
+	 * @return
+	 */
+	public Object updateAuntJob(long AuntId, long[] joId);
+
+	/**
+	 * 4.7修改阿姨紧急联系人
+	 * 
+	 * @param AuntId
+	 * @param c
+	 * @return
+	 */
+	public Object updateAuntContact(long AuntId, AuntContactForm c);
+
+	/**
+	 * 4.8修改阿姨工作经历
+	 * 
+	 * @param AuntId
+	 * @param w
+	 * @return
+	 */
+	public Object updataAuntWork(long AuntId, AuntWorkForm w);
+
+	/**
+	 * 4.9修改阿姨照片
+	 * 
+	 * @param AuntId
+	 * @param url
+	 * @return
+	 */
+	public Object updateAuntPhoto(HttpServletRequest request, long AuntId,
+			@RequestParam("file") CommonsMultipartFile file)
+			throws IllegalStateException, IOException;
 }

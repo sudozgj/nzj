@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
 
 @Service
-public class ApplianceDaoImp implements ApplianceDao{
+public class ApplianceDaoImp implements ApplianceDao {
 
 	@Override
 	public long addAppliance(Appliance l) {
@@ -36,10 +36,10 @@ public class ApplianceDaoImp implements ApplianceDao{
 	public boolean deleteAppliance(long id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
-			Transaction ts=  session.beginTransaction();
+			Transaction ts = session.beginTransaction();
 			Appliance l = (Appliance) session.load(Appliance.class, id);
 			session.delete(l);
-			
+			ts.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,19 +86,48 @@ public class ApplianceDaoImp implements ApplianceDao{
 	@Override
 	public List getApplianceByAuntId(long auntId) {
 		try {
-			Session session =HibernateSessionFactory.getSession();
+			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			String sql = "select a.name from aunt_appliance aa,appliance a where aa.appliance_id=a.id and aa.aunt_id=?";
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setParameter(0, auntId);
-			
+
 			List list = sqlQuery.list();
-			
+
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}finally{
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public boolean updateApplianceByAuntId(long AuntId, long[] apId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			SQLQuery sqlQuery1 = session
+					.createSQLQuery("delete from aunt_appliance where aunt_id=?");
+			sqlQuery1.setParameter(0, AuntId);
+			sqlQuery1.executeUpdate();
+
+			for (long l : apId) {
+				SQLQuery sqlQuery2 = session
+						.createSQLQuery("insert into aunt_appliance(aunt_id,appliance_id) values(?,?)");
+
+				sqlQuery2.setParameter(0, AuntId);
+				sqlQuery2.setParameter(1, l);
+				sqlQuery2.executeUpdate();
+			}
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
 			HibernateSessionFactory.closeSession();
 		}
 	}

@@ -22,7 +22,7 @@ public class EmployerController {
 	
 	@RequestMapping("/deleteEmployer")
 	@ResponseBody
-	public Object deleteEmployer (String id) {
+	public Object deleteEmployer (Long id) {
 		return eService.deleteEmployer(id);
 	}
 	

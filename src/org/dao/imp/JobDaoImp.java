@@ -103,4 +103,33 @@ public class JobDaoImp implements JobDao{
 		}
 	}
 
+	@Override
+	public boolean updateJobByAuntId(long AuntId, long[] joId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			SQLQuery sqlQuery1 = session
+					.createSQLQuery("delete from aunt_job where aunt_id=?");
+			sqlQuery1.setParameter(0, AuntId);
+			sqlQuery1.executeUpdate();
+
+			for (long l : joId) {
+				SQLQuery sqlQuery2 = session
+						.createSQLQuery("insert into aunt_job(aunt_id,job_id) values(?,?)");
+
+				sqlQuery2.setParameter(0, AuntId);
+				sqlQuery2.setParameter(1, l);
+				sqlQuery2.executeUpdate();
+			}
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
 }

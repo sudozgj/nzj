@@ -10,7 +10,7 @@ public class Employer implements java.io.Serializable {
 
 	private Long id;
 	private Long userId;
-	private Integer time;
+	private Long time;
 	private String name;
 	private String phone;
 	private String adress;
@@ -23,7 +23,8 @@ public class Employer implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Employer(Long userId, Integer time, String name, String phone, String content) {
+	public Employer(Long userId, Long time, String name, String phone,
+			String content) {
 		this.userId = userId;
 		this.time = time;
 		this.name = name;
@@ -32,8 +33,8 @@ public class Employer implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Employer(Long userId,Integer time, String name, String phone, String adress,
-			String content) {
+	public Employer(Long userId, Long time, String name, String phone,
+			String adress, String content) {
 		this.userId = userId;
 		this.time = time;
 		this.name = name;
@@ -53,18 +54,18 @@ public class Employer implements java.io.Serializable {
 	}
 
 	public Long getUserId() {
-		return userId;
+		return this.userId;
 	}
 
-	public void setUserId(Long userid) {
-		this.userId = userid;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public Integer getTime() {
+	public Long getTime() {
 		return this.time;
 	}
 
-	public void setTime(Integer time) {
+	public void setTime(Long time) {
 		this.time = time;
 	}
 

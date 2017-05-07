@@ -16,7 +16,7 @@ public interface EmployerService {
 	 * @param id
 	 * @return
 	 */
-	public Object deleteEmployer (String id);
+	public Object deleteEmployer (Long id);
 	/**
 	 * 3.修改客户信息
 	 * @param e

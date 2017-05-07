@@ -21,6 +21,11 @@ public class Certificate implements java.io.Serializable {
 	public Certificate(String name) {
 		this.name = name;
 	}
+	
+	public Certificate(Long id,String name){
+		this.id=id;
+		this.name=name;
+	}
 
 	// Property accessors
 

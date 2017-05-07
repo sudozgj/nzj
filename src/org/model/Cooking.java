@@ -21,6 +21,10 @@ public class Cooking implements java.io.Serializable {
 	public Cooking(String name) {
 		this.name = name;
 	}
+	public Cooking(Long id,String name){
+		this.id=id;
+		this.name=name;
+	}
 
 	// Property accessors
 

@@ -129,16 +129,16 @@ public class AuntDaoImp implements AuntDao {
 					stmt9.addBatch();
 					stmt9.executeBatch();
 					
-					stmt1.close();
-					stmt2.close();
-					stmt3.close();
-					stmt4.close();
-					stmt5.close();
-					stmt6.close();
-					stmt7.close();
-					stmt8.close();
-					stmt9.close();
-					conn.close();
+//					stmt1.close();
+//					stmt2.close();
+//					stmt3.close();
+//					stmt4.close();
+//					stmt5.close();
+//					stmt6.close();
+//					stmt7.close();
+//					stmt8.close();
+//					stmt9.close();
+//					conn.close();
 				}
 			});
 			ts.commit();

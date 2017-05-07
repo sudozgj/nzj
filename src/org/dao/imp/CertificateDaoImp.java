@@ -103,4 +103,33 @@ public class CertificateDaoImp implements CertificateDao{
 		}
 	}
 
+	@Override
+	public boolean updateCertificateByAuntId(long AuntId, long[] ceId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			SQLQuery sqlQuery1 = session
+					.createSQLQuery("delete from aunt_certificate where aunt_id=?");
+			sqlQuery1.setParameter(0, AuntId);
+			sqlQuery1.executeUpdate();
+
+			for (long l : ceId) {
+				SQLQuery sqlQuery2 = session
+						.createSQLQuery("insert into aunt_certificate(aunt_id,certificate_id) values(?,?)");
+
+				sqlQuery2.setParameter(0, AuntId);
+				sqlQuery2.setParameter(1, l);
+				sqlQuery2.executeUpdate();
+			}
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
 }

@@ -26,6 +26,13 @@ public interface JobDao {
 	 * @return
 	 */
 	public boolean updateJob(Job l);
+	/**
+	 * 3.2修改阿姨的岗位信息
+	 * @param AuntId
+	 * @param joId
+	 * @return
+	 */
+	public boolean updateJobByAuntId(long AuntId,long[] joId);
 	//-----------------------------------查---------------------------------------
 	/**
 	 * 4.1查询岗位

@@ -11,6 +11,26 @@
 <script src="js/jquery.min.js"></script>
 <script>
 	$(function() {
+		$("#aa").click(function(){
+			var v= $("#uu").val();
+			alert(v);
+			
+			$.ajax({
+				type:"post",
+				url:"addAppliance",
+				dataType: "json",
+				data:{
+					"name":v
+				},
+				success:function(data){
+					alert("success");
+				},
+				error:function(jqXHR){
+					alert("error");
+				}			
+			});
+		});
+	
 		$("#but").click(function() {
 			//alert($("#u").val());
 			var formData = new FormData(document.getElementById("photoForm"));

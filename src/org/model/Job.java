@@ -22,6 +22,11 @@ public class Job implements java.io.Serializable {
 		this.name = name;
 	}
 
+	public Job(Long id,String name){
+		this.id=id;
+		this.name=name;
+	}
+	
 	// Property accessors
 
 	public Long getId() {

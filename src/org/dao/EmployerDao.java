@@ -52,5 +52,5 @@ public interface EmployerDao {
 	 * @param limit
 	 * @return
 	 */
-	public List<Employer> getEmployerList (Integer start, Integer limit);
+	public List<Employer> getEmployerList (Integer start, Integer limit,Long userId);
 }

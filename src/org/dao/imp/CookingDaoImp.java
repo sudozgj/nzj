@@ -104,4 +104,33 @@ public class CookingDaoImp implements CookingDao{
 		}
 	}
 
+	@Override
+	public boolean updateCookingByAuntId(long AuntId, long[] coId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			SQLQuery sqlQuery1 = session
+					.createSQLQuery("delete from aunt_cooking where aunt_id=?");
+			sqlQuery1.setParameter(0, AuntId);
+			sqlQuery1.executeUpdate();
+
+			for (long l : coId) {
+				SQLQuery sqlQuery2 = session
+						.createSQLQuery("insert into aunt_cooking(aunt_id,cooking_id) values(?,?)");
+
+				sqlQuery2.setParameter(0, AuntId);
+				sqlQuery2.setParameter(1, l);
+				sqlQuery2.executeUpdate();
+			}
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
 }

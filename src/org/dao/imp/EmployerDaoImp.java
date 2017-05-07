@@ -67,7 +67,7 @@ public class EmployerDaoImp implements EmployerDao {
 			query.setParameter(4, e.getContent());
 			query.setParameter(5, e.getId());
 			Integer i = query.executeUpdate();
-			System.out.println(i);
+//			System.out.println(i);
 			ts.commit();
 			return true;
 		} catch (Exception e1) {
@@ -138,21 +138,27 @@ public class EmployerDaoImp implements EmployerDao {
 	}
 
 	@Override
-	public List<Employer> getEmployerList(Integer start, Integer limit) {
+	public List<Employer> getEmployerList(Integer start, Integer limit,Long userId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			Query query = session.createQuery("from Employer");
+			Query query = session.createQuery("from Employer where userId=?");
+			query.setParameter(0, userId);
 			if (start == null) {
 				start = 0;
 			}
+			query.setFirstResult(start);
 			if (limit == null) {
 				limit = 15;
+				query.setMaxResults(limit);
+			}else if(limit==-1){
+				
+			}else{
+				query.setMaxResults(limit);
 			}
-			query.setFirstResult(start);
-			query.setMaxResults(limit);
-			List li = query.list();
+			
+			List<Employer> li = query.list();
 
 			return li;
 		} catch (Exception e) {

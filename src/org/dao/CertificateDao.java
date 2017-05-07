@@ -26,6 +26,13 @@ public interface CertificateDao {
 	 * @return
 	 */
 	public boolean updateCertificate(Certificate l);
+	/**
+	 * 3.2修改阿姨的证件
+	 * @param AuntId
+	 * @param ceId
+	 * @return
+	 */
+	public boolean updateCertificateByAuntId(long AuntId,long[] ceId);
 	//-----------------------------------查---------------------------------------
 	/**
 	 * 4.1查询证件
