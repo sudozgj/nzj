@@ -3,23 +3,25 @@ function login() {
 	var password = $('.password').val();
 	$.ajax({
 		type: "post",
-		url: mainUrl+"login",
+		url: "login",
 		dataType: "json",
+		cache: false,
 		data: {
 			'phone': username,
 			'password':password,
 		},
 		success: function(data) {
 			if(data.code=='1'){
-                 SetCookie("username", data.username);
+				mainCode = data.code;
+				SetCookie('name', data.msg);
                  location.href = "index.html";
 			}else{
 				$('.loginMsg').html(data.msg);
 			}
+		},
+		error: function(jqXHR) {
+			$('.loginMsg').html('网络异常');
 		}
-//		error: function(jqXHR) {
-//			$('.loginMsg').html('网络异常');
-//		}
 	});
 }
 

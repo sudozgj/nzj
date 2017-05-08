@@ -20,7 +20,7 @@ body {
 }
 
 h1 {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 700;
     text-shadow: 0 1px 4px rgba(0,0,0,.2);
 }
@@ -28,14 +28,23 @@ h1 {
 .login-box {
     position: relative;
     width: 305px;
-    margin: 15px auto 0 auto;
+    margin: 0 auto 0 auto;
     text-align: center;
 }
 
+a{
+	/*text-decoration:none;*/
+	color: #3d3b4f;
+}
+
+a:hover{
+	color: #f8bbd0;
+}
+
 input {
-    width: 270px;
-    height: 42px;
-    margin-top: 25px;
+    width: 220px;
+    height: 40px;
+    margin-top: 20px;
     padding: 0 15px;
     background: #2d2d2d; /* browsers that don't support rgba */
     background: rgba(45,45,45,.15);
@@ -75,6 +84,8 @@ input:focus {
 }
 
 button {
+	 outline: none;
+	 border: none;
     cursor: pointer;
     width: 300px;
     height: 44px;
@@ -115,6 +126,7 @@ button:hover {
     box-shadow:
         0 15px 30px 0 rgba(255,255,255,.15) inset,
         0 2px 7px 0 rgba(0,0,0,.2);
+   
 }
 
 button:active {
