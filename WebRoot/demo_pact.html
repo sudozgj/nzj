@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>addSkill.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="js/jquery.min.js"></script>
+<script>
+	$(function() {
+		$("#but").click(function() {
+			//alert($("#u").val());
+			//var formData = new FormData(document.getElementById("photoForm"));
+			$.ajax({
+				type : "post",
+				url : "updatePact",
+				cache : false,
+				dataType:"json",
+				data : {
+					"id":3,
+					"userId":6,
+					"code":$("#code").val(),
+					"eTime":$("#etime").val(),
+					"ename":$("#ename").val(),
+					"ephone":$("#ephone").val(),
+					"eaddress":$("#eaddress").val(),
+					"econtent":$("#econtent").val(),
+					"duration":$("#duration").val(),
+					"cost":$("#cost").val(),
+					"aname":$("#aname").val(),
+					"aphone":$("#aphone").val(),
+					"time":$("#time").val(),
+					"salary":$("#salary").val(),
+					"remark":$("#remark").val()
+				},
+				success : function(data) {
+					alert(data.msg);
+				},
+				error : function(data) {
+					alert("error");
+				}
+			});
+		});
+	});
+</script>
+</head>
+
+<body>
+	<form id="photoForm">
+		合同编号：<input type="text" name="code" id="code" />
+		签约时间：<input type="text" name="etime" id="etime" /><br>
+		雇主名字：<input type="text" name="ename" id="ename" />
+		雇主电话：<input type="text" name="ephone" id="ephone" /><br>
+		雇主地址：<input type="text" name="eaddress" id="eaddress" />
+		雇主需求：<input type="text" name="econtent" id="econtent" /><br>
+		签约时长：<input type="text" name="duration" id="duration" />
+		服务费：<input type="text" name="cost" id="cost" />
+		<hr>
+		服务人员名字：<input type="text" name="aname" id="aname" />
+		服务人员电话：<input type="text" name="aphone" id="aphone" /><br>
+		上班时间：<input type="text" name="time" id="time" />
+		薪资标准：<input type="text" name="salary" id="salary" /><br>
+		备注：<input type="text" name="remark" id="remark" /><br>
+		<input type="button" id="but" value="提交" />
+	</form>
+	
+	
+</body>
+</html>

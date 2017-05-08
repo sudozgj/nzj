@@ -25,7 +25,7 @@ public class EmployerServiceImp implements EmployerService {
 		User u = (User)session.getAttribute("user");
 		if (u == null) {
 			System.out.println("	addEmployer--未登录");
-			return JsonObject.getResult(-999, "请先登录", "addEmployer");
+			return JsonObject.getResult(-999, "请先登录", false);
 		}
 		if (eDao.getEmployer(u.getId(), e.getName(), e.getPhone()) != null) {
 			return JsonObject.getResult(-2, "请勿重复录入", false);
@@ -33,7 +33,7 @@ public class EmployerServiceImp implements EmployerService {
 			//获取当前用户的userid
 			e.setUserId(u.getId());
 			//将时间戳转换为Integer类型存入数据库
-			e.setTime(Long.parseLong(new ChangeTime().date2TimeStamp(eTime, "yyyy-MM-dd")));
+			e.setTime(Long.parseLong(ChangeTime.date2TimeStamp(eTime, "yyyy-MM-dd")));
 			if (eDao.addEmployer(e) != -1) {
 				return JsonObject.getResult(1, "添加成功", true);
 			} else {
@@ -53,7 +53,7 @@ public class EmployerServiceImp implements EmployerService {
 
 	@Override
 	public Object updateEmployer(Employer e, String eTime) {
-		e.setTime(Long.parseLong(new ChangeTime().date2TimeStamp(eTime, "yyyy-MM-dd")));
+		e.setTime(Long.parseLong(ChangeTime.date2TimeStamp(eTime, "yyyy-MM-dd")));
 		if (eDao.updateEmployer(e)) {
 			return JsonObject.getResult(1, "修改成功", true);
 		} else {
