@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>addSkill.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="js/jquery.min.js"></script>
+<script>
+	$(function() {
+		$.ajax({
+			type : "post",
+			url : "getUnAckUserList",
+			async : false,
+			cache : false,
+			success : function(data) {
+				//alert(data.data.result.length);
+				if(data.code==1){
+					var tb;
+					for(var i=0;i<data.data.result.length;i++){
+						tb+="<tr>"
+								+"<td>"+data.data.result[i].id+"</td>"
+								+"<td>"+data.data.result[i].phone+"</td>"
+								+"<td>"+data.data.result[i].time+"</td>"
+								+"<td>"+data.data.result[i].username+"</td>"
+								+"<td>"+data.data.result[i].company+"</td>"
+								+"<td>"+data.data.result[i].contact+"</td>"
+								+"<td>"+data.data.result[i].telephone+"</td>"
+								+"<td>"+data.data.result[i].dphone+"</td>"
+								+"<td>"+data.data.result[i].charterurl+"</td>"
+								+"<td>"+data.data.result[i].idcardurl+"</td>"
+								+"<td><input type='button' value='确认' /></td>"
+							+"</tr>";
+					}
+					$("#t tbody").html(tb);
+				}
+			},
+			error : function(data) {
+				alert("error");
+			}
+		});
+	});
+</script>
+</head>
+
+<body>
+	<h1>审核界面</h1>
+	<table id="t" border="1">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>phone</th>
+				<th>time</th>
+				<th>username</th>
+				<th>company</th>
+				<th>contact</th>
+				<th>telephone</th>
+				<th>dphone</th>
+				<th>charterurl</th>
+				<th>idcardurl</th>
+				<th>确认</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</body>
+</html>

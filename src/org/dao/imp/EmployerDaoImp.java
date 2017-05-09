@@ -143,7 +143,7 @@ public class EmployerDaoImp implements EmployerDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			Query query = session.createQuery("from Employer where userId=?");
+			Query query = session.createQuery("from Employer where userId=? order by id desc");
 			query.setParameter(0, userId);
 			if (start == null) {
 				start = 0;

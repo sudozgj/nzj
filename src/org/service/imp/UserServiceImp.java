@@ -1,19 +1,29 @@
 package org.service.imp;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.dao.UserDao;
 import org.dao.UserDetailDao;
+import org.dao.UserLinkDao;
 import org.model.User;
 import org.model.UserDetail;
+import org.model.UserLink;
 import org.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.tool.JsonObject;
 import org.tool.SendPost;
+import org.tool.readProperties;
 import org.view.VUserId;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,6 +36,8 @@ public class UserServiceImp implements UserService {
 	private UserDao uDao;
 	@Autowired
 	private UserDetailDao udDao;
+	@Autowired
+	private UserLinkDao ulDao;
 
 	public Object register(HttpSession session, User u, Integer code) {
 		System.out.println("	code: " + code);
@@ -55,9 +67,13 @@ public class UserServiceImp implements UserService {
 	public Object login(HttpSession session, Long phone, String password) {
 		User u = uDao.getUser(phone, password);
 		if (u != null) {
-			u.setPassword("******");
-			session.setAttribute("user", u);
-			return JsonObject.getResult(1, "success", true);
+			if (u.getAck() != 1) { // 判断账号是否通过审核，没有的话等待审核，或修改用户信息
+				return JsonObject.getResult(-1, "账号未审核，请完善或改进用户信息", false);
+			} else { // 已通过审核
+				u.setPassword("******");
+				session.setAttribute("user", u);
+				return JsonObject.getResult(1, "success", true);
+			}
 		} else
 			return JsonObject.getResult(0, "用户名或密码错误", false);
 	}
@@ -106,22 +122,71 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public Object addUserDetail(HttpSession session, UserDetail ud) {
-		//需要先登录，不需要设置id，userid从session中获取
+	public Object addUserDetail(HttpServletRequest request, UserDetail ud,
+			@RequestParam("file1") CommonsMultipartFile file1,
+			@RequestParam("file2") CommonsMultipartFile file2)
+			throws IllegalStateException, IOException {
 		if (udDao.getUserDetail(ud.getUsername()) == null) {
-			User u = (User) session.getAttribute("user");
-			if(u==null){
-				System.out.println("	addUserDetail--未登录");
-				return JsonObject.getResult(-999, "请先登录", "addUserDetail");
+			String cUrl = "";
+			String iUrl = "";
+
+			String f1Name = file1.getOriginalFilename();
+			String f2Name = file2.getOriginalFilename();
+
+			String rPath = request.getSession().getServletContext()
+					.getRealPath("/"); // 项目根目录 ...\nzj\
+
+			if (!f1Name.equals("")) {
+				f1Name = new Date().getTime() / 1000 + "_"
+						+ new Random().nextInt(10)
+						+ f1Name.substring(f1Name.indexOf("."));
+
+				String upDir1 = "upload" + File.separator + "user_idcard";	//文件夹名
+				String path1 = rPath + upDir1; 					// 图片保存的完整目录
+
+				File dir1 = new File(path1);
+				if (!dir1.exists() && !dir1.isDirectory()) { // 路径不存在则创建
+					dir1.mkdirs();
+				}
+				String fPath1 = path1 + File.separator + f1Name; // 文件最终路径
+				String url1 = new readProperties().getP("server")
+						+ "upload/user_idcard/" + f1Name; // 保存的url
+
+				File f1 = new File(fPath1);
+				file1.transferTo(f1);
+
+				cUrl = url1;
 			}
-			ud.setUserId(u.getId());
+			if (!f2Name.equals("")) {
+				f2Name = new Date().getTime() / 1000 + "_"
+						+ new Random().nextInt(10)
+						+ f2Name.substring(f2Name.indexOf("."));
+
+				String upDir2 = "upload" + File.separator + "user_charter";	//文件夹名
+				String path2 = rPath + upDir2; 					// 图片保存的完整目录
+
+				File dir2 = new File(path2);
+				if (!dir2.exists() && !dir2.isDirectory()) { // 路径不存在则创建
+					dir2.mkdirs();
+				}
+				String fPath2 = path2 + File.separator + f2Name; // 文件最终路径
+				String url2 = new readProperties().getP("server")
+						+ "upload/user_charter/" + f2Name; // 保存的url
+
+				File f2 = new File(fPath2);
+				file2.transferTo(f2);
+
+				iUrl = url2;
+			}
+			ud.setCharterurl(cUrl);
+			ud.setIdcardurl(iUrl);
 			if (udDao.addUserDetail(ud) != -1) {
 				return JsonObject.getResult(1, "添加详细信息成功", true);
 			} else {
 				return JsonObject.getResult(0, "添加详细信息失败", false);
 			}
 		} else {
-			return JsonObject.getResult(0, "用户名已使用", false);
+			return JsonObject.getResult(-1, "用户名已使用", false);
 		}
 	}
 
@@ -136,11 +201,47 @@ public class UserServiceImp implements UserService {
 	@Override
 	public Object getUser(HttpSession session) {
 		User u = (User) session.getAttribute("user");
-		if(u==null){
+		if (u == null) {
 			System.out.println("	getUser--未登录");
-			return JsonObject.getResult(-999, "请先登录", "getUser");
+			return JsonObject.getResult(-999, "请先登录", false);
 		}
 		VUserId v = uDao.getUserById(u.getId());
 		return JsonObject.getResult(1, "获取当前用户信息", v);
+	}
+
+	@Override
+	public Object updateUserPassword(HttpSession session, String oPwd,
+			String nPwd) {
+		User u = (User) session.getAttribute("user");
+		if (u == null) {
+			System.out.println("	updateUserPassword--未登录");
+			return JsonObject.getResult(-999, "请先登录", false);
+		}
+		if (uDao.getUser(u.getPhone(), oPwd) != null) {
+			if (uDao.updateUserPassword(u.getId(), nPwd))
+				return JsonObject.getResult(1, "修改密码成功", true);
+			else
+				return JsonObject.getResult(-1, "修改密码失败", false);
+		} else {
+			return JsonObject.getResult(0, "密码错误", false);
+		}
+	}
+
+	@Override
+	public Object ackUser(Long id, Integer rank, Long pid) {
+		if (uDao.updateUser(id, rank, 1)
+				&& ulDao.addUserLink(new UserLink(pid, id)) != -1) {
+			return JsonObject.getResult(1, "审核确认用户成功", true);
+		} else
+			return JsonObject.getResult(0, "审核确认用户失败", false);
+	}
+
+	@Override
+	public Object getUnAckUserList(Integer start, Integer limit) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		long count = uDao.getUnAckUserCount();
+		map.put("count", count);
+		map.put("result", uDao.getUnAckUserList(start, limit));
+		return JsonObject.getResult(1, "获取未确认的用户列表", map);
 	}
 }

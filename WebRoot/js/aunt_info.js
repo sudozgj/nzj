@@ -242,39 +242,7 @@ function deleteEmployer(eid) {
 	});
 };
 
-function changeTime(ts) { //时间戳转时间函数
-	//	var timestamp = new Date(parseInt(ts) * 1000).toLocaleString().replace(/年|月/g, "-").substr(0, 8);
-	var date = new Date(parseInt(ts) * 1000);
-	var seperator1 = "-";
-	var seperator2 = ":";
-	var month = date.getMonth() + 1;
-	var strDate = date.getDate();
-	var getHours = date.getHours(); //时
-	var getMinutes = date.getMinutes(); //分
-	var getSeconds = date.getSeconds(); //秒
-	if(month >= 1 && month <= 9) {
-		month = "0" + month;
-	}
-	if(strDate >= 0 && strDate <= 9) {
-		strDate = "0" + strDate;
-	}
 
-	if(getHours >= 1 && getHours <= 9) {
-		getHours = "0" + getHours;
-	}
-	if(getMinutes >= 1 && getMinutes <= 9) {
-		getMinutes = "0" + getMinutes;
-	}
-	if(getSeconds >= 1 && getSeconds <= 9) {
-		getSeconds = "0" + getSeconds;
-	}
-	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
-		" " + getHours + seperator2 + getMinutes +
-		seperator2 + getSeconds;
-	//		$('#eTime').val(currentdate.substr(0,10));
-	return currentdate.substr(0, 10);
-
-}
 
 /*********************************列表分页***************************************/
 /**
@@ -556,3 +524,38 @@ function getParameter(name) {
 };
 
 /*********************************列表分页***************************************/
+
+
+function changeTime(ts) { //时间戳转时间函数
+	//	var timestamp = new Date(parseInt(ts) * 1000).toLocaleString().replace(/年|月/g, "-").substr(0, 8);
+	var date = new Date(parseInt(ts) * 1000);
+	var seperator1 = "-";
+	var seperator2 = ":";
+	var month = date.getMonth() + 1;
+	var strDate = date.getDate();
+	var getHours = date.getHours(); //时
+	var getMinutes = date.getMinutes(); //分
+	var getSeconds = date.getSeconds(); //秒
+	if(month >= 1 && month <= 9) {
+		month = "0" + month;
+	}
+	if(strDate >= 0 && strDate <= 9) {
+		strDate = "0" + strDate;
+	}
+
+	if(getHours >= 1 && getHours <= 9) {
+		getHours = "0" + getHours;
+	}
+	if(getMinutes >= 1 && getMinutes <= 9) {
+		getMinutes = "0" + getMinutes;
+	}
+	if(getSeconds >= 1 && getSeconds <= 9) {
+		getSeconds = "0" + getSeconds;
+	}
+	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+		" " + getHours + seperator2 + getMinutes +
+		seperator2 + getSeconds;
+	//		$('#eTime').val(currentdate.substr(0,10));
+	return currentdate.substr(0, 10);
+
+}

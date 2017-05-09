@@ -1,5 +1,7 @@
 package org.dao;
 
+import java.util.List;
+
 import org.model.User;
 import org.view.VUserId;
 
@@ -20,11 +22,17 @@ public interface UserDao {
 	public boolean deleteUser(Long id);
 	//-----------------------------------改-----------------------------------------
 	/**
-	 * 3.1修改用户信息
-	 * @param u
+	 * 3.1修改用户密码
 	 * @return
 	 */
-	public boolean updateUser(User u);
+	public boolean updateUserPassword(Long id,String password);
+	/**
+	 * 3.2审核用户，修改ack 0为1，修改rank 0为rank
+	 * @param rank
+	 * @param ack
+	 * @return
+	 */
+	public boolean updateUser(Long id,Integer rank,Integer ack);
 	//-----------------------------------查-----------------------------------------
 	/**
 	 * 4.1验证电话是否已用，null表示可用，非空表示已用
@@ -45,4 +53,14 @@ public interface UserDao {
 	 * @return
 	 */
 	public VUserId getUserById(Long id);
+	/**
+	 * 4.4获取未审核通过的用户列表
+	 * @return
+	 */
+	public List getUnAckUserList(Integer start, Integer limit);
+	/**
+	 * 4.5获取未审核通过的用户的数目
+	 * @return
+	 */
+	public Long getUnAckUserCount();
 }

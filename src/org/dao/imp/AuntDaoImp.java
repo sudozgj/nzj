@@ -238,7 +238,7 @@ public class AuntDaoImp implements AuntDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select * from v_aunt where user_id=? order by id";
+			String sql = "select * from v_aunt where user_id=? order by id desc";
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.addEntity(VAunt.class);
 			sqlQuery.setParameter(0, userId);
@@ -295,12 +295,14 @@ public class AuntDaoImp implements AuntDao {
 			Transaction ts = session.beginTransaction();
 
 			Query query;
-			if(userId!=1){	//分部
-				query = session.createQuery("select count(id) from Aunt where userId=?");
-				query.setParameter(0, userId);
-			}else{	//总部
-				query = session.createQuery("select count(id) from Aunt");
-			}
+			query = session.createQuery("select count(id) from Aunt where userId=?");
+			query.setParameter(0, userId);
+//			if(userId!=1){	//分部
+//				query = session.createQuery("select count(id) from Aunt where userId=?");
+//				query.setParameter(0, userId);
+//			}else{	//总部
+//				query = session.createQuery("select count(id) from Aunt");
+//			}
 			query.setMaxResults(1);
 			Long count = (Long) query.uniqueResult();
 			return count;

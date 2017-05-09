@@ -1,5 +1,8 @@
 package org.dao.imp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dao.UserDao;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -39,23 +42,6 @@ public class UserDaoImp implements UserDao {
 			User u = (User) session.load(User.class, id);
 			session.delete(u);
 			
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			HibernateSessionFactory.closeSession();
-		}
-	}
-	
-	@Override
-	public boolean updateUser(User u) {
-		try {
-			Session session = HibernateSessionFactory.getSession();
-			Transaction ts = session.beginTransaction();
-
-			session.update(u);
-			ts.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,6 +105,103 @@ public class UserDaoImp implements UserDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public boolean updateUserPassword(Long id, String password) {
+		try {
+			Session session =HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			Query query = session.createQuery("update User u set u.password=? where u.id=?");
+			query.setParameter(0, password);
+			query.setParameter(1, id);
+			query.executeUpdate();
+			
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public boolean updateUser(Long id,Integer rank, Integer ack) {
+		try {
+			Session session =HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			Query query = session.createQuery("update User u set u.rank=?,u.ack=? where u.id=?");
+			query.setParameter(0, rank);
+			query.setParameter(1, ack);
+			query.setParameter(2, id);
+			query.executeUpdate();
+			
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List getUnAckUserList(Integer start, Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			SQLQuery sqlQuery = session.createSQLQuery("select * from v_user where ack=0 order by id desc");
+			sqlQuery.addEntity(VUser.class);
+			
+			if (start == null) {
+				start = 0;
+			}
+			sqlQuery.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				sqlQuery.setMaxResults(limit);
+			}else if(limit==-1){
+				
+			}else{
+				sqlQuery.setMaxResults(limit);
+			}
+			
+			List<VUser> li = sqlQuery.list();
+			List<VUserId> list = new ArrayList<>();
+			for(VUser v:li){
+				list.add(v.getId());
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Long getUnAckUserCount() {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query= session.createQuery("select count(u.id.id) from VUser u where u.id.ack=0");
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		} finally {
+			HibernateSessionFactory.closeSession();
 		}
 	}
 

@@ -78,7 +78,10 @@ public class AuntServiceImp implements AuntService {
 
 			String photoName = file.getOriginalFilename();
 			// String path = request.getRealPath("/"); // 项目路径
-
+			if(photoName.equals("")){
+				return JsonObject.getResult(0, "图片不能为空", false);
+			}
+			
 			photoName = new Date().getTime() / 1000 + "_"
 					+ new Random().nextInt(10)
 					+ photoName.substring(photoName.indexOf("."));

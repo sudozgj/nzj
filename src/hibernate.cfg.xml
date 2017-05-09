@@ -35,6 +35,7 @@
 	<mapping resource="org/model/Employer.hbm.xml" />
 	<mapping resource="org/model/Pact.hbm.xml" />
 	<mapping resource="org/model/PactTracking.hbm.xml" />
+	<mapping resource="org/model/UserLink.hbm.xml" />
 
 	<mapping resource="org/view/VAunt.hbm.xml" />
 	<mapping resource="org/view/VUser.hbm.xml" />

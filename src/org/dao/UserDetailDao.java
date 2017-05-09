@@ -5,7 +5,7 @@ import org.model.UserDetail;
 public interface UserDetailDao {
 	//-----------------------------------增---------------------------------------
 	/**
-	 * 1.1添加用户详细信息，userid（用户id）,...，charterurl（可选），idcardurl（可选）
+	 * 1.1添加用户详细信息，userId（用户id）,...，charterurl（可选），idcardurl（可选）
 	 * @param ud
 	 * @return
 	 */

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>addUserDetail.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="js/jquery.min.js"></script>
+<script>
+	$(function() {
+		$("#but").click(function() {
+			var udf = new FormData(document.getElementById("udForm"));
+			$.ajax({
+				type : "post",
+				url : "addUserDetail",
+				data : udf,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(data) {
+					if(data.code==1){
+						alert("添加信息成功，请等待审核");
+					}else
+						alert(data.msg);
+				},
+				error : function(data) {
+					alert("error");
+				}
+			});
+		});
+	});
+</script>
+</head>
+
+<body>
+	<form id="udForm">
+		<h1>完善用户信息</h1>
+		<hr>
+		用户id：<input type="text" name="userId"/>
+		用户名：<input type="text" name="username"/><br>
+		公司：<input type="text" name="company"/>
+		联系人：<input type="text" name="contact"/><br>
+		手机：<input type="text" name="telephone"/>
+		座机：<input type="text" name="dphone"/><br>
+		地址：<input type="text" name="address"/>
+		<hr>
+		营业执照：<input type="file" name="file1"/><br>
+		身份证照：<input type="file" name="file2"/><br>
+		<hr>
+		<input type="button" id="but" value="提交" />
+	</form>
+</body>
+</html>

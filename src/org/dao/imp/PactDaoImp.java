@@ -98,7 +98,7 @@ public class PactDaoImp implements PactDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			Query query = session.createQuery("FROM Pact p WHERE p.userId = ?");
+			Query query = session.createQuery("FROM Pact p WHERE p.userId = ? order by p.id desc");
 			query.setParameter(0, userId);
 			if (start == null) {
 				start = 0;
