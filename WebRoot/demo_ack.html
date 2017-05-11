@@ -42,6 +42,39 @@
 				alert("error");
 			}
 		});
+		
+		$.ajax({
+			type : "post",
+			url : "getUnAckUserList",
+			async : false,
+			cache : false,
+			success : function(data) {
+				//alert(data.data.result.length);
+				if(data.code==1){
+					var tb;
+					for(var i=0;i<data.data.result.length;i++){
+						tb+="<tr>"
+								+"<td>"+data.data.result[i].id+"</td>"
+								+"<td>"+data.data.result[i].phone+"</td>"
+								+"<td>"+data.data.result[i].time+"</td>"
+								+"<td>"+data.data.result[i].username+"</td>"
+								+"<td>"+data.data.result[i].company+"</td>"
+								+"<td>"+data.data.result[i].contact+"</td>"
+								+"<td>"+data.data.result[i].telephone+"</td>"
+								+"<td>"+data.data.result[i].dphone+"</td>"
+								+"<td>"+data.data.result[i].charterurl+"</td>"
+								+"<td>"+data.data.result[i].idcardurl+"</td>"
+								+"<td><input type='button' value='确认' /></td>"
+							+"</tr>";
+					}
+					$("#t tbody").html(tb);
+				}
+			},
+			error : function(data) {
+				alert("error");
+			}
+		});
+		
 	});
 </script>
 </head>
@@ -67,5 +100,57 @@
 		<tbody>
 		</tbody>
 	</table>
+	
+	
+	<!-- 添加用户信息 modal -->
+    <div class="modal fade" id="ackUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">请先完善用户信息，并提交审核</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="udForm">
+                        <input type="hidden" name="userId" id="uid" />
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">公司</label>
+                            <input type="text" class="form-control" name="company" id="company" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact">联系人</label>
+                            <input type="text" class="form-control" name="contact" id="contact" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone">联系电话</label>
+                            <input type="text" class="form-control" name="telephone" id="telephone" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="dphone">联系座机</label>
+                            <input type="text" class="form-control" name="dphone" id="dphone" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">联系地址</label>
+                            <input type="text" class="form-control" name="address" id="address" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="file1">营业执照（可选）</label>
+                            <input type="file" class="form-control" name="file1" id="file1" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="file2">身份证照（可选）</label>
+                            <input type="file" class="form-control" name="file2" id="file2" placeholder="请输入密码">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="addButton">确定</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- 添加用户信息 modal -->
 </body>
 </html>

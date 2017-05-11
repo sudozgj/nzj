@@ -2,18 +2,22 @@ package org.service.imp;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.dao.UserCheckDao;
 import org.dao.UserDao;
 import org.dao.UserDetailDao;
 import org.dao.UserLinkDao;
 import org.model.User;
+import org.model.UserCheck;
 import org.model.UserDetail;
 import org.model.UserLink;
 import org.service.UserService;
@@ -29,6 +33,7 @@ import org.view.VUserId;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.swing.internal.plaf.basic.resources.basic;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -38,6 +43,8 @@ public class UserServiceImp implements UserService {
 	private UserDetailDao udDao;
 	@Autowired
 	private UserLinkDao ulDao;
+	@Autowired
+	private UserCheckDao ucDao;
 
 	public Object register(HttpSession session, User u, Integer code) {
 		System.out.println("	code: " + code);
@@ -54,9 +61,9 @@ public class UserServiceImp implements UserService {
 				long id = uDao.addUser(u);
 				u.setId(id);
 				u.setPassword("******");
-				session.setAttribute("user", u);
+				session.setAttribute("user", u); // 用于前往完善用户信息界面，保留session
 				if (id != -1) {
-					return JsonObject.getResult(1, "注册成功", true);
+					return JsonObject.getResult(1, "注册成功", id);
 				} else
 					return JsonObject.getResult(0, "注册失败", false);
 			}
@@ -68,7 +75,9 @@ public class UserServiceImp implements UserService {
 		User u = uDao.getUser(phone, password);
 		if (u != null) {
 			if (u.getAck() != 1) { // 判断账号是否通过审核，没有的话等待审核，或修改用户信息
-				return JsonObject.getResult(-1, "账号未审核，请完善或改进用户信息", false);
+				u.setPassword("******");
+				session.setAttribute("user", u); // 用于前往审核进度页面，保留一个id
+				return JsonObject.getResult(-1, "该账号未审核或审核不通过", u.getId());
 			} else { // 已通过审核
 				u.setPassword("******");
 				session.setAttribute("user", u);
@@ -141,8 +150,8 @@ public class UserServiceImp implements UserService {
 						+ new Random().nextInt(10)
 						+ f1Name.substring(f1Name.indexOf("."));
 
-				String upDir1 = "upload" + File.separator + "user_idcard";	//文件夹名
-				String path1 = rPath + upDir1; 					// 图片保存的完整目录
+				String upDir1 = "upload" + File.separator + "user_idcard"; // 文件夹名
+				String path1 = rPath + upDir1; // 图片保存的完整目录
 
 				File dir1 = new File(path1);
 				if (!dir1.exists() && !dir1.isDirectory()) { // 路径不存在则创建
@@ -162,8 +171,8 @@ public class UserServiceImp implements UserService {
 						+ new Random().nextInt(10)
 						+ f2Name.substring(f2Name.indexOf("."));
 
-				String upDir2 = "upload" + File.separator + "user_charter";	//文件夹名
-				String path2 = rPath + upDir2; 					// 图片保存的完整目录
+				String upDir2 = "upload" + File.separator + "user_charter"; // 文件夹名
+				String path2 = rPath + upDir2; // 图片保存的完整目录
 
 				File dir2 = new File(path2);
 				if (!dir2.exists() && !dir2.isDirectory()) { // 路径不存在则创建
@@ -181,6 +190,8 @@ public class UserServiceImp implements UserService {
 			ud.setCharterurl(cUrl);
 			ud.setIdcardurl(iUrl);
 			if (udDao.addUserDetail(ud) != -1) {
+				long uid = ud.getUserId();
+				ucDao.addUserCheck(new UserCheck(uid, -1, "未审核"));
 				return JsonObject.getResult(1, "添加详细信息成功", true);
 			} else {
 				return JsonObject.getResult(0, "添加详细信息失败", false);
@@ -191,7 +202,69 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public Object updateUserDetail(UserDetail ud) {
+	public Object updateUserDetail(HttpServletRequest request, UserDetail ud,
+			@RequestParam("file1") CommonsMultipartFile file1,
+			@RequestParam("file2") CommonsMultipartFile file2)
+			throws IllegalStateException, IOException {
+
+		String cUrl = "";
+		String iUrl = "";
+
+		String f1Name = file1.getOriginalFilename();
+		String f2Name = file2.getOriginalFilename();
+
+		String rPath = request.getSession().getServletContext()
+				.getRealPath("/"); // 项目根目录 ...\nzj\
+
+		if (!f1Name.equals("")) {
+			f1Name = new Date().getTime() / 1000 + "_"
+					+ new Random().nextInt(10)
+					+ f1Name.substring(f1Name.indexOf("."));
+
+			String upDir1 = "upload" + File.separator + "user_idcard"; // 文件夹名
+			String path1 = rPath + upDir1; // 图片保存的完整目录
+
+			File dir1 = new File(path1);
+			if (!dir1.exists() && !dir1.isDirectory()) { // 路径不存在则创建
+				dir1.mkdirs();
+			}
+			String fPath1 = path1 + File.separator + f1Name; // 文件最终路径
+			String url1 = new readProperties().getP("server")
+					+ "upload/user_idcard/" + f1Name; // 保存的url
+
+			File f1 = new File(fPath1);
+			file1.transferTo(f1);
+
+			cUrl = url1;
+		}
+		if (!f2Name.equals("")) {
+			f2Name = new Date().getTime() / 1000 + "_"
+					+ new Random().nextInt(10)
+					+ f2Name.substring(f2Name.indexOf("."));
+
+			String upDir2 = "upload" + File.separator + "user_charter"; // 文件夹名
+			String path2 = rPath + upDir2; // 图片保存的完整目录
+
+			File dir2 = new File(path2);
+			if (!dir2.exists() && !dir2.isDirectory()) { // 路径不存在则创建
+				dir2.mkdirs();
+			}
+			String fPath2 = path2 + File.separator + f2Name; // 文件最终路径
+			String url2 = new readProperties().getP("server")
+					+ "upload/user_charter/" + f2Name; // 保存的url
+
+			File f2 = new File(fPath2);
+			file2.transferTo(f2);
+
+			iUrl = url2;
+		}
+		if(cUrl==null)
+			cUrl=" ";
+		if(iUrl==null)
+			iUrl=" ";
+		ud.setCharterurl(cUrl);
+		ud.setIdcardurl(iUrl);
+
 		if (udDao.updateUserDetail(ud))
 			return JsonObject.getResult(1, "修改详细信息成功", true);
 		else
@@ -231,6 +304,7 @@ public class UserServiceImp implements UserService {
 	public Object ackUser(Long id, Integer rank, Long pid) {
 		if (uDao.updateUser(id, rank, 1)
 				&& ulDao.addUserLink(new UserLink(pid, id)) != -1) {
+
 			return JsonObject.getResult(1, "审核确认用户成功", true);
 		} else
 			return JsonObject.getResult(0, "审核确认用户失败", false);
@@ -240,8 +314,68 @@ public class UserServiceImp implements UserService {
 	public Object getUnAckUserList(Integer start, Integer limit) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		long count = uDao.getUnAckUserCount();
+		List<VUserId> li = uDao.getUnAckUserList(start, limit);
+
+		List list = new ArrayList<>();
+		for (VUserId v : li) {
+			Map<String, Object> uMap = new HashMap<String, Object>();
+			long uid = v.getId();
+
+			uMap.put("id", uid);
+			uMap.put("phone", v.getPhone());
+			uMap.put("time", v.getTime());
+			uMap.put("username", v.getUsername());
+			uMap.put("company", v.getCompany());
+			uMap.put("contact", v.getContact());
+			uMap.put("telephone", v.getTelephone());
+			uMap.put("dphone", v.getDphone());
+			uMap.put("address", v.getAddress());
+			uMap.put("charterurl", v.getCharterurl());
+			uMap.put("idcardurl", v.getIdcardurl());
+
+			UserCheck uc = ucDao.getUserCheck(uid);
+			uMap.put("status", uc.getStatus());
+			uMap.put("description", uc.getDescription());
+			list.add(uMap);
+		}
+
 		map.put("count", count);
-		map.put("result", uDao.getUnAckUserList(start, limit));
+		map.put("result", list);
+
 		return JsonObject.getResult(1, "获取未确认的用户列表", map);
 	}
+
+	@Override
+	public Object checkUserDetail(Long userId) {
+		System.out.println("	checkUserDetail:" + userId);
+		if (udDao.getUserDetail(userId))
+			return JsonObject.getResult(1, "已完善用户信息", true);
+		else
+			return JsonObject.getResult(0, "该用户尚未完善详细信息", false);
+	}
+
+	@Override
+	public Object getUserCheckById(Long userId) {
+		System.out.println("	getUserCheckById:" + userId);
+		return JsonObject.getResult(1, "获取用户审核状态", ucDao.getUserCheck(userId));
+	}
+
+	@Override
+	public Object getAckUserList(Integer start, Integer limit) {
+		Map<String, Object> map = new HashMap<>();
+		long count = uDao.getAckUserCount();
+		map.put("count", count);
+		map.put("result", uDao.getAckUserList(start, limit));
+		return JsonObject.getResult(1, "获取已确认的用户列表", map);
+	}
+
+	@Override
+	public Object updateUserCheck(Long userId, Integer status,
+			String description) {
+		if (ucDao.updateUserCheck(userId, status, description))
+			return JsonObject.getResult(1, "修改用户审查信息成功", true);
+		else
+			return JsonObject.getResult(0, "修改用户审查信息失败", false);
+	}
+
 }

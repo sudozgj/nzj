@@ -1,5 +1,6 @@
 package org.dao.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dao.SkillDao;
@@ -11,9 +12,13 @@ import org.model.Cooking;
 import org.model.Skill;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VLanguage;
+import org.view.VLanguageId;
+import org.view.VSkill;
+import org.view.VSkillId;
 
 @Service
-public class SkillDaoImp implements SkillDao{
+public class SkillDaoImp implements SkillDao {
 
 	@Override
 	public long addSkill(Skill l) {
@@ -77,7 +82,7 @@ public class SkillDaoImp implements SkillDao{
 			return l;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null; 
+			return null;
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}
@@ -89,13 +94,20 @@ public class SkillDaoImp implements SkillDao{
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select s.name from aunt_skill ask,skill s where ask.skill_id=s.id and ask.aunt_id=?";
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			// String sql =
+			// "select s.name from aunt_skill ask,skill s where ask.skill_id=s.id and ask.aunt_id=?";
+			SQLQuery sqlQuery = session
+					.createSQLQuery("select * from v_skill where aunt_id=?");
 			sqlQuery.setParameter(0, auntId);
-			
-			List li = sqlQuery.list();
-			
-			return li;
+
+			sqlQuery.addEntity(VSkill.class);
+
+			List<VSkill> li = sqlQuery.list();
+			List<VSkillId> list = new ArrayList<>();
+			for (VSkill v : li) {
+				list.add(v.getId());
+			}
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

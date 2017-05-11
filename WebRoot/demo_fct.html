@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>addSkill.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="js/jquery.min.js"></script>
+<script>
+	$(function() {
+		$.ajax({
+			type : "post",
+			url : "getSession",
+			async : false,
+			cache : false,
+			success : function(data) {
+				//alert(data.data.result.length);
+				var tb = "<input type='button' onclick='a()' />";
+				
+				$("#f").html(tb);
+			},
+			error : function(data) {
+				alert("error");
+			}
+		});
+	});
+		function a(){
+			alert('w');
+		}
+</script>
+</head>
+
+<body>
+	<h1>审核界面</h1>
+	<div id="f"></div>
+</body>
+</html>

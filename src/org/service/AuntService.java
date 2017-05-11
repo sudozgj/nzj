@@ -49,6 +49,13 @@ public interface AuntService {
 	public Object getAuntList(HttpSession session, Integer start, Integer limit);
 
 	/**
+	 * 3.2通过id获取阿姨完整信息
+	 * @param id
+	 * @return
+	 */
+	public Object getAuntById(Long id);
+	
+	/**
 	 * 4修改阿姨基本信息（不包括从表）
 	 * 
 	 * @param a

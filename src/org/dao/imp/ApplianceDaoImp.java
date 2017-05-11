@@ -1,5 +1,6 @@
 package org.dao.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dao.ApplianceDao;
@@ -11,6 +12,10 @@ import org.model.Appliance;
 import org.model.Language;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VAppliance;
+import org.view.VApplianceId;
+import org.view.VSkill;
+import org.view.VSkillId;
 
 @Service
 public class ApplianceDaoImp implements ApplianceDao {
@@ -88,12 +93,18 @@ public class ApplianceDaoImp implements ApplianceDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			String sql = "select a.name from aunt_appliance aa,appliance a where aa.appliance_id=a.id and aa.aunt_id=?";
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			
+//			String sql = "select a.name from aunt_appliance aa,appliance a where aa.appliance_id=a.id and aa.aunt_id=?";
+			SQLQuery sqlQuery = session.createSQLQuery("select * from v_appliance where aunt_id=?");
 			sqlQuery.setParameter(0, auntId);
 
-			List list = sqlQuery.list();
+			sqlQuery.addEntity(VAppliance.class);
 
+			List<VAppliance> li = sqlQuery.list();
+			List<VApplianceId> list = new ArrayList<>();
+			for (VAppliance v : li) {
+				list.add(v.getId());
+			}
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();

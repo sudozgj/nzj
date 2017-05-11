@@ -8,6 +8,7 @@ import java.util.List;
 import org.Form.PactTrackingForm;
 import org.dao.PactDao;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
@@ -46,6 +47,11 @@ public class PactDaoImp implements PactDao {
 
 			Pact p = (Pact) session.load(Pact.class, id);
 			session.delete(p);
+			
+			SQLQuery sqlQuery = session.createSQLQuery("delete from pact_tracking where pact_id=?");
+			sqlQuery.setParameter(0, id);
+			sqlQuery.executeUpdate();
+			
 			ts.commit();
 			return true;
 		} catch (Exception e) {
@@ -130,7 +136,7 @@ public class PactDaoImp implements PactDao {
 			Transaction ts = session.beginTransaction();
 
 			Query query = session
-					.createQuery("SELECT COUNT(id) FROM Employer WHERE userId = ?");
+					.createQuery("SELECT COUNT(id) FROM Pact WHERE userId = ?");
 			query.setParameter(0, id);
 			query.setMaxResults(1);
 			long count = (long) query.uniqueResult();

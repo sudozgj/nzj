@@ -1,5 +1,6 @@
 package org.dao.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dao.CookingDao;
@@ -11,6 +12,8 @@ import org.model.Cooking;
 import org.model.Language;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VCooking;
+import org.view.VCookingId;
 
 @Service
 public class CookingDaoImp implements CookingDao{
@@ -89,13 +92,18 @@ public class CookingDaoImp implements CookingDao{
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select c.name from aunt_cooking ac,cooking c where ac.cooking_id=c.id and ac.aunt_id=?";
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
+//			String sql = "select c.name from aunt_cooking ac,cooking c where ac.cooking_id=c.id and ac.aunt_id=?";
+			SQLQuery sqlQuery = session.createSQLQuery("select * from v_cooking where aunt_id=?");
 			sqlQuery.setParameter(0, auntId);
+			sqlQuery.addEntity(VCooking.class);
 			
-			List li = sqlQuery.list();
+			List<VCooking> li = sqlQuery.list();
+			List<VCookingId> list = new ArrayList<>();
+			for(VCooking v:li){
+				list.add(v.getId());
+			}
 			
-			return li;
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

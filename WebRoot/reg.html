@@ -78,17 +78,17 @@
 						},
 						success: function(data) {
 							if(data.code == 1) {
-								if(getCookie('username') == null) {
+								//if(getCookie('username') == null) {
 //									if(confirm("注册成功，是否跳转到登录页？")) {
-										location.href = "user_info.html";
-										
+										//location.href = "user_info.html";
+								location.href = "checkUserDetail.html";
 //									} else {
 //										$('.username').val() == '';
 //										$('.auth_code').val() == '';
 //										$('.password').val() == '';
 //										$('.passwords').val() == '';
 //									}
-								}
+								//}
 							} else {
 								alert(data.msg);
 							}
@@ -125,6 +125,7 @@
 		<script src="js/login/js/supersized.3.2.7.min.js "></script>
 		<script src="js/login/js/supersized-reg.js "></script>
 		<script src="js/login/js/scripts.js "></script>
+		<script src="js/main.js"></script>
 	</body>
 
 </html>

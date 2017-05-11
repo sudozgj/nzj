@@ -63,4 +63,16 @@ public interface UserDao {
 	 * @return
 	 */
 	public Long getUnAckUserCount();
+	/**
+	 * 4.6获取已审核通过的用户列表
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List getAckUserList(Integer start,Integer limit);
+	/**
+	 * 4.7获取已审核通过的用户数目
+	 * @return
+	 */
+	public Long getAckUserCount();
 }

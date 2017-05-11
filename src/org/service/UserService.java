@@ -50,7 +50,7 @@ public interface UserService {
 	 * @param ud
 	 * @return
 	 */
-	public Object addUserDetail(HttpServletRequest request,UserDetail ud,
+	public Object addUserDetail(HttpServletRequest request, UserDetail ud,
 			@RequestParam("file1") CommonsMultipartFile file1,
 			@RequestParam("file2") CommonsMultipartFile file2)
 			throws IllegalStateException, IOException;
@@ -61,7 +61,10 @@ public interface UserService {
 	 * @param ud
 	 * @return
 	 */
-	public Object updateUserDetail(UserDetail ud);
+	public Object updateUserDetail(HttpServletRequest request, UserDetail ud,
+			@RequestParam("file1") CommonsMultipartFile file1,
+			@RequestParam("file2") CommonsMultipartFile file2)
+			throws IllegalStateException, IOException;
 
 	/**
 	 * 7获取当前用户信息
@@ -85,6 +88,49 @@ public interface UserService {
 	 * @return
 	 */
 	public Object ackUser(Long id, Integer rank, Long pid);
-	
+
+	/**
+	 * 10获取未确认的用户列表
+	 * 
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
 	public Object getUnAckUserList(Integer start, Integer limit);
+
+	/**
+	 * 11检测该用户是否完善了用户信息
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public Object checkUserDetail(Long userId);
+
+	/**
+	 * 12获取用户的审核情况信息
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public Object getUserCheckById(Long userId);
+
+	/**
+	 * 13获取已确认的用户列表
+	 * 
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public Object getAckUserList(Integer start, Integer limit);
+
+	/**
+	 * 14填写用户审查表
+	 * 
+	 * @param userId
+	 * @param status
+	 * @param description
+	 * @return
+	 */
+	public Object updateUserCheck(Long userId, Integer status,
+			String description);
 }

@@ -19,8 +19,556 @@ $(function() {
 		pageSize: pageSize
 	});
 	kkpager.generPageHtml();
-
+	//获取语言
+	$.ajax({
+		type: "post",
+		url: mainUrl + "getLanguageList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			var Languages="<label>语&nbsp;&nbsp;&nbsp;&nbsp;言:&nbsp;&nbsp;</label>";
+			for(var i=0 ;i<data.data.length;i++){ 
+//				 if(i==0){
+//				 	Languages += "<input type='checkbox' value='"+data.data[i].id+"' name='languageId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }else{
+				 	Languages += "<input type='checkbox' value="+data.data[i].id+" name='languageId'/>"+data.data[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;";
+//				 }
+          }
+			$("#tdLanguages").html(Languages+"<button type='button' id='modLanguage' class='btn btn-info' onclick='modLanguage()'>保存</button>");
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+	});
+	
+	//获取烹饪技能
+    $.ajax({
+		type: "post",
+		url: mainUrl + "getCookingList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			var CookingId="<label>烹&nbsp;&nbsp;&nbsp;&nbsp;饪:&nbsp;&nbsp;</label>";
+			for(var i=0 ;i<data.data.length;i++){ 
+//				 if(i==0){
+//				 	CookingId += "<input type='checkbox' value='"+data.data[i].id+"' name='cookingId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }else{
+				 	CookingId += "<input type='checkbox' value='"+data.data[i].id+"' name='cookingId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }
+          }
+			$("#tdCookingId").html(CookingId+"<button type='button' id='modCooking' class='btn btn-info' onclick='modCooking()'>保存</button>");
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+	});
+	
+	//获取基本技能
+	$.ajax({
+		type: "post",
+		url: mainUrl + "getSkillList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			var SkillId="<label>基本技能:&nbsp;&nbsp;</label>";
+			for(var i=0 ;i<data.data.length;i++){ 
+//				 if(i==0){
+//				 	SkillId += "<input type='checkbox' value='"+data.data[i].id+"' name='skillId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }else{
+				 	SkillId += "<input type='checkbox' value='"+data.data[i].id+"' name='skillId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }
+          }
+			$("#tdSkillId").html(SkillId+"<button type='button' id='modSkill' class='btn btn-info' onclick='modSkill()'>保存</button>");
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+	});
+	
+	//获取家用电器
+	$.ajax({
+		type: "post",
+		url: mainUrl + "getApplianceList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			var ApplianceId="<label>家用电器:&nbsp;&nbsp;</label>";
+			for(var i=0 ;i<data.data.length;i++){ 
+//				 if(i==0){
+//				 	ApplianceId += "<input type='checkbox' value='"+data.data[i].id+"' name='applianceId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }else{
+				 	ApplianceId += "<input type='checkbox' value='"+data.data[i].id+"' name='applianceId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }
+          }
+			$("#tdApplianceId").html(ApplianceId+"<button type='button' id='modAppliance' class='btn btn-info' onclick='modAppliance()'>保存</button>");
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+	});
+	
+	//获取岗位
+	$.ajax({
+		type: "post",
+		url: mainUrl + "getJobList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			var JobId="<label>应聘岗位:&nbsp;&nbsp;</label>";
+			for(var i=0 ;i<data.data.length;i++){ 
+//				 if(i==0){
+//				 	JobId += "<input type='checkbox' value='"+data.data[i].id+"' name='jobId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }else{
+				 	JobId += "<input type='checkbox' value='"+data.data[i].id+"' name='jobId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }
+          }
+			$("#tdJobId").html(JobId+"<button type='button' id='modJob' class='btn btn-info' onclick='modJob()'>保存</button>");
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+	});
+	
+	//获取提供证件
+	$.ajax({
+		type: "post",
+		url: mainUrl + "getCertificateList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			var CertificateId="<label>提供证件:&nbsp;&nbsp;</label>";
+			for(var i=0 ;i<data.data.length;i++){ 
+//				 if(i==0){
+//				 	CertificateId += "<input type='checkbox' value='"+data.data[i].id+"' name='certificateId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }else{
+				 	CertificateId += "<input type='checkbox' value='"+data.data[i].id+"' name='certificateId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
+//				 }
+          }
+			$("#tdCertificateId").html(CertificateId+"<button type='button' id='modCertificate' class='btn btn-info' onclick='modCertificate()'>保存</button>");
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+	});
+	
+	//获取紧急联系人
+	var val_contact;
+	for(var i = 0; i < 1; i++) {
+		
+		val_contact += "<tr id='tr"+i+"'>"
+		        +"<td>姓名：<input type='text' name='cname'/></td>"
+		        +"<td>关系：<input type='text' name='relation'/></td>"
+		        +"<td>工作状况 : <input type='text' name='workstatus'/></td>"
+		        +"<td>联系电话：<input type='text' name='cphone'/></td>"
+		        +"<td onClick='del_contact(this)'><button class='contact_del_btn' type='button' title='删除'/></td>"
+		    +"</tr>";
+	}
+	$(".contact_table").html(val_contact);
+	
+	//工作经历
+	var val_work;
+	for(var i = 0; i < 1; i++) {
+		
+		val_work += "<tr id='tr"+i+"'>"
+		        +"<td>起止时间：<input type='text' name='time'/></td>"
+		        +"<td>主要工作：<input type='text' name='work'/></td>"
+		        +"<td onClick='del_work(this)'><button class='contact_del_btn' type='button' title='删除'/></td>"
+		    +"</tr>";
+	}
+	$(".work_table").html(val_work);
+//	
+	//添加阿姨信息
+	$('#btn_aunt_add').click(function() {
+    var formData = new FormData(document.getElementById("divFrame"));
+			$.ajax({
+				type : "post",
+				url : mainUrl+"addAunt",
+				data : formData,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(data) {
+					if(data.code == -999) {
+						if(confirm("用户登录已失效，是否重新登录？")) {
+							window.location.href = "login.html";
+						}
+					} else if(data.code == 1) {
+						$('#aunt').modal('hide');
+						location.reload();
+						alert('添加成功');
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(data) {
+					alert("error");
+				}
+			});
+	});
+	//修改阿姨信息
+	$('#btn_aunt_mod').click(function() {
+//  var formData = new FormData(document.getElementById("divFrame"));
+    var appform = document.getElementById('divFrame');
+//  alert(appform.id.value+'--'+appform.userId.value+'--'+appform.native_.value);
+			$.ajax({
+				type : "post",
+				url : mainUrl+"updateAunt",
+				data : {
+					id:appform.id.value,
+					userId:appform.userId.value,
+					name:appform.name.value,
+					age:appform.age.value,
+					sign:appform.sign.value,
+					native_:appform.native_.value,
+					sex:appform.sex.value,
+					education:appform.education.value,
+					marriage:appform.marriage.value,
+					nation:appform.nation.value,
+					height:appform.height.value,
+					weight:appform.weight.value,
+					sigh:appform.sigh.value,
+					idnumber:appform.idnumber.value,
+					phone:appform.phone.value,
+					address:appform.address.value
+				},
+				cache : false,
+				success : function(data) {
+					if(data.code == -999) {
+						if(confirm("用户登录已失效，是否重新登录？")) {
+							window.location.href = "login.html";
+						}
+					} else if(data.code == 1) {
+						$('#aunt').modal('hide');
+						location.reload();
+						alert('添加成功');
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(data) {
+					alert("error");
+				}
+			});
+	});
 });
+//修改语言
+function modLanguage(){
+	var appform = document.getElementById('divFrame');
+	var lanItems=document.getElementsByName("languageId");
+	var lan = [];
+	for(i=0; i<lanItems.length; i++){
+		if(lanItems[i].checked==true){
+			lan.push(lanItems[i].value);
+		}
+	};
+	$.ajax({
+		type : "post",
+		url : mainUrl+"updateAuntLanguage",
+		data : {
+			"AuntId":appform.id.value,
+			"id":lan
+		},
+		cache : false,
+		traditional: true,
+		success : function(data) {
+			if(data.code == -999) {
+				if(confirm("用户登录已失效，是否重新登录？")) {
+					window.location.href = "login.html";
+				}
+			} else if(data.code == 1) {
+				alert('保存成功');
+			} else {
+				alert(data.msg);
+			};
+		},
+		error : function(data) {
+			alert("error");
+		}
+	});	
+};
+
+//修改烹饪
+function modCooking(){
+	var appform = document.getElementById('divFrame');
+	var cookingItems=document.getElementsByName("cookingId");
+	var cooking = [];
+	for(i=0; i<cookingItems.length; i++){
+		if(cookingItems[i].checked==true){
+			cooking.push(cookingItems[i].value);
+		}
+	};
+	$.ajax({
+		type : "post",
+		url : mainUrl+"updateAuntCooking",
+		data : {
+			"AuntId":appform.id.value,
+			"id":cooking
+		},
+		cache : false,
+		traditional: true,
+		success : function(data) {
+			if(data.code == -999) {
+				if(confirm("用户登录已失效，是否重新登录？")) {
+					window.location.href = "login.html";
+				}
+			} else if(data.code == 1) {
+				alert('保存成功');
+			} else {
+				alert(data.msg);
+			};
+		},
+		error : function(data) {
+			alert("error");
+		}
+	});	
+};
+
+//修改基本技能
+function modSkill(){
+	var appform = document.getElementById('divFrame');
+	var skillItems=document.getElementsByName("skillId");
+	var skill = [];
+	for(i=0; i<skillItems.length; i++){
+		if(skillItems[i].checked==true){
+			skill.push(skillItems[i].value);
+		}
+	};
+	$.ajax({
+		type : "post",
+		url : mainUrl+"updateAuntSkill",
+		data : {
+			"AuntId":appform.id.value,
+			"id":skill
+		},
+		cache : false,
+		traditional: true,
+		success : function(data) {
+			if(data.code == -999) {
+				if(confirm("用户登录已失效，是否重新登录？")) {
+					window.location.href = "login.html";
+				}
+			} else if(data.code == 1) {
+				alert('保存成功');
+			} else {
+				alert(data.msg);
+			};
+		},
+		error : function(data) {
+			alert("error");
+		}
+	});	
+};
+
+//修改家用电器
+function modAppliance(){
+	var appform = document.getElementById('divFrame');
+	var applianceItems=document.getElementsByName("applianceId");
+	var appliance = [];
+	for(i=0; i<applianceItems.length; i++){
+		if(applianceItems[i].checked==true){
+			appliance.push(applianceItems[i].value);
+		}
+	};
+	$.ajax({
+		type : "post",
+		url : mainUrl+"updateAuntAppliance",
+		data : {
+			"AuntId":appform.id.value,
+			"id":appliance
+		},
+		cache : false,
+		traditional: true,
+		success : function(data) {
+			if(data.code == -999) {
+				if(confirm("用户登录已失效，是否重新登录？")) {
+					window.location.href = "login.html";
+				}
+			} else if(data.code == 1) {
+				alert('保存成功');
+			} else {
+				alert(data.msg);
+			};
+		},
+		error : function(data) {
+			alert("error");
+		}
+	});	
+};
+
+//修改应聘岗位
+function modJob(){
+	var appform = document.getElementById('divFrame');
+	var jobItems=document.getElementsByName("jobId");
+	var job = [];
+	for(i=0; i<jobItems.length; i++){
+		if(jobItems[i].checked==true){
+			job.push(jobItems[i].value);
+		}
+	};
+	$.ajax({
+		type : "post",
+		url : mainUrl+"updateAuntJob",
+		data : {
+			"AuntId":appform.id.value,
+			"id":job
+		},
+		cache : false,
+		traditional: true,
+		success : function(data) {
+			if(data.code == -999) {
+				if(confirm("用户登录已失效，是否重新登录？")) {
+					window.location.href = "login.html";
+				}
+			} else if(data.code == 1) {
+				alert('保存成功');
+			} else {
+				alert(data.msg);
+			};
+		},
+		error : function(data) {
+			alert("error");
+		}
+	});	
+};
+
+//修改提供证件
+function modCertificate(){
+	var appform = document.getElementById('divFrame');
+	var certificateItems=document.getElementsByName("certificateId");
+	var certificate = [];
+	for(i=0; i<certificateItems.length; i++){
+		if(certificateItems[i].checked==true){
+			certificate.push(certificateItems[i].value);
+		}
+	};
+	$.ajax({
+		type : "post",
+		url : mainUrl+"updateAuntCertificate",
+		data : {
+			"AuntId":appform.id.value,
+			"id":certificate
+		},
+		cache : false,
+		traditional: true,
+		success : function(data) {
+			if(data.code == -999) {
+				if(confirm("用户登录已失效，是否重新登录？")) {
+					window.location.href = "login.html";
+				}
+			} else if(data.code == 1) {
+				alert('保存成功');
+			} else {
+				alert(data.msg);
+			};
+		},
+		error : function(data) {
+			alert("error");
+		}
+	});	
+};
+
+//添加阿姨信息时初始化表
+function addAunt(){
+//	document.getElementById("divFrame").reset(); 
+//	$(".aunt_img").attr("src", "image/u196.png");
+     $("input[type=reset]").trigger("click");
+     $(".aunt_img").attr("src", "image/u196.png");
+     $('#auntLabel').html('添加阿姨信息');
+     $('#btn_aunt_add').show();
+	 $('#btn_aunt_mod').hide();
+	 $('#modLanguage').hide();
+	 $('#modCooking').hide();
+	 $('#modSkill').hide();
+	 $('#modAppliance').hide();
+	 $('#modJob').hide();
+	 $('#modCertificate').hide();
+//初始化紧急联系人
+    var tb = document.getElementById('contact_table');
+     var rowNum=tb.rows.length;
+     for (i=0;i<rowNum;i++)
+     {
+         tb.deleteRow(i);
+         rowNum=rowNum-1;
+         i=i-1;
+     };
+	var val_contact;
+	for(var i = 0; i < 1; i++) {
+		
+		val_contact += "<tr id='tr"+i+"'>"
+		        +"<td>姓名：<input type='text' name='cname'/></td>"
+		        +"<td>关系：<input type='text' name='relation'/></td>"
+		        +"<td>工作状况 : <input type='text' name='workstatus'/></td>"
+		        +"<td>联系电话：<input type='text' name='cphone'/></td>"
+		        +"<td onClick='del_contact(this)'><button class='contact_del_btn' type='button' title='删除'/></td>"
+		    +"</tr>";
+	}
+	$(".contact_table").html(val_contact);
+	
+	//初始化工作经历
+	var tb = document.getElementById('work_table');
+     var rowNum=tb.rows.length;
+     for (i=0;i<rowNum;i++)
+     {
+         tb.deleteRow(i);
+         rowNum=rowNum-1;
+         i=i-1;
+     };
+	var val_work;
+	for(var i = 0; i < 1; i++) {
+		
+		val_work += "<tr id='tr"+i+"'>"
+		        +"<td>起止时间：<input type='text' name='time'/></td>"
+		        +"<td>主要工作：<input type='text' name='work'/></td>"
+		        +"<td onClick='del_work(this)'><button class='contact_del_btn' type='button' title='删除'/></td>"
+		    +"</tr>";
+	}
+	$(".work_table").html(val_work);
+};
+
+//添加工作经历
+function add_work(){
+	var work_table = document.getElementById("work_table");
+    var rows = work_table.rows.length;
+    var add_tr = "<tr id='tr"+rows+"'>"
+                +"<td>起止时间：<input type='text' name='time'/></td>"
+		        +"<td>主要工作：<input type='text' name='work'/></td>"
+		        +"<td onClick='del_work(this)'><button class='contact_del_btn' type='button' title='删除'/></td>"
+                +" </tr>"
+	$(".work_table").append(add_tr);
+};
+
+//删除工作经历
+function del_work(v){
+	$(v).parent().remove();  
+};
+
+
+//添加紧急联系人
+function add_contact() {
+    var table = document.getElementById("contact_table");
+    var rows = table.rows.length;
+    var add_tr = "<tr id='tr"+rows+"'>"
+                    +"<td>姓名：<input type='text' name='cname'/></td>"
+                    +"<td>关系：<input type='text' name='relation'/></td>"
+                    +"<td>工作状况 : <input type='text' name='workstatus'/></td>"
+                    +"<td>联系电话：<input type='text' name='cphone'/></td>"
+		            +"<td  onClick='del_contact(this)'><button class='contact_del_btn' type='button' title='删除'/></td>"
+                +" </tr>"
+	$(".contact_table").append(add_tr);
+};
+
+//删除紧急联系人
+function del_contact(v){
+	$(v).parent().remove();  
+};
+
 /**
  * 获取总页数
  * @returns {number}
@@ -43,7 +591,7 @@ var getTotllePage = function(pageSize) {
 var getJsonArrayByPageSize = function(pageSize, pageNo) {
 	$.ajax({
 		type: "post",
-		url: mainUrl + "getEmployerList",
+		url: mainUrl + "getAuntList",
 		dataType: "json",
 		async: false,
 		cache: false,
@@ -105,11 +653,11 @@ function refreshData(pageSize, pageNo) {
  * 构建表格数据
  */
 var builderUQTQueryMsg = function(UQTQueryMsg) {
-	var UQT_detailTable = $('#UQT_detailTable');
-	UQT_detailTable.empty();
-	var th = '<tr><th scope="col" class="chi_name" ><span class="fuxuan" ><input type="checkbox" onclick="optionCheckBoxes(this)" id="tottleSe"/></span>id</th><th scope="col" class="eng_name" >姓名</th><th scope="col" class="query_pro" >客户需求</th><th class="match_type" scope="col">手机号</th><th scope="col"  class="dis_order">住址</th><th class="match_type" scope="col">签约时间</th><th scope="col"  class="dis_dta">操作</th><th class="dis_hidden" style="display: none">隐藏属性</th></tr>';
+	var auntTable = $('#auntTable');
+	auntTable.empty();
+	var th = '<tr><th scope="col" class="chi_name" ><span class="fuxuan" ><input type="checkbox" onclick="optionCheckBoxes(this)" id="tottleSe"/></span>id</th><th scope="col" class="eng_name" >姓名</th><th scope="col" class="query_pro" >年龄</th><th class="match_type" scope="col">籍贯</th><th scope="col"  class="match_type">性别</th><th class="match_type" scope="col">联系电话</th><th class="dis_order" scope="col">家庭地址</th><th scope="col"  class="dis_dta">操作</th><th class="dis_hidden" style="display: none">隐藏属性</th></tr>';
 
-	UQT_detailTable.append(th);
+	auntTable.append(th);
 	var tr;
 	$.each(UQTQueryMsg, function(i, eachData) {
 		tr = $('<tr>');
@@ -122,26 +670,220 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 		//      tr.css('background-color','red');
 		var listId = eachData.id;
 		var listName = eachData.name;
-		var listContent = eachData.content;
+		var listAge = eachData.age;
+		var listSex = null;
+		if(eachData.sex==1){
+			listSex='男';
+		}else{
+			listSex='女';
+		}
+		var listNative = eachData.native_;
+//      var listHeight = eachData.height;
+//		var listWeight = eachData.weight;
 		var listPhone = eachData.phone;
-
-		listTime = eachData.time;
-		//		;
-		var listAdress = eachData.adress;
+		var listAdress = eachData.address;
 		tr.append("<td class='chi_name'><span class='fuxuan' ><input type='checkbox' id='tottleSe_'" + listId + "/></span>" + listId + "</td>" +
 			"<td class='eng_name'>" + listName + "</td>" +
-			"<td class='query_pro'>" + listContent + "</td>" +
+			"<td class='query_pro'>" + listAge + "</td>" +
+			"<td class='match_type'>" + listNative + "</td>" +
+			"<td class='match_type'>" + listSex + "</td>" +
+//			"<td class='match_type'>" + listWeight + "</td>" +
 			"<td class='match_type'>" + listPhone + "</td>" +
 			"<td class='dis_order'>" + listAdress + "</td>" +
-			"<td class='match_type'>" + changeTime(listTime) + "</td>" +
 			"<td class='dis_dta'>" +
-			"<a class='editOp' href='' data-toggle='modal' data-target='#employer' onclick='updateEmployer(" + listId + "," + JSON.stringify(listName) + "," + JSON.stringify(listContent) + "," + listPhone + "," + listTime + "," + JSON.stringify(listAdress) + ")'>修改</a>" +
-			"<a class='editOp' href='javascript:void(0);' onclick='deleteEmployer(" + listId + ")'>删除</a>" +
+			"<a class='editOp' href='' data-toggle='modal' data-target='#aunt'onclick='updateAunt(" + listId + ")'>修改</a>" +
+			"<a class='editOp' href='javascript:void(0);' onclick='deleteAunt(" + listId + ")'>删除</a>" +
 			"</td>" +
 			"<td class='dis_hidden' style='display: none'></td>"
 		);
-		UQT_detailTable.append(tr);
+		auntTable.append(tr);
 	});
+}
+
+//修改阿姨信息时初始化表
+function updateAunt(aid){
+    $("input[type=reset]").trigger("click");
+    $('#auntLabel').html('修改阿姨信息');
+    $('#btn_aunt_mod').show();
+	$('#btn_aunt_add').hide();
+	$('#modLanguage').show();
+	$('#modCooking').show();
+	$('#modSkill').show();
+	$('#modAppliance').show();
+	$('#modJob').show();
+	$('#modCertificate').show();
+	$.ajax({
+		type: "post",
+		url: mainUrl + "getAuntById",
+		dataType: "json",
+		async: false,
+		cache: false,
+		data: {
+			id:aid
+		},
+		success: function(data) {
+			if(data.code == -999) {
+				if(confirm("用户登录已失效，是否重新登录？")) {
+					window.parent.location.href = "login.html";
+				}
+			} else if(data.code == 1) {
+				$("input[name='id']").val(data.data.id);
+                $("input[name='userId']").val(data.data.userId);
+                $("input[name='name']").val(data.data.name);
+                $("input[name='age']").val(data.data.age);
+                $("input[name='sign']").val(data.data.sign);
+                $("input[name='native_']").val(data.data.native);
+                $("input[name='education']").val(data.data.education);
+                $("input[name='nation']").val(data.data.nation);
+                $("input[name='height']").val(data.data.height);
+                $("input[name='weight']").val(data.data.weight);
+                $("input[name='sigh']").val(data.data.sigh);
+                $("input[name='phone']").val(data.data.phone);
+                $("input[name='idnumber']").val(data.data.idnumber);
+                $("input[name='address']").val(data.data.address);
+                $(".aunt_img").attr("src", data.data.url); 
+                $(":radio[name='sex'][value='" + data.data.sex + "']").prop("checked", "checked");
+                $(":radio[name='marriage'][value='" + data.data.marriage + "']").prop("checked", "checked");
+                //勾选语言
+                var lan = [];
+                for(var i=0;i<data.data.language.length;i++){
+                	lan.push(data.data.language[i].languageId);
+                };
+                var lanItems=document.getElementsByName("languageId");
+                for(var i=0;i<lanItems.length;i++){
+                	for(var j=0;j<lan.length;j++){
+                		if(lanItems[i].value==lan[j]){
+  	                        lanItems[i].checked=true;
+                      };
+                   };
+                };
+                //勾选烹饪
+                var cooking = [];
+                for(var i=0;i<data.data.cooking.length;i++){
+                	cooking.push(data.data.cooking[i].cookingId);
+                };
+                var cookingItems=document.getElementsByName("cookingId");
+                for(var i=0;i<cookingItems.length;i++){
+                	for(var j=0;j<cooking.length;j++){
+                		if(cookingItems[i].value==cooking[j]){
+  	                        cookingItems[i].checked=true;
+                      };
+                   };
+                };  
+                //勾选基本技能
+                var skill = [];
+                for(var i=0;i<data.data.skill.length;i++){
+                	skill.push(data.data.skill[i].skillId);
+                };
+                var skillItems=document.getElementsByName("skillId");
+                for(var i=0;i<skillItems.length;i++){
+                	for(var j=0;j<skill.length;j++){
+                		if(skillItems[i].value==skill[j]){
+  	                        skillItems[i].checked=true;
+                      };
+                   };
+                };
+                //勾选家用电器
+                var appliance = [];
+                for(var i=0;i<data.data.appliance.length;i++){
+                	appliance.push(data.data.appliance[i].applianceId);
+                };
+                var applianceItems=document.getElementsByName("applianceId");
+                for(var i=0;i<applianceItems.length;i++){
+                	for(var j=0;j<skill.length;j++){
+                		if(applianceItems[i].value==appliance[j]){
+  	                        applianceItems[i].checked=true;
+                      };
+                   };
+                }; 
+                //勾选岗位
+                var job = [];
+                for(var i=0;i<data.data.job.length;i++){
+                	job.push(data.data.job[i].jobId);
+                };
+                var jobItems=document.getElementsByName("jobId");
+                for(var i=0;i<jobItems.length;i++){
+                	for(var j=0;j<job.length;j++){
+                		if(jobItems[i].value==job[j]){
+  	                        jobItems[i].checked=true;
+                      };
+                   };
+                };
+                //勾选提供证件
+                var certificate = [];
+                for(var i=0;i<data.data.certificate.length;i++){
+                	certificate.push(data.data.certificate[i].certificateId);
+                };
+                var certificateItems=document.getElementsByName("certificateId");
+                for(var i=0;i<certificateItems.length;i++){
+                	for(var j=0;j<certificate.length;j++){
+                		if(certificateItems[i].value==certificate[j]){
+  	                        certificateItems[i].checked=true;
+                      };
+                   };
+                };
+                //获取紧急联系人
+                var val_contact;
+	            for(var i = 0; i < 1; i++) {
+		            val_contact += "<tr id='tr"+i+"'>"
+		                +"<td>姓名：<input type='text' name='cname' value='"+data.data.contact[i].cname+"'/></td>"
+		                +"<td>关系：<input type='text' name='relation' value='"+data.data.contact[i].relation+"'/></td>"
+		                +"<td>工作状况 : <input type='text' name='workstatus' value='"+data.data.contact[i].workstatus+"'/></td>"
+		                +"<td>联系电话：<input type='text' name='cphone' value='"+data.data.contact[i].cphone+"'/></td>"
+		                +"<td onClick='del_contact(this)'><button class='contact_del_btn' type='button' title='删除'/></td>"
+		            +"</tr>";
+	            };
+	            $(".contact_table").html(val_contact);
+                //获取工作经历 
+                var val_work;
+	            for(var i = 0; i<data.data.work.length; i++) {
+		            val_work += "<tr id='tr"+i+"'>"
+		                +"<td>起止时间：<input type='text' name='time' value='"+data.data.work[i].time+"'/></td>"
+		                +"<td>主要工作：<input type='text' name='work' value='"+data.data.work[i].work+"'/></td>"
+		                +"<td onClick='del_work(this)'><button class='contact_del_btn' type='button' title='删除'/></td>"
+		            +"</tr>";
+	            };
+	            $(".work_table").html(val_work);
+			} else {
+				alert(data.msg);
+			};
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+	});
+}; 
+
+//删除阿姨信息
+function deleteAunt(aid){
+	$.ajax({
+		type: "post",
+		url: mainUrl + "deleteAunt",
+		dataType: "json",
+		async: false,
+		cache: false,
+		data: {
+			id:aid
+		},
+		success: function(data) {
+			if(data.code == -999) {
+				if(confirm("用户登录已失效，是否重新登录？")) {
+					window.parent.location.href = "login.html";
+				}
+			} else if(data.code == 1) {
+				location.reload();
+			} else {
+				alert(data.msg);
+			}
+			//			console.log(JSON.stringify(data))
+			//			builderUQTQueryMsg(data);
+
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+	});
+	
 }
 
 /**
@@ -167,82 +909,41 @@ var optionCheckBoxes = function(data) {
 			currentCheck.attr("checked", false);
 		});
 	}
+};
+
+function changeTime(ts) { //时间戳转时间函数
+	//	var timestamp = new Date(parseInt(ts) * 1000).toLocaleString().replace(/年|月/g, "-").substr(0, 8);
+	var date = new Date(parseInt(ts) * 1000);
+	var seperator1 = "-";
+	var seperator2 = ":";
+	var month = date.getMonth() + 1;
+	var strDate = date.getDate();
+	var getHours = date.getHours(); //时
+	var getMinutes = date.getMinutes(); //分
+	var getSeconds = date.getSeconds(); //秒
+	if(month >= 1 && month <= 9) {
+		month = "0" + month;
+	}
+	if(strDate >= 0 && strDate <= 9) {
+		strDate = "0" + strDate;
+	}
+
+	if(getHours >= 1 && getHours <= 9) {
+		getHours = "0" + getHours;
+	}
+	if(getMinutes >= 1 && getMinutes <= 9) {
+		getMinutes = "0" + getMinutes;
+	}
+	if(getSeconds >= 1 && getSeconds <= 9) {
+		getSeconds = "0" + getSeconds;
+	}
+	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+		" " + getHours + seperator2 + getMinutes +
+		seperator2 + getSeconds;
+	//		$('#eTime').val(currentdate.substr(0,10));
+	return currentdate.substr(0, 10);
+
 }
-
-//修改客户信息
-function updateEmployer(eid, ename, econtent, ephone, eTime, eadress, ) {
-
-	//	alert(changeTime(eTime));
-	$('#id').val(eid);
-	$('#name').val(ename);
-	$('#phone').val(ephone);
-	$('#eTime').val(changeTime(eTime));
-	$('#adress').val(eadress);
-	$('#content').val(econtent);
-
-	$('#btn_employer_mod').click(function() {
-		if($("#id").val() == '' || $("#name").val() == '' || $("#phone").val() == '' || $("#eTime").val() == '' || $("#content").val() == '') {
-			alert("标有'*'号为必填信息");
-		} else if(!/^[0-9]*$/.test($("#phone").val())) {
-			alert("手机号码输入格式错误");
-		} else {
-			var formData = new FormData(document.getElementById("employer_mod"));
-			$.ajax({
-				type: "post",
-				url: mainUrl + "updateEmployer",
-				data: formData,
-				async: false,
-				cache: false,
-				contentType: false,
-				processData: false,
-				success: function(data) {
-					//							main_code(data.code,data.msg);
-					if(data.code == -999) {
-						if(confirm("用户登录已失效，是否重新登录？")) {
-							window.location.href = "login.html";
-						}
-					} else if(data.code == 1) {
-						$('#employer').modal('hide');
-						location.reload();
-					} else {
-						alert(data.msg);
-					}
-				},
-				error: function(data) {
-					alert("error");
-				}
-			});
-		};
-	});
-};
-
-//删除客户信息
-function deleteEmployer(eid) {
-	$.ajax({
-		type: "post",
-		url: mainUrl + "deleteEmployer",
-		data: {
-			id:eid
-		},
-		success: function(data) {
-			//							main_code(data.code,data.msg);
-			if(data.code == -999) {
-				if(confirm("用户登录已失效，是否重新登录？")) {
-					window.location.href = "login.html";
-				}
-			} else if(data.code == 1) {
-				location.reload();
-			} else {
-				alert(data.msg);
-			}
-		},
-		error: function(data) {
-			alert("error");
-		}
-	});
-};
-
-
 
 /*********************************列表分页***************************************/
 /**
@@ -251,7 +952,7 @@ function deleteEmployer(eid) {
  */
 var kkpager = {
 	//divID
-	pagerid: 'div_pager',
+	pagerid: 'aunt_pager',
 	//当前页码
 	pno: 1,
 	//总页码
@@ -523,39 +1224,27 @@ function getParameter(name) {
 	return null;
 };
 
-/*********************************列表分页***************************************/
+/*********************************列表分页（结束）***************************************/
 
 
-function changeTime(ts) { //时间戳转时间函数
-	//	var timestamp = new Date(parseInt(ts) * 1000).toLocaleString().replace(/年|月/g, "-").substr(0, 8);
-	var date = new Date(parseInt(ts) * 1000);
-	var seperator1 = "-";
-	var seperator2 = ":";
-	var month = date.getMonth() + 1;
-	var strDate = date.getDate();
-	var getHours = date.getHours(); //时
-	var getMinutes = date.getMinutes(); //分
-	var getSeconds = date.getSeconds(); //秒
-	if(month >= 1 && month <= 9) {
-		month = "0" + month;
-	}
-	if(strDate >= 0 && strDate <= 9) {
-		strDate = "0" + strDate;
-	}
-
-	if(getHours >= 1 && getHours <= 9) {
-		getHours = "0" + getHours;
-	}
-	if(getMinutes >= 1 && getMinutes <= 9) {
-		getMinutes = "0" + getMinutes;
-	}
-	if(getSeconds >= 1 && getSeconds <= 9) {
-		getSeconds = "0" + getSeconds;
-	}
-	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
-		" " + getHours + seperator2 + getMinutes +
-		seperator2 + getSeconds;
-	//		$('#eTime').val(currentdate.substr(0,10));
-	return currentdate.substr(0, 10);
-
+if(typeof FileReader == 'undefined') {
+	document.getElementById("xmTanDiv").InnerHTML = "<h1>当前浏览器不支持上传照片</h1>";
+	//使选择控件不可操作
+	document.getElementById("xdaTanFileImg").setAttribute("disabled", "disabled");
 }
+
+//选择图片，马上预览
+function onUpdateIcon(){
+	var fileObj = document.getElementById("auntFileImg");
+	fileObj.onchange = function(obj){
+		var file = fileObj.files[0];
+	var reader = new FileReader();
+	reader.onload = function(e) {
+	    var img = document.getElementById("xmTanImg");
+			img.src = e.target.result;
+			//或者 img.src = this.result;  //e.target == this
+	}
+    reader.readAsDataURL(file)
+	}
+	fileObj.click();
+};

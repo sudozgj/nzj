@@ -128,17 +128,17 @@ public class AuntDaoImp implements AuntDao {
 					stmt9.setLong(2, id);
 					stmt9.addBatch();
 					stmt9.executeBatch();
-					
-//					stmt1.close();
-//					stmt2.close();
-//					stmt3.close();
-//					stmt4.close();
-//					stmt5.close();
-//					stmt6.close();
-//					stmt7.close();
-//					stmt8.close();
-//					stmt9.close();
-//					conn.close();
+
+					// stmt1.close();
+					// stmt2.close();
+					// stmt3.close();
+					// stmt4.close();
+					// stmt5.close();
+					// stmt6.close();
+					// stmt7.close();
+					// stmt8.close();
+					// stmt9.close();
+					// conn.close();
 				}
 			});
 			ts.commit();
@@ -218,22 +218,22 @@ public class AuntDaoImp implements AuntDao {
 	@Override
 	public boolean updateAunt(Aunt l) {
 		try {
-			Session session  =HibernateSessionFactory.getSession();
+			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
+
 			session.update(l);
 			ts.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		}finally{
+		} finally {
 			HibernateSessionFactory.closeSession();
 		}
 	}
 
 	@Override
-	public List<VAuntId> getAuntList(Integer start, Integer limit,Long userId) {
+	public List<VAuntId> getAuntList(Integer start, Integer limit, Long userId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -242,23 +242,23 @@ public class AuntDaoImp implements AuntDao {
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.addEntity(VAunt.class);
 			sqlQuery.setParameter(0, userId);
-			if(start==null){
-				start=0;
+			if (start == null) {
+				start = 0;
 			}
 			sqlQuery.setFirstResult(start);
-			if(limit==null){
-				limit=15;
+			if (limit == null) {
+				limit = 15;
 				sqlQuery.setMaxResults(limit);
-			}else if(limit==-1){
-				
-			}else{
+			} else if (limit == -1) {
+
+			} else {
 				sqlQuery.setMaxResults(limit);
 			}
 			List<VAunt> li = sqlQuery.list();
 			List<VAuntId> list = new ArrayList<>();
-			for(VAunt a:li)
+			for (VAunt a : li)
 				list.add(a.getId());
-			
+
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -295,20 +295,44 @@ public class AuntDaoImp implements AuntDao {
 			Transaction ts = session.beginTransaction();
 
 			Query query;
-			query = session.createQuery("select count(id) from Aunt where userId=?");
+			query = session
+					.createQuery("select count(id) from Aunt where userId=?");
 			query.setParameter(0, userId);
-//			if(userId!=1){	//分部
-//				query = session.createQuery("select count(id) from Aunt where userId=?");
-//				query.setParameter(0, userId);
-//			}else{	//总部
-//				query = session.createQuery("select count(id) from Aunt");
-//			}
+			// if(userId!=1){ //分部
+			// query =
+			// session.createQuery("select count(id) from Aunt where userId=?");
+			// query.setParameter(0, userId);
+			// }else{ //总部
+			// query = session.createQuery("select count(id) from Aunt");
+			// }
 			query.setMaxResults(1);
 			Long count = (Long) query.uniqueResult();
 			return count;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1L;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public VAuntId getAuntById(Long id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			SQLQuery sqlQuery = session
+					.createSQLQuery("select * from v_aunt where id=? order by id desc");
+			sqlQuery.setParameter(0, id);
+			sqlQuery.addEntity(VAunt.class);
+			sqlQuery.setMaxResults(1);
+			VAunt v = (VAunt) sqlQuery.uniqueResult();
+			
+			return v.getId();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}

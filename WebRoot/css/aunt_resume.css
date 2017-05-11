@@ -1,29 +1,13 @@
-body {
-	color: #3d3b4f;
-}
-
 .divFrame {
-	margin: 50px auto;
-	width: 1002px;
+	width: 100%;
 	height: auto;
 	
 }
-.divFrame .clsHead {
-	background-color: #EEEEEE;
-	padding: 8px;
-	height: 30px;
-}
-
-.divFrame .clsHead h2 {
-	padding: 0px;
-	margin: 0;
-}
 
 .divFrame .aunt_basic_info{
-	width: 1000px;
+	width: 100%;
 	height: 900px;
 	border: 1px solid #f8bbd0;
-	
 }
 
 .basic_btn button{
@@ -43,13 +27,13 @@ body {
 .divFrame .aunt_basic_info_head {
 	background-color: #f8bbd0;
 	padding: 8px;
-	height: 20px;
+	height: 30px;
 }
 
 .divFrame .aunt_basic_info_head h4 {
 	padding: 0px;
 	margin: 0px;
-	width: 700px;
+	width: 60%;
 	float: left;
 }
 
@@ -71,20 +55,19 @@ body {
 
 .divFrame .aunt_basic_info_left{
 	float: left; 
-	width: 700px; 
+	width: 70%; 
 	height: 800px; 
 }
 
 .divFrame .aunt_basic_info_left table{
 	padding: 0 30px 0 30px;
-	width: 700px; 
+	width: 100%; 
 	height: 800px; 
-	
 }
 
 .divFrame .aunt_basic_info_right{
 	float: right; 
-	width: 300px; 
+	width: 30%; 
 	height: 725px; 
 	text-align: right;
 }
@@ -97,37 +80,38 @@ body {
 }
 .divFrame .aunt_basic_info_left tr{
 	height: 35px;
+	
 }
 
-td{ border-bottom:1pt #f8bbd0  dotted}
+td{ text-align: left; padding-left: 30px; border-bottom:1pt #f8bbd0  dotted}
 
 .divFrame table tr input[type=text]{
-	height: 22px;
+	height: 20px;
+	width: 120px;
 }
 
 .contact{
 	margin-top: 15px;
-	width: 1000px;
+	width: 100%;
 	height: auto;
 	border: 1px solid #f8bbd0;
 }
 
 .contact .contact_head{
 	background-color: #f8bbd0;
-	padding: 8px;
-	height: 20px;
+	padding: 5px;
+	height: 30px;
 }
 
 .contact .contact_head h4 {
 	padding: 0px;
 	margin: 0px;
-	width: 700px;
+	width: 70%;
 	float: left;
 }
 
 .contact .contact_head button {
-	padding: 0px;
-	margin: 0px;
+	
 	float: right;
 	width: 50px;
 	height: 20px;

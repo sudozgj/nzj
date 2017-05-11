@@ -64,4 +64,27 @@ public class UserDetailDaoImp implements UserDetailDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
+
+	@Override
+	public boolean getUserDetail(Long userId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("from UserDetail where userId=?");
+			query.setParameter(0, userId);
+			query.setMaxResults(1);
+			UserDetail ud = (UserDetail) query.uniqueResult();
+			
+			if(ud==null)
+				return false;
+			else
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
 }

@@ -20,25 +20,39 @@
 
 
 	<property name="myeclipse.connection.profile">nzj</property>
-	<mapping resource="org/model/Appliance.hbm.xml" />
 	<mapping resource="org/model/Aunt.hbm.xml" />
-	<mapping resource="org/model/AuntContact.hbm.xml" />
-	<mapping resource="org/model/AuntPhoto.hbm.xml" />
-	<mapping resource="org/model/AuntWork.hbm.xml" />
-	<mapping resource="org/model/Certificate.hbm.xml" />
+
+	<mapping resource="org/model/Appliance.hbm.xml" />
 	<mapping resource="org/model/Cooking.hbm.xml" />
 	<mapping resource="org/model/Job.hbm.xml" />
 	<mapping resource="org/model/Language.hbm.xml" />
 	<mapping resource="org/model/Skill.hbm.xml" />
+	<mapping resource="org/model/Certificate.hbm.xml" />
+
+	<mapping resource="org/model/AuntContact.hbm.xml" />
+	<mapping resource="org/model/AuntPhoto.hbm.xml" />
+	<mapping resource="org/model/AuntWork.hbm.xml" />
+
 	<mapping resource="org/model/User.hbm.xml" />
 	<mapping resource="org/model/UserDetail.hbm.xml" />
+	<mapping resource="org/model/UserLink.hbm.xml" />
+	<mapping resource="org/model/UserCheck.hbm.xml" />
+
 	<mapping resource="org/model/Employer.hbm.xml" />
+
 	<mapping resource="org/model/Pact.hbm.xml" />
 	<mapping resource="org/model/PactTracking.hbm.xml" />
-	<mapping resource="org/model/UserLink.hbm.xml" />
+
 
 	<mapping resource="org/view/VAunt.hbm.xml" />
 	<mapping resource="org/view/VUser.hbm.xml" />
+	
+	<mapping resource="org/view/VAppliance.hbm.xml" />
+	<mapping resource="org/view/VCertificate.hbm.xml" />
+	<mapping resource="org/view/VCooking.hbm.xml" />
+	<mapping resource="org/view/VJob.hbm.xml" />
+	<mapping resource="org/view/VLanguage.hbm.xml" />
+	<mapping resource="org/view/VSkill.hbm.xml" />
 
 </session-factory>
 

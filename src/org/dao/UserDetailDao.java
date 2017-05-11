@@ -26,4 +26,10 @@ public interface UserDetailDao {
 	 * @return
 	 */
 	public UserDetail getUserDetail(String username);
+	/**
+	 * 4.2查看该用户（通过用户id）是否完善过用户信息,true表示完善过用户信息
+	 * @param userId
+	 * @return
+	 */
+	public boolean getUserDetail(Long userId);
 }

@@ -1,5 +1,6 @@
 package org.dao.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dao.CertificateDao;
@@ -10,6 +11,10 @@ import org.hibernate.Transaction;
 import org.model.Certificate;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VAppliance;
+import org.view.VApplianceId;
+import org.view.VCertificate;
+import org.view.VCertificateId;
 
 @Service
 public class CertificateDaoImp implements CertificateDao{
@@ -88,13 +93,19 @@ public class CertificateDaoImp implements CertificateDao{
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select c.name from aunt_certificate ac,certificate c where ac.certificate_id=c.id and ac.aunt_id=?";
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
+//			String sql = "select c.name from aunt_certificate ac,certificate c where ac.certificate_id=c.id and ac.aunt_id=?";
+			
+			SQLQuery sqlQuery = session.createSQLQuery("select * from v_certificate where aunt_id=?");
 			sqlQuery.setParameter(0, auntId);
 			
-			List li = sqlQuery.list();
-			
-			return li;
+			sqlQuery.addEntity(VCertificate.class);
+
+			List<VCertificate> li = sqlQuery.list();
+			List<VCertificateId> list = new ArrayList<>();
+			for (VCertificate v : li) {
+				list.add(v.getId());
+			}
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

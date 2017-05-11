@@ -107,5 +107,11 @@ public class AuntController {
 			@RequestParam("file") CommonsMultipartFile file)throws Exception{
 		return aService.updateAuntPhoto(request, AuntId, file);
 	}
+
+	@RequestMapping("/getAuntById")
+	@ResponseBody
+	public Object getAuntById(Long id)throws Exception{
+		return aService.getAuntById(id);
+	}
 	
 }

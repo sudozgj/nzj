@@ -205,4 +205,58 @@ public class UserDaoImp implements UserDao {
 		}
 	}
 
+	@Override
+	public List getAckUserList(Integer start, Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			SQLQuery sqlQuery = session.createSQLQuery("select * from v_user where ack=1 order by id desc");
+			sqlQuery.addEntity(VUser.class);
+			
+			if (start == null) {
+				start = 0;
+			}
+			sqlQuery.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				sqlQuery.setMaxResults(limit);
+			}else if(limit==-1){
+				
+			}else{
+				sqlQuery.setMaxResults(limit);
+			}
+			
+			List<VUser> li = sqlQuery.list();
+			List<VUserId> list = new ArrayList<>();
+			for(VUser v:li){
+				list.add(v.getId());
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Long getAckUserCount() {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query= session.createQuery("select count(u.id.id) from VUser u where u.id.ack=1 order by u.id.rank");
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+	
 }

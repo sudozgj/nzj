@@ -54,4 +54,10 @@ public interface AuntDao {
 	 * @return
 	 */
 	public Long getAuntCount(Long userId);
+	/**
+	 * 4.4通过阿姨id获取阿姨，返回的是视图
+	 * @param id
+	 * @return
+	 */
+	public VAuntId getAuntById(Long id);
 }

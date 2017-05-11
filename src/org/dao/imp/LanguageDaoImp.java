@@ -1,5 +1,6 @@
 package org.dao.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dao.LanguageDao;
@@ -11,6 +12,8 @@ import org.model.Language;
 import org.model.User;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VLanguage;
+import org.view.VLanguageId;
 
 @Service
 public class LanguageDaoImp implements LanguageDao {
@@ -89,13 +92,17 @@ public class LanguageDaoImp implements LanguageDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select l.name from aunt_language al,language l where al.language_id=l.id and al.aunt_id=?";
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
+//			String sql = "select l.id,l.name from aunt_language al,language l where al.language_id=l.id and al.aunt_id=?";
+			SQLQuery sqlQuery = session.createSQLQuery("select * from v_language where aunt_id=?");
 			sqlQuery.setParameter(0, auntId);
+			sqlQuery.addEntity(VLanguage.class);
 			
-			List li = sqlQuery.list();
-			
-			return li;
+			List<VLanguage> li = sqlQuery.list();
+			List<VLanguageId> list = new ArrayList<>();
+			for(VLanguage v:li){
+				list.add(v.getId());
+			}
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

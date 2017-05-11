@@ -12,12 +12,30 @@ function login() {
 		},
 		success: function(data) {
 			if(data.code=='1'){
-				mainCode = data.code;
-				SetCookie('name', data.msg);
+				//mainCode = data.code;
+				//SetCookie('name', data.msg);
                  location.href = "index.html";
+			}else if(data.code=='-1'){
+				alert(data.msg);
+				location.href = "checkUserDetail.html";
 			}else{
 				$('.loginMsg').html(data.msg);
 			}
+		},
+		error: function(jqXHR) {
+			$('.loginMsg').html('网络异常');
+		}
+	});
+}
+
+function youkeLogin(){
+	$.ajax({
+		type: "post",
+		url: "logout",
+		dataType: "json",
+		cache: false,
+		success: function(data) {
+			location.href="index.html";
 		},
 		error: function(jqXHR) {
 			$('.loginMsg').html('网络异常');
