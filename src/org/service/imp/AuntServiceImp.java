@@ -138,40 +138,7 @@ public class AuntServiceImp implements AuntService {
 		if (u != null) {
 			List<VAuntId> li = aDao.getAuntList(start, limit, u.getId());
 			Long count = aDao.getAuntCount(u.getId());
-//			List list = new ArrayList();
-//			for (VAuntId va : li) {
-//				Map<String, Object> aMap = new HashMap();
-//				Long auntId = va.getId(); // 阿姨id
-//				aMap.put("id", va.getId());
-//				aMap.put("name", va.getName());
-//				aMap.put("age", va.getAge());
-//				aMap.put("sign", va.getSign());
-//				aMap.put("native", va.getNative_());
-//				aMap.put("sex", va.getSex());
-//				aMap.put("education", va.getEducation());
-//				aMap.put("marriage", va.getMarriage());
-//				aMap.put("nation", va.getNation());
-//				aMap.put("height", va.getHeight());
-//				aMap.put("weight", va.getWeight());
-//				aMap.put("sigh", va.getSigh());
-//				aMap.put("idnumber", va.getIdnumber());
-//				aMap.put("phone", va.getPhone());
-//				aMap.put("address", va.getAddress());
-//				aMap.put("url", va.getUrl()); // 照片通过视图组合进来了，不需要像下面一下添加
-//				aMap.put("userId", va.getUserId());
-//
-//				aMap.put("language", lDao.getLanguageByAuntId(auntId));
-//				aMap.put("cooking", cDao.getCookingByAuntId(auntId));
-//				aMap.put("skill", sDao.getSkillByAuntId(auntId));
-//				aMap.put("appliance", apDao.getApplianceByAuntId(auntId));
-//				aMap.put("certificate", ceDao.getCertificateByAuntId(auntId));
-//				aMap.put("job", jDao.getJobByAuntId(auntId));
-//
-//				aMap.put("contact", acDao.getContactByAuntId(auntId));
-//				aMap.put("work", awDao.getWorkByAuntId(auntId));
-//
-//				list.add(aMap);
-//			}
+
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("result", li);
 			map.put("count", count);
@@ -317,15 +284,6 @@ public class AuntServiceImp implements AuntService {
 		aMap.put("url", v.getUrl()); // 照片通过视图组合进来了，不需要像下面一下添加
 		aMap.put("userId", v.getUserId());
 		
-//		List<Object[]> lList = lDao.getLanguageByAuntId(aid);
-//		Map<String, Object> lm= new HashMap<String, Object>();
-//		List ll = new ArrayList<>();
-//		for(Object[] ol:lList){
-//			lm.put("id", ol[0]);
-//			lm.put("name", ol[1]);
-//			ll.add(lm);
-//		}
-//		aMap.put("language", ll);
 		
 		aMap.put("language", lDao.getLanguageByAuntId(aid));
 		aMap.put("cooking", cDao.getCookingByAuntId(aid));

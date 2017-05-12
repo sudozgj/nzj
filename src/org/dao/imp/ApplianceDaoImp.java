@@ -44,6 +44,9 @@ public class ApplianceDaoImp implements ApplianceDao {
 			Transaction ts = session.beginTransaction();
 			Appliance l = (Appliance) session.load(Appliance.class, id);
 			session.delete(l);
+			
+//			Query query = session.createQuery("delete from table");
+			
 			ts.commit();
 			return true;
 		} catch (Exception e) {

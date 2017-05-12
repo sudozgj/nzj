@@ -35,7 +35,7 @@ $(function() {
 				 	Languages += "<input type='checkbox' value="+data.data[i].id+" name='languageId'/>"+data.data[i].name+"&nbsp;&nbsp;&nbsp;&nbsp;";
 //				 }
           }
-			$("#tdLanguages").html(Languages+"<button type='button' id='modLanguage' class='btn btn-info' onclick='modLanguage()'>保存</button>");
+			$("#tdLanguages").html(Languages+"<button type='button' id='modLanguage' class='btn btn-info' style='float: right;' onclick='modLanguage()'>保存</button>");
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -58,7 +58,7 @@ $(function() {
 				 	CookingId += "<input type='checkbox' value='"+data.data[i].id+"' name='cookingId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 //				 }
           }
-			$("#tdCookingId").html(CookingId+"<button type='button' id='modCooking' class='btn btn-info' onclick='modCooking()'>保存</button>");
+			$("#tdCookingId").html(CookingId+"<button type='button' id='modCooking' class='btn btn-info' style='float: right;' onclick='modCooking()'>保存</button>");
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -81,7 +81,7 @@ $(function() {
 				 	SkillId += "<input type='checkbox' value='"+data.data[i].id+"' name='skillId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 //				 }
           }
-			$("#tdSkillId").html(SkillId+"<button type='button' id='modSkill' class='btn btn-info' onclick='modSkill()'>保存</button>");
+			$("#tdSkillId").html(SkillId+"<button type='button' id='modSkill' class='btn btn-info' style='float: right;' onclick='modSkill()'>保存</button>");
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -104,7 +104,7 @@ $(function() {
 				 	ApplianceId += "<input type='checkbox' value='"+data.data[i].id+"' name='applianceId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 //				 }
           }
-			$("#tdApplianceId").html(ApplianceId+"<button type='button' id='modAppliance' class='btn btn-info' onclick='modAppliance()'>保存</button>");
+			$("#tdApplianceId").html(ApplianceId+"<button type='button' id='modAppliance' class='btn btn-info' style='float: right;' onclick='modAppliance()'>保存</button>");
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -127,7 +127,7 @@ $(function() {
 				 	JobId += "<input type='checkbox' value='"+data.data[i].id+"' name='jobId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 //				 }
           }
-			$("#tdJobId").html(JobId+"<button type='button' id='modJob' class='btn btn-info' onclick='modJob()'>保存</button>");
+			$("#tdJobId").html(JobId+"<button type='button' id='modJob' class='btn btn-info' style='float: right;' onclick='modJob()'>保存</button>");
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -150,7 +150,7 @@ $(function() {
 				 	CertificateId += "<input type='checkbox' value='"+data.data[i].id+"' name='certificateId'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 //				 }
           }
-			$("#tdCertificateId").html(CertificateId+"<button type='button' id='modCertificate' class='btn btn-info' onclick='modCertificate()'>保存</button>");
+			$("#tdCertificateId").html(CertificateId+"<button type='button' id='modCertificate' class='btn btn-info' style='float: right;'  onclick='modCertificate()'>保存</button>");
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -245,9 +245,9 @@ $(function() {
 							window.location.href = "login.html";
 						}
 					} else if(data.code == 1) {
-						$('#aunt').modal('hide');
-						location.reload();
-						alert('添加成功');
+//						$('#aunt').modal('hide');
+//						location.reload();
+						alert('修改成功');
 					} else {
 						alert(data.msg);
 					}
@@ -256,8 +256,24 @@ $(function() {
 					alert("error");
 				}
 			});
+	
 	});
 });
+//function onaa(){
+//	alert('a');
+//	   if($('#auntIcon').html()=='修改阿姨照片'){
+//		var self = this;
+//		var appform = document.getElementById('divFrame');
+//		var fileObj = document.getElementById("auntFileImg").files[0];
+//		var formData = new FormData();
+//		formData.append('AuntId', appform.id.value);
+//		formData.append('file', fileObj);
+//		if(!self.appUploadXHR){self.appUploadXHR = null;}
+//		  self.appUploadXHR=new XMLHttpRequest();
+//		  self.appUploadXHR.open("POST", mainUrl + "updateAuntPhoto");
+//		  self.appUploadXHR.send(formData);	
+//	};
+//}
 //修改语言
 function modLanguage(){
 	var appform = document.getElementById('divFrame');
@@ -489,6 +505,7 @@ function addAunt(){
 	 $('#modAppliance').hide();
 	 $('#modJob').hide();
 	 $('#modCertificate').hide();
+	 $('#auntIcon').html('添加阿姨照片');
 //初始化紧急联系人
     var tb = document.getElementById('contact_table');
      var rowNum=tb.rows.length;
@@ -712,6 +729,7 @@ function updateAunt(aid){
 	$('#modAppliance').show();
 	$('#modJob').show();
 	$('#modCertificate').show();
+	$('#auntIcon').html('修改阿姨照片');
 	$.ajax({
 		type: "post",
 		url: mainUrl + "getAuntById",
@@ -1242,9 +1260,24 @@ function onUpdateIcon(){
 	reader.onload = function(e) {
 	    var img = document.getElementById("xmTanImg");
 			img.src = e.target.result;
+			//上传阿姨照片
+	        if($('#auntIcon').html()=='修改阿姨照片'){
+		        var self = this;
+		        var appform = document.getElementById('divFrame');
+		        var fileObj = document.getElementById("auntFileImg").files[0];
+		        var formData = new FormData();
+		        formData.append('AuntId', appform.id.value);
+		        formData.append('file', fileObj);
+		        if(!self.appUploadXHR){self.appUploadXHR = null;}
+		        self.appUploadXHR=new XMLHttpRequest();
+		        self.appUploadXHR.open("POST", mainUrl + "updateAuntPhoto");
+		        self.appUploadXHR.send(formData);	
+	        };
 			//或者 img.src = this.result;  //e.target == this
 	}
     reader.readAsDataURL(file)
 	}
 	fileObj.click();
 };
+
+

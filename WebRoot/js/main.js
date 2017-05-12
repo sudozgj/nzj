@@ -1,7 +1,7 @@
 //var mainUrl = "http://192.168.1.1.226:8080/nzj/";
 var mainUrl = "";
 $(document).ready(function() {
-	setInterval(check_login, 900000);
+	
 	for(var i = 0; i < 3; i++) {
 		$('.nannyUl').append("<li id='nannyUl" + i + "' class='nannyClass'><img class='nannyUlImg' src='image/" + (i + 1) + ".png' /><a style='margin-left: 30px;' href='#a" + i + "'>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a></li>")
 	}

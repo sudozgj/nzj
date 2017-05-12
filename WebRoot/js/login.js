@@ -1,6 +1,7 @@
 function login() {
 	var username = $('.username').val();
 	var password = $('.password').val();
+	var md5 = hex_md5(password+'nzj');
 	$.ajax({
 		type: "post",
 		url: "login",
@@ -8,7 +9,7 @@ function login() {
 		cache: false,
 		data: {
 			'phone': username,
-			'password':password,
+			'password':md5,
 		},
 		success: function(data) {
 			if(data.code=='1'){

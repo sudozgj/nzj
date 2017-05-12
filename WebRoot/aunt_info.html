@@ -129,6 +129,7 @@
 										<tr>
 											<td colspan="2">
 												<span class="red">*</span><label>家庭地址:&nbsp;&nbsp;</label><input type="text" style="width: 300px;" name="address" />
+												&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="btn_aunt_mod" class="btn btn-info" style="border: none;outline: none;">提交更改</button>
 											</td>
 										</tr>
 										<tr>
@@ -161,7 +162,8 @@
 									<img alt="" src="image/u196.png" class="aunt_img" id="xmTanImg" />
 			                        <div id="xmTanDiv"></div>
 									<input type="file" id="auntFileImg" name="file" class="aunt_img_btn" accept="image/*" style="display: none;"/>
-									<button type="button" class="btn btn-info" style="margin: 10px 100px 0 0;" onclick="onUpdateIcon()">上传照片</button>
+									<button type="button" class="btn btn-info" id="auntIcon" style="margin: 10px 85px 0 0;" onclick="onUpdateIcon()">上传照片</button>
+									<!--<button type="button" class="btn btn-info" id="modIcon" style="margin: 10px 85px 0 0;" onclick="modIcon()">修改照片</button>-->
 								</div>
 							</div>
                             <!--
@@ -201,9 +203,6 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-				</button>
-						<button type="button" id="btn_aunt_mod" class="btn btn-info" style="border: none;outline: none;">
-					提交更改
 				</button>
 						<button type="button" id="btn_aunt_add" class="btn btn-info">
 					添加

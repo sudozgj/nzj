@@ -53,7 +53,7 @@ public class UserServiceImp implements UserService {
 			return JsonObject.getResult(0, "验证码错误", false);
 		} else {
 			if (uDao.getUser(u.getPhone()) != null) {
-				return JsonObject.getResult(0, "该手机已注册", false);
+				return JsonObject.getResult(-1, "该手机已注册", false);
 			} else {
 				u.setAck(0);
 				u.setClock(new Date().getTime() / 1000);
@@ -65,7 +65,7 @@ public class UserServiceImp implements UserService {
 				if (id != -1) {
 					return JsonObject.getResult(1, "注册成功", id);
 				} else
-					return JsonObject.getResult(0, "注册失败", false);
+					return JsonObject.getResult(-2, "注册失败", false);
 			}
 		}
 	}
@@ -77,7 +77,7 @@ public class UserServiceImp implements UserService {
 			if (u.getAck() != 1) { // 判断账号是否通过审核，没有的话等待审核，或修改用户信息
 				u.setPassword("******");
 				session.setAttribute("user", u); // 用于前往审核进度页面，保留一个id
-				return JsonObject.getResult(-1, "该账号未审核或审核不通过", u.getId());
+				return JsonObject.getResult(-1, "该账号尚未通过审核", u.getId());
 			} else { // 已通过审核
 				u.setPassword("******");
 				session.setAttribute("user", u);

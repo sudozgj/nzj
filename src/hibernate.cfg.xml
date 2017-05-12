@@ -43,16 +43,19 @@
 	<mapping resource="org/model/Pact.hbm.xml" />
 	<mapping resource="org/model/PactTracking.hbm.xml" />
 
+	<mapping resource="org/model/ShareAunt.hbm.xml" />
+	<mapping resource="org/model/ShareEmployer.hbm.xml" />
 
 	<mapping resource="org/view/VAunt.hbm.xml" />
 	<mapping resource="org/view/VUser.hbm.xml" />
-	
+
 	<mapping resource="org/view/VAppliance.hbm.xml" />
 	<mapping resource="org/view/VCertificate.hbm.xml" />
 	<mapping resource="org/view/VCooking.hbm.xml" />
 	<mapping resource="org/view/VJob.hbm.xml" />
 	<mapping resource="org/view/VLanguage.hbm.xml" />
 	<mapping resource="org/view/VSkill.hbm.xml" />
+	
 
 </session-factory>
 

@@ -21,6 +21,142 @@ $(function() {
 	kkpager.generPageHtml();
 
 });
+
+//删除合同信息
+function deleteJointrace(jid) {
+	$.ajax({
+		type: "post",
+		url: mainUrl + "deletePact",
+		data: {
+			id:jid
+		},
+		success: function(data) {
+			//							main_code(data.code,data.msg);
+			if(data.code == -999) {
+				if(confirm("用户登录已失效，是否重新登录？")) {
+					window.location.href = "login.html";
+				}
+			} else if(data.code == 1) {
+//				location.reload();
+                alert('删除合同成功');
+			} else {
+				alert(data.msg);
+			}
+		},
+		error: function(data) {
+			alert("error");
+		}
+	});
+};
+
+//添加合同信息
+function addJoin_trace() {
+        $("input[type=reset]").trigger("click");
+		$('#addjoinTraceLabel').html('添加合同');
+		$('#btn_join_trace_add').click(function() {
+//		if($("#name").val() == '' || $("#phone").val() == '' || $("#eTime").val() == '' || $("#content").val() == '') {
+//			alert("标有'*'号为必填信息");
+//		} else if(!/^[0-9]*$/.test($("#phone").val())) {
+//			alert("手机号码输入格式错误");
+//		} else {
+			var formData = new FormData(document.getElementById("addjoinTraceForm"));
+			$.ajax({
+				type: "post",
+				url: mainUrl + "addPact",
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(data) {
+					//							main_code(data.code,data.msg);
+					if(data.code == -999) {
+						if(confirm("用户登录已失效，是否重新登录？")) {
+							window.location.href = "login.html";
+						}
+					} else if(data.code == 1) {
+						$('#joinTrace').modal('hide');
+						location.reload();
+						alert('添加成功');
+					} else {
+						alert(data.msg);
+					}
+				},
+				error: function(data) {
+					alert("error");
+				}
+			});
+//		};
+	});
+};
+
+
+//修改合同
+function updateJointrace(eachData){
+	 $("input[type=reset]").trigger("click");
+	$('#modjoinTraceLabel').html('修改合同信息表');
+    $('#id').val(eachData.id);
+    $('#userId').val(eachData.userId);
+    $('.code').val(eachData.code);
+    $('.eTime').val(changeTime(eachData.ptime));
+    $('.ename').val(eachData.ename);
+    $('.ephone').val(eachData.ephone);
+    $('.eaddress').val(eachData.eaddress);
+    $('.econtent').val(eachData.econtent);
+    $('.duration').val(eachData.duration);
+    $('.cost').val(eachData.cost);
+    $('.aname').val(eachData.aname);
+    $('.aphone').val(eachData.aphone);
+    $('.time').val(eachData.time);
+    $('.salary').val(eachData.salary);
+    $('.remark').val(eachData.remark);
+    $('#btn_pact_trace_mod').click(function() {
+////		if($("#name").val() == '' || $("#phone").val() == '' || $("#eTime").val() == '' || $("#content").val() == '') {
+////			alert("标有'*'号为必填信息");
+////		} else if(!/^[0-9]*$/.test($("#phone").val())) {
+////			alert("手机号码输入格式错误");
+////		} else {
+			var formData = new FormData(document.getElementById("modjoinTraceForm"));
+			$.ajax({
+				type: "post",
+				url: mainUrl + "updatePact",
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(data) {
+					//							main_code(data.code,data.msg);
+					if(data.code == -999) {
+						if(confirm("用户登录已失效，是否重新登录？")) {
+							window.location.href = "login.html";
+						}
+					} else if(data.code == 1) {
+						$('#modjoinTraceLabel').modal('hide');
+						location.reload();
+						alert('修改成功');
+					} else {
+						alert(data.msg);
+					}
+				},
+				error: function(data) {
+					alert("error");
+				}
+			});
+////		};
+	});
+};
+
+
+//输入框验证
+function onVerify(obj,hint){
+	var hintObj = document.getElementById(hint);
+	hintObj.innerText='唐斌'; 
+	 console.log('innerText cont= '+ hintObj.innerText); 
+};
+
+/*********************************列表分页***************************************/
+
 /**
  * 获取总页数
  * @returns {number}
@@ -119,24 +255,26 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			tr.css('background-color', '#FFFFFF');
 		};
 		var listId = eachData.id;
-		listTime = eachData.time;
+		listTime = eachData.ptime;
 		var listCode = eachData.code;
 		var listEname = eachData.ename;
 		var listEphone = eachData.ephone;
         var listAname = eachData.aname;
 		var listAphone = eachData.aphone;
-		tr.append("<td class='chi_name'><span class='fuxuan' ><input type='checkbox' id='tottleSe_'" + listId + "/></span>" + listId + "</td>" +
-			"<td class='eng_name'>" + changeTime(listTime) + "</td>" +
-			"<td class='query_pro'>" + listCode + "</td>" +
-			"<td class='match_type'>" + listEname + "</td>" +
-			"<td class='match_type'>" + listEphone + "</td>" +
-			"<td class='match_type'>" + listAname + "</td>" +
-			"<td class='match_type'>" + listAphone + "</td>" +
-			"<td class='dis_dta'>" +
-			"<a class='editOp' href='' data-toggle='modal' data-target='#employer' onclick='updateJointrace()'>修改</a>" +
-			"<a class='editOp' href='javascript:void(0);' onclick='deleteJointrace(" + listId + ")'>删除</a>" +
-			"</td>" +
-			"<td class='dis_hidden' style='display: none'></td>"
+		tr.append("<td class='chi_name'><span class='fuxuan' ><input type='checkbox' id='tottleSe_'" + listId + "/></span>" + listId + "</td>" 
+			+"<td class='eng_name'>" + changeTime(listTime) + "</td>" 
+			+"<td class='query_pro'>" + listCode + "</td>" 
+			+"<td class='match_type'>" + listEname + "</td>" 
+			+"<td class='match_type'>" + listEphone + "</td>" 
+			+"<td class='match_type'>" + listAname + "</td>" 
+			+"<td class='match_type'>" + listAphone + "</td>" 
+			+"<td class='dis_dta'>" 
+			+"<a class='editOp' href='' data-toggle='modal' data-target='#modjoinTrace' onclick='updateJointrace("+JSON.stringify(eachData)+")'>修改</a>" 
+			+"<a class='editOp' href='javascript:void(0);' onclick='deleteJointrace(" + listId + ")'>删除</a>" 
+			+"</td>" 
+			+"<td class='dis_hidden' style='display: none'>"
+			
+			+"</td>"
 		);
 		UQT_detailTable.append(tr);
 	});
@@ -166,132 +304,6 @@ var optionCheckBoxes = function(data) {
 		});
 	}
 }
-
-//添加客户信息
-function addEmployer() {
-	$('#id').val("");
-	$('#name').val("");
-	$('#phone').val("");
-	$('#eTime').val("");
-	$('#adress').val("");
-	$('#content').val("");
-	if($('#name').val()==null||$('#name').val()==''){
-		$('#myModalLabel').html('添加客户信息');
-		$('#btn_employer_add').show();
-		$('#btn_employer_mod').hide();
-		$('#btn_employer_add').click(function() {
-		if($("#name").val() == '' || $("#phone").val() == '' || $("#eTime").val() == '' || $("#content").val() == '') {
-			alert("标有'*'号为必填信息");
-		} else if(!/^[0-9]*$/.test($("#phone").val())) {
-			alert("手机号码输入格式错误");
-		} else {
-			var formData = new FormData(document.getElementById("employer_mod"));
-			$.ajax({
-				type: "post",
-				url: mainUrl + "addEmployer",
-				data: formData,
-				async: false,
-				cache: false,
-				contentType: false,
-				processData: false,
-				success: function(data) {
-					//							main_code(data.code,data.msg);
-					if(data.code == -999) {
-						if(confirm("用户登录已失效，是否重新登录？")) {
-							window.location.href = "login.html";
-						}
-					} else if(data.code == 1) {
-						$('#employer').modal('hide');
-						location.reload();
-					} else {
-						alert(data.msg);
-					}
-				},
-				error: function(data) {
-					alert("error");
-				}
-			});
-		};
-	});
-	}
-};
-
-//修改客户信息
-function updateEmployer(eid, ename, econtent, ephone, eTime, eadress) {
-
-	//	alert(changeTime(eTime));
-	$('#id').val(eid);
-	$('#name').val(ename);
-	$('#phone').val(ephone);
-	$('#eTime').val(changeTime(eTime));
-	$('#adress').val(eadress);
-	$('#content').val(econtent);
-	if($('#name').val()!=null||$('#name').val()!=''){
-		$('#myModalLabel').html('修改客户信息');
-		$('#btn_employer_add').hide();
-		$('#btn_employer_mod').show();
-	    $('#btn_employer_mod').click(function() {
-		if($("#name").val() == '' || $("#phone").val() == '' || $("#eTime").val() == '' || $("#content").val() == '') {
-			alert("标有'*'号为必填信息");
-		} else if(!/^[0-9]*$/.test($("#phone").val())) {
-			alert("手机号码输入格式错误");
-		} else {
-			var formData = new FormData(document.getElementById("employer_mod"));
-			$.ajax({
-				type: "post",
-				url: mainUrl + "updateEmployer",
-				data: formData,
-				async: false,
-				cache: false,
-				contentType: false,
-				processData: false,
-				success: function(data) {
-					//							main_code(data.code,data.msg);
-					if(data.code == -999) {
-						if(confirm("用户登录已失效，是否重新登录？")) {
-							window.location.href = "login.html";
-						}
-					} else if(data.code == 1) {
-						$('#employer').modal('hide');
-						location.reload();
-					} else {
-						alert(data.msg);
-					}
-				},
-				error: function(data) {
-					alert("error");
-				}
-			});
-		};
-	});
-	};
-};
-
-//删除客户信息
-function deleteEmployer(eid) {
-	$.ajax({
-		type: "post",
-		url: mainUrl + "deleteEmployer",
-		data: {
-			id:eid
-		},
-		success: function(data) {
-			//							main_code(data.code,data.msg);
-			if(data.code == -999) {
-				if(confirm("用户登录已失效，是否重新登录？")) {
-					window.location.href = "login.html";
-				}
-			} else if(data.code == 1) {
-				location.reload();
-			} else {
-				alert(data.msg);
-			}
-		},
-		error: function(data) {
-			alert("error");
-		}
-	});
-};
 
 function changeTime(ts) { //时间戳转时间函数
 	//	var timestamp = new Date(parseInt(ts) * 1000).toLocaleString().replace(/年|月/g, "-").substr(0, 8);
@@ -327,7 +339,6 @@ function changeTime(ts) { //时间戳转时间函数
 
 }
 
-/*********************************列表分页***************************************/
 /**
  * Created by huipu on 2016/1/28.
  *	分页插件
