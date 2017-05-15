@@ -58,4 +58,11 @@ public class ShareEmployerController {
 	public Object setUnShareEmployer(long id)throws Exception{
 		return seService.setUnShareEmployer(id);
 	}
+	
+	@RequestMapping("/getAllShareEmployerList")
+	@ResponseBody
+	public Object getAllShareAuntList(Integer start, Integer limit)
+			throws Exception {
+		return seService.getAllShareEmployerList(start, limit);
+	}
 }

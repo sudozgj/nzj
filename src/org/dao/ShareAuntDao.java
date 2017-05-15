@@ -40,4 +40,25 @@ public interface ShareAuntDao {
 	 * @return
 	 */
 	public List getShareAuntList(Integer share,Integer start, Integer limit,Long userId);
+	/**
+	 * 4.2获取全部的已共享的阿姨列表
+	 * @param share
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List getAllShareAuntList(Integer share,Integer start,Integer limit);
+	/**
+	 * 4.3获取自己的共享或未共享的列表数目
+	 * @param userId
+	 * @param share
+	 * @return
+	 */
+	public Long getShareAuntCount(Long userId,Integer share);
+	/**
+	 * 4.4获取全部共享的数目
+	 * @param share
+	 * @return
+	 */
+	public Long getAllShareAuntCount(Integer share);
 }

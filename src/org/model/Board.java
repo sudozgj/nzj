@@ -9,8 +9,9 @@ public class Board implements java.io.Serializable {
 	// Fields
 
 	private Long id;
-	private String name;
+	private String title;
 	private String description;
+	private String name;
 	private Long time;
 	private String url;
 
@@ -21,16 +22,19 @@ public class Board implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Board(String name, Long time, String url) {
+	public Board(String title, String name, Long time, String url) {
+		this.title = title;
 		this.name = name;
 		this.time = time;
 		this.url = url;
 	}
 
 	/** full constructor */
-	public Board(String name, String description, Long time, String url) {
-		this.name = name;
+	public Board(String title, String description, String name, Long time,
+			String url) {
+		this.title = title;
 		this.description = description;
+		this.name = name;
 		this.time = time;
 		this.url = url;
 	}
@@ -45,12 +49,12 @@ public class Board implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return this.name;
+	public String getTitle() {
+		return this.title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
@@ -59,6 +63,14 @@ public class Board implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Long getTime() {

@@ -94,7 +94,7 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 			}
 
 			List<ShareAunt> li = query.list();
-			
+
 			return li;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,19 +109,100 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("update ShareAunt s set s.share=?,s.time=? where s.id=?");
+
+			Query query = session
+					.createQuery("update ShareAunt s set s.share=?,s.time=? where s.id=?");
 			query.setParameter(0, share);
-			query.setParameter(1, new Date().getTime()/1000);
+			query.setParameter(1, new Date().getTime() / 1000);
 			query.setParameter(2, id);
 			query.executeUpdate();
-			
+
 			ts.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		}finally{
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List getAllShareAuntList(Integer share, Integer start, Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("from ShareAunt where share=? order by id desc");
+			query.setParameter(0, share);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				query.setMaxResults(limit);
+			} else if (limit == -1) {
+
+			} else {
+				query.setMaxResults(limit);
+			}
+
+			List<ShareAunt> li = query.list();
+
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Long getShareAuntCount(Long userId, Integer share) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("select count(id) from ShareAunt where userId=? and share=?");
+
+			query.setParameter(0, userId);
+			query.setParameter(1, share);
+			
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+			
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Long getAllShareAuntCount(Integer share) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("select count(id) from ShareAunt where share=?");
+
+			query.setParameter(0, share);
+			
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+			
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		} finally {
 			HibernateSessionFactory.closeSession();
 		}
 	}

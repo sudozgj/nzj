@@ -58,4 +58,11 @@ public interface ShareEmployerService {
 	 * @return
 	 */
 	public Object setUnShareEmployer(long id);
+	/**
+	 * 8查询全部已共享的客户列表
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public Object getAllShareEmployerList(Integer start,Integer limit);
 }

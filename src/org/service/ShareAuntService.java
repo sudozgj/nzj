@@ -11,7 +11,7 @@ public interface ShareAuntService {
 	 * @param sa
 	 * @return
 	 */
-	public Object addShareAunt(HttpSession session,ShareAunt sa);
+	public Object addShareAunt(HttpSession session, ShareAunt sa);
 
 	/**
 	 * 2删除共享的阿姨
@@ -29,7 +29,8 @@ public interface ShareAuntService {
 	public Object updateShareAunt(ShareAunt sa);
 
 	/**
-	 * 4查询已共享的阿姨列表
+	 * 4查询自己已共享的阿姨列表
+	 * 
 	 * @param session
 	 * @param start
 	 * @param limit
@@ -37,9 +38,10 @@ public interface ShareAuntService {
 	 */
 	public Object getShareAuntList(HttpSession session, Integer start,
 			Integer limit);
-	
+
 	/**
-	 * 5查询未共享的阿姨列表
+	 * 5查询自己未共享的阿姨列表
+	 * 
 	 * @param session
 	 * @param start
 	 * @param limit
@@ -47,18 +49,27 @@ public interface ShareAuntService {
 	 */
 	public Object getUnShareAuntList(HttpSession session, Integer start,
 			Integer limit);
-	
+
 	/**
 	 * 6共享某个阿姨
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public Object setShareAunt(long id);
-	
+
 	/**
 	 * 7取消共享某个阿姨
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public Object setUnShareAunt(long id);
+	/**
+	 * 8查询全部已共享的阿姨列表
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public Object getAllShareAuntList(Integer start, Integer limit);
 }

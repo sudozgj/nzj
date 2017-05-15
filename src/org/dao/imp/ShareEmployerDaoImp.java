@@ -126,4 +126,38 @@ public class ShareEmployerDaoImp implements ShareEmployerDao{
 		}
 	}
 
+	@Override
+	public List getAllShareEmployerList(Integer share, Integer start,
+			Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("from ShareEmployer where share=? order by id desc");
+			query.setParameter(0, share);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				query.setMaxResults(limit);
+			} else if (limit == -1) {
+
+			} else {
+				query.setMaxResults(limit);
+			}
+
+			List<ShareEmployer> li = query.list();
+			
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
 }
