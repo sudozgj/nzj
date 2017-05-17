@@ -65,4 +65,12 @@ public interface ShareEmployerService {
 	 * @return
 	 */
 	public Object getAllShareEmployerList(Integer start,Integer limit);
+	/**
+	 * 9获取搜索后的共享列表
+	 * @param key
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public Object getSearchShareEmployerList(String key,Integer start,Integer limit);
 }

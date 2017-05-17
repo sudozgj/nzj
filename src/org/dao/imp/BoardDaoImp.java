@@ -125,4 +125,61 @@ public class BoardDaoImp implements BoardDao {
 		}
 	}
 
+	@Override
+	public List getSearchBoardList(String key, Integer start, Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts=session.beginTransaction();
+			
+			String sql = "from Board where title like :key or description like :key";
+			Query query = session.createQuery(sql);
+			
+			query.setString("key", "%"+key+"%");
+			
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				query.setMaxResults(limit);
+			} else if (limit == -1) {
+
+			} else {
+				query.setMaxResults(limit);
+			}
+			List<Board> li = query.list();
+			
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Long getSearchBoardCount(String key) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "select count(id) from Board where title like :key or description like :key";
+			Query query = session.createQuery(sql);
+
+			query.setString("key", "%"+key+"%");
+			
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
 }

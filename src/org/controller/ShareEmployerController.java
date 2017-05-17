@@ -46,23 +46,32 @@ public class ShareEmployerController {
 			Integer limit) throws Exception {
 		return seService.getUnShareEmployerList(session, start, limit);
 	}
-	
+
 	@RequestMapping("/setShareEmployer")
 	@ResponseBody
-	public Object setShareEmployer(long id)throws Exception{
+	public Object setShareEmployer(long id) throws Exception {
 		return seService.setShareEmployer(id);
 	}
-	
+
 	@RequestMapping("/setUnShareEmployer")
 	@ResponseBody
-	public Object setUnShareEmployer(long id)throws Exception{
+	public Object setUnShareEmployer(long id) throws Exception {
 		return seService.setUnShareEmployer(id);
 	}
-	
+
 	@RequestMapping("/getAllShareEmployerList")
 	@ResponseBody
 	public Object getAllShareAuntList(Integer start, Integer limit)
 			throws Exception {
 		return seService.getAllShareEmployerList(start, limit);
 	}
+
+	@RequestMapping("/getSearchEmployerList")
+	@ResponseBody
+	public Object getSearchEmployerList(String key, Integer start, Integer limit)
+			throws Exception {
+		System.out.println("	key:"+key);
+		return seService.getSearchShareEmployerList(key, start, limit);
+	}
+
 }

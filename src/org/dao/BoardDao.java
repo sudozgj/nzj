@@ -42,4 +42,18 @@ public interface BoardDao {
 	 * @return
 	 */
 	public String getUrlById(Long id);
+	/**
+	 * 4.3根据搜索框的内容，从公告文件列表中搜索有关的字段
+	 * @param key
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List getSearchBoardList(String key,Integer start,Integer limit);
+	/**
+	 * 4.4获取搜索结果的总数
+	 * @param key
+	 * @return
+	 */
+	public Long getSearchBoardCount(String key);
 }

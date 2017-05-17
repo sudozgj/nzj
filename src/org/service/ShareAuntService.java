@@ -72,4 +72,12 @@ public interface ShareAuntService {
 	 * @return
 	 */
 	public Object getAllShareAuntList(Integer start, Integer limit);
+	/**
+	 * 9获取搜索后的共享列表
+	 * @param key
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public Object getSearchShareAuntList(String key, Integer start, Integer limit);
 }

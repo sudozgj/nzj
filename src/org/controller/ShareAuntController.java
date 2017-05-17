@@ -65,4 +65,13 @@ public class ShareAuntController {
 			throws Exception {
 		return saService.getAllShareAuntList(start, limit);
 	}
+	
+	@RequestMapping("/getSearchShareAuntList")
+	@ResponseBody
+	public Object getSearchShareAuntList(String key, Integer start,
+			Integer limit)throws Exception{
+		System.out.println("	key:"+key);
+		return saService.getSearchShareAuntList(key, start, limit);
+	}
+	
 }

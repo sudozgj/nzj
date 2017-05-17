@@ -42,7 +42,7 @@ public class EmployerDaoImp implements EmployerDao {
 			query.setParameter(0, id);
 			Integer i = query.executeUpdate();
 			ts.commit();
-			System.out.println("删除了" + i + "行");
+//			System.out.println("删除了" + i + "行");
 			return true;
 		} catch (Exception e1) {
 			e1.printStackTrace();

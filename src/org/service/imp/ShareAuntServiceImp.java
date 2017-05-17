@@ -87,7 +87,7 @@ public class ShareAuntServiceImp implements ShareAuntService {
 			map.put("result", li);
 			map.put("count",  count);
 			
-			return JsonObject.getResult(1, "获取未共享阿姨列表", li);
+			return JsonObject.getResult(1, "获取未共享阿姨列表", map);
 		} else {
 			return JsonObject.getResult(-999, "请先登录，才能获取未共享列表", false);
 		}
@@ -121,4 +121,16 @@ public class ShareAuntServiceImp implements ShareAuntService {
 		return JsonObject.getResult(1, "获取全部共享的阿姨列表",map);
 	}
 
+	@Override
+	public Object getSearchShareAuntList(String key, Integer start,
+			Integer limit) {
+		List li = saDao.getSearchShareAuntList(key, start, limit);
+		Long count = saDao.getSearchShareAuntCount(key);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", li);
+		map.put("count",  count);
+		
+		return JsonObject.getResult(1, "获取搜索后的共享阿姨列表", map);
+	}
 }

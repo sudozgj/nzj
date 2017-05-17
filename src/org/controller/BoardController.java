@@ -31,7 +31,7 @@ public class BoardController {
 	@ResponseBody
 	public Object deleteBoard(HttpServletRequest request, Long id)
 			throws Exception {
-		return bService.deleteBoard(request,id);
+		return bService.deleteBoard(request, id);
 	}
 
 	@RequestMapping("/updateBoard")
@@ -45,5 +45,13 @@ public class BoardController {
 	@ResponseBody
 	public Object getBoardList(Integer start, Integer limit) throws Exception {
 		return bService.getBoardList(start, limit);
+	}
+
+	@RequestMapping("/getSearchBoardList")
+	@ResponseBody
+	public Object getSearchBoardList(String key, Integer start, Integer limit)
+			throws Exception {
+		System.out.println("	key:"+key);
+		return bService.getSearchBoardList(key, start, limit);
 	}
 }

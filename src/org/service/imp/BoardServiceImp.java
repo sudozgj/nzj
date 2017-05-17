@@ -3,7 +3,9 @@ package org.service.imp;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -108,5 +110,17 @@ public class BoardServiceImp implements BoardService {
 	public Object getBoardList(Integer start, Integer limit) throws Exception {
 		List li = bDao.getBoardList(start, limit);
 		return JsonObject.getResult(1, "获取公告列表", li);
+	}
+
+	@Override
+	public Object getSearchBoardList(String key, Integer start, Integer limit) {
+		List li = bDao.getSearchBoardList(key, start, limit);
+		Long count = bDao.getSearchBoardCount(key);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", li);
+		map.put("count",  count);
+		
+		return JsonObject.getResult(1, "获取搜索后的公告列表", map);
 	}
 }

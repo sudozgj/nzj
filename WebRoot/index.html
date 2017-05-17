@@ -6,7 +6,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>娘子军家政共享平台</title>
-		<link rel="icon" href="logo.ico" />
+		<!--<link rel="icon" href="logo.ico" />-->
+		<link rel="shortcut icon" href="logo.png">
 		<!--jquery库-->
 		<script src="js/jquery.min.js"></script>
 		<!--bootstrap库-->
@@ -34,14 +35,32 @@
 		<script src="js/default.js" type="text/javascript"></script>
 		<script src="js/main.js" type="text/javascript"></script>
 		<script type="text/javascript">
-		    //check_login();
 			setInterval(check_login, 900000);
+			$(document).ready(function() {
+				var h =$(window).height();
+				$(window).resize(function() {
+					if($(this).width() < 1400) {
+						  var w = screen.availWidth;
+//						   $("body").width(W);
+						  $(".content").css("width",w+"px");  
+//						   $(".content").css("overflow-x","scroll"); 
+					};
+					if($(this).height() < 900) {
+						console.log('h:'+h+'--'+screen.availHeight);
+//						 var h = screen.availHeight;
+//						 $("body").height(h);
+						  $(".content").css("height",h+"px");  
+//						   $("body").css({ "overflow-y": "auto",}); 
+					};
+				});
+
+			});
 		</script>
 	</head>
 
 	<body>
 
-		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<nav class="navbar navbar-inverse navbar-fixed-top" style="height: 80px;">
 			<div class="container-fluid">
 				<!--左侧导航栏收缩功能-->
 				<!--<div class="navbar-header">
@@ -60,7 +79,7 @@
 					<ul style="float: right; margin-right: 15px;">
 						<li class="dropdown" style="list-style-type:none;">
 							<div data-toggle="dropdown" style="width: 60px; height: 60px;  margin: 5px 20px 0 0; text-align: center;">
-								<img style="border-radius:50%; width: 50px; height: 50px;" src="image/user.jpg" />
+								<img style="border-radius:50%; width: 50px; height: 50px;" src="image/user.jpg" title="用户操作" />
 								<span class="userShow"></span>
 							</div>
 							<ul class="dropdown-menu" role="menu">

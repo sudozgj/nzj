@@ -1,0 +1,49 @@
+.main_employer{
+	width: 1000px;
+	height: 100%;
+	margin: 0 auto 0 auto;
+	background: #FFFFFF;
+}
+.red{
+	color: red;
+}
+
+#add_aunt_form div{
+	margin-top: 15px;
+}
+
+#add_aunt_form label{
+	color: red;
+}
+
+.add_ShareAunt{
+	height: 40px;
+	width: 100%;
+	background: #FFFFFF;
+}
+
+.add_ShareAunt button{
+	height: 30px;
+	width: 80px;
+	background: #31b0d5;
+	margin: 5px 20px 0 0;
+	border-radius: 8px;
+	border: none;
+	outline: none;
+	color: #FFFFFF;
+	float: right;
+}
+
+.add_ShareAunt label{
+	margin-top: 8px;
+	float: left;
+}
+
+.add_ShareAunt button:hover{
+	color: #f8bbd0;
+}
+
+#add_aunt_form input{
+	width: 175px;
+}
+

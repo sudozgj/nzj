@@ -28,7 +28,7 @@ public interface BoardService {
 	public Object deleteBoard(HttpServletRequest request,Long id) throws Exception;
 
 	/**
-	 * 修改公告主题和描述
+	 * 3修改公告主题和描述
 	 * @param id
 	 * @param title
 	 * @param description
@@ -39,11 +39,19 @@ public interface BoardService {
 			throws Exception;
 
 	/**
-	 * 获取公告列表
+	 * 4获取公告列表
 	 * @param start
 	 * @param limit
 	 * @return
 	 * @throws Exception
 	 */
 	public Object getBoardList(Integer start, Integer limit) throws Exception;
+	/**
+	 * 5获取搜索后的共享列表
+	 * @param key
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public Object getSearchBoardList(String key,Integer start,Integer limit);
 }

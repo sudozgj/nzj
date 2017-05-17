@@ -18,6 +18,8 @@
 		org.hibernate.connection.ProxoolConnectionProvider
 	</property>
 
+	<property name="hibernate.jdbc.batch_size">50</property>
+	<property name="hibernate.connection.release_mode">after_transaction</property>
 
 	<property name="myeclipse.connection.profile">nzj</property>
 	<mapping resource="org/model/Aunt.hbm.xml" />
@@ -45,8 +47,12 @@
 
 	<mapping resource="org/model/ShareAunt.hbm.xml" />
 	<mapping resource="org/model/ShareEmployer.hbm.xml" />
-	
+
 	<mapping resource="org/model/Board.hbm.xml" />
+	
+	<mapping resource="org/model/Order.hbm.xml" />
+	<mapping resource="org/model/OrderAccount.hbm.xml" />
+	<mapping resource="org/model/OrderTrainee.hbm.xml" />
 
 	<mapping resource="org/view/VAunt.hbm.xml" />
 	<mapping resource="org/view/VUser.hbm.xml" />
@@ -59,5 +65,4 @@
 	<mapping resource="org/view/VSkill.hbm.xml" />
 
 </session-factory>
-
 </hibernate-configuration>

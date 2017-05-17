@@ -1,7 +1,9 @@
 package org.service.imp;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -59,7 +61,13 @@ public class ShareEmployerServiceImp implements ShareEmployerService {
 		User u = (User) session.getAttribute("user");
 		if (u != null) {
 			List li = seDao.getShareEmployerList(1, start, limit, u.getId());
-			return JsonObject.getResult(1, "获取共享客户列表", li);
+			Long count = seDao.getShareEmployerCount(u.getId(), 1);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", li);
+			map.put("count", count);
+			
+			return JsonObject.getResult(1, "获取共享客户列表", map);
 		} else {
 			return JsonObject.getResult(-999, "请先登录，获取共享客户列表", false);
 		}
@@ -71,7 +79,13 @@ public class ShareEmployerServiceImp implements ShareEmployerService {
 		User u = (User) session.getAttribute("user");
 		if (u != null) {
 			List li = seDao.getShareEmployerList(0, start, limit, u.getId());
-			return JsonObject.getResult(1, "获取未共享客户列表", li);
+			Long count = seDao.getShareEmployerCount(u.getId(), 0);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", li);
+			map.put("count",  count);
+			
+			return JsonObject.getResult(1, "获取未共享客户列表", map);
 		} else {
 			return JsonObject.getResult(-999, "请先登录，才能获取未共享列表", false);
 		}
@@ -95,8 +109,27 @@ public class ShareEmployerServiceImp implements ShareEmployerService {
 
 	@Override
 	public Object getAllShareEmployerList(Integer start, Integer limit) {
-		return JsonObject.getResult(1, "获取全部共享的客户列表",
-				seDao.getAllShareEmployerList(1, start, limit));
+		List li = seDao.getAllShareEmployerList(1, start, limit);
+		Long count = seDao.getAllShareEmployerCount(1);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", li);
+		map.put("count",  count);
+		
+		return JsonObject.getResult(1, "获取全部共享的客户列表",map);
+	}
+
+	@Override
+	public Object getSearchShareEmployerList(String key, Integer start,
+			Integer limit) {
+		List li = seDao.getSearchShareEmployerList(key, start, limit);
+		Long count =seDao.getSearchShareEmployerCount(key);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", li);
+		map.put("count",  count);
+		
+		return JsonObject.getResult(1, "获取搜索后的共享客户列表", map);
 	}
 
 }

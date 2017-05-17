@@ -62,4 +62,32 @@ public interface ShareEmployerDao {
 	 */
 	public List getAllShareEmployerList(Integer share, Integer start,
 			Integer limit);
+	/**
+	 * 4.3获取自己的共享的或未共享的列表数目
+	 * @param userId
+	 * @param share
+	 * @return
+	 */
+	public Long getShareEmployerCount(Long userId,Integer share);
+	
+	/**
+	 * 4.4获取全部共享的数目
+	 * @param share
+	 * @return
+	 */
+	public Long getAllShareEmployerCount(Integer share);
+	/**
+	 * 4.5根据搜索框的内容，从已共享的列表中搜索有关的字段
+	 * @param key
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List getSearchShareEmployerList(String key,Integer start,Integer limit);
+	/**
+	 * 4.6获取搜索结果的总数
+	 * @param key
+	 * @return
+	 */
+	public Long getSearchShareEmployerCount(String key);
 }

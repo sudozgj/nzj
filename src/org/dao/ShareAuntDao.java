@@ -61,4 +61,16 @@ public interface ShareAuntDao {
 	 * @return
 	 */
 	public Long getAllShareAuntCount(Integer share);
+	/**
+	 * 4.5根据搜索框的内容，从已共享的列表中搜索有关的字段
+	 * @param key
+	 * @return
+	 */
+	public List getSearchShareAuntList(String key, Integer start,Integer limit);
+	/**
+	 * 4.6获取搜索结果的总数
+	 * @param key
+	 * @return
+	 */
+	public Long getSearchShareAuntCount(String key);
 }

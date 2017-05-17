@@ -327,7 +327,7 @@ function changeTime(ts) { //时间戳转时间函数
 	//		$('#eTime').val(currentdate.substr(0,10));
 	return currentdate.substr(0, 10);
 
-}
+};
 
 /*********************************列表分页***************************************/
 /**

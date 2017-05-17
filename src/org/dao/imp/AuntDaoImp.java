@@ -142,6 +142,8 @@ public class AuntDaoImp implements AuntDao {
 				}
 			});
 			ts.commit();
+			session.flush();
+			session.clear();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -206,6 +208,8 @@ public class AuntDaoImp implements AuntDao {
 			sqlQuery9.executeUpdate();
 
 			ts.commit();
+			session.flush();
+			session.clear();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

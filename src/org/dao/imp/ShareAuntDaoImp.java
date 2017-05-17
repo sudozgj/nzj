@@ -171,10 +171,10 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 
 			query.setParameter(0, userId);
 			query.setParameter(1, share);
-			
+
 			query.setMaxResults(1);
 			Long count = (Long) query.uniqueResult();
-			
+
 			return count;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -194,10 +194,10 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 					.createQuery("select count(id) from ShareAunt where share=?");
 
 			query.setParameter(0, share);
-			
+
 			query.setMaxResults(1);
 			Long count = (Long) query.uniqueResult();
-			
+
 			return count;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -206,5 +206,65 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
+
+	@Override
+	public List getSearchShareAuntList(String key, Integer start, Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "from ShareAunt where share=1 and (skill like :key or remark like :key)";
+			Query query = session.createQuery(sql);
+			
+			query.setString("key", "%"+key+"%");
+
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				query.setMaxResults(limit);
+			} else if (limit == -1) {
+
+			} else {
+				query.setMaxResults(limit);
+			}
+
+			List<ShareAunt> li = query.list();
+
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Long getSearchShareAuntCount(String key) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "select count(id) from ShareAunt where share=1 and (skill like :key or remark like :key)";
+			Query query = session.createQuery(sql);
+
+			query.setString("key", "%"+key+"%");
+			
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+	
+	
 
 }
