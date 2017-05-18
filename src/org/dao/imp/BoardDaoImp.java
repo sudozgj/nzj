@@ -182,4 +182,22 @@ public class BoardDaoImp implements BoardDao {
 		}
 	}
 
+	@Override
+	public Long getBoardCount() {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("select count(id) from Board");
+			query.setMaxResults(1);
+			Long count  = (Long) query.uniqueResult();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
 }

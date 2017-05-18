@@ -15,7 +15,7 @@ public interface OrderDao {
 	public long addOrder(Order o);
 	// -----------------------------------删---------------------------------------
 	/**
-	 * 2.1删除订单
+	 * 2.1删除订单,以及订单下所有学员信息
 	 * @param id
 	 * @return
 	 */

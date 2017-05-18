@@ -37,13 +37,18 @@ public interface BoardDao {
 	 */
 	public List getBoardList(Integer start, Integer limit);
 	/**
-	 * 4.2通过id查询公告文件的url
+	 * 4.2获取公告总数
+	 * @return
+	 */
+	public Long getBoardCount();
+	/**
+	 * 4.3通过id查询公告文件的url
 	 * @param id
 	 * @return
 	 */
 	public String getUrlById(Long id);
 	/**
-	 * 4.3根据搜索框的内容，从公告文件列表中搜索有关的字段
+	 * 4.4根据搜索框的内容，从公告文件列表中搜索有关的字段
 	 * @param key
 	 * @param start
 	 * @param limit
@@ -51,7 +56,7 @@ public interface BoardDao {
 	 */
 	public List getSearchBoardList(String key,Integer start,Integer limit);
 	/**
-	 * 4.4获取搜索结果的总数
+	 * 4.5获取搜索结果的总数
 	 * @param key
 	 * @return
 	 */

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.dao.OrderDao;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.model.Order;
@@ -18,9 +19,9 @@ public class OrderDaoImp implements OrderDao {
 	public long addOrder(Order o) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
-			Transaction ts=  session.beginTransaction();
-			
-			long id = (Long)session.save(o);
+			Transaction ts = session.beginTransaction();
+
+			long id = (Long) session.save(o);
 			ts.commit();
 			return id;
 		} catch (Exception e) {
@@ -30,12 +31,13 @@ public class OrderDaoImp implements OrderDao {
 	}
 
 	@Override
-	public List<Order> getOrderList(Long userId,Integer start, Integer limit) {
+	public List<Order> getOrderList(Long userId, Integer start, Integer limit) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			Query query = session.createQuery("from Order where userId = ? order by id desc");
+			Query query = session
+					.createQuery("from Order where userId = ? order by id desc");
 			query.setParameter(0, userId);
 			if (start == null) {
 				start = 0;
@@ -84,82 +86,71 @@ public class OrderDaoImp implements OrderDao {
 	public boolean deleteOrder(long id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
-			Transaction ts= session.beginTransaction();
-			
+			Transaction ts = session.beginTransaction();
+
 			Order o = (Order) session.load(Order.class, id);
 			session.delete(o);
+
+			SQLQuery sqlQuery = session
+					.createSQLQuery("delete from order_trainee where order_id=?");
+			sqlQuery.setParameter(0, id);
+			sqlQuery.executeUpdate();
 			
 			ts.commit();
+			session.flush();
+			session.clear();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		}finally{
+		} finally {
 			HibernateSessionFactory.closeSession();
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	@Override
-//	public boolean addOrder(Order o, final OrderTraineeForm ot) {
-//		try {
-//			Session session = HibernateSessionFactory.getSession();
-//			Transaction ts = session.beginTransaction();
-//
-//			final long id = (Long) session.save(o);
-//			session.doWork(new Work() {
-//				@Override
-//				public void execute(Connection conn) throws SQLException {
-//					// TODO Auto-generated method stub
-//					String sql = "insert into order_trainee" +
-//							"(name,sex,birthday,address,idnumber,idcardurl1,idcardurl2,infourl,photourl,order_id) " +
-//							"value(?,?,?,?,?,?,?,?,?,?)";
-//					PreparedStatement stmt = conn.prepareStatement(sql);
-//					conn.setAutoCommit(false);
-//					for(int i=0;i<ot.getName().length;i++){
-//						stmt.setString(1, ot.getName()[i]);
-//						stmt.setInt(2, ot.getSex()[i]);
-//						stmt.setLong(3, ot.getBirthday()[i]);
-//						stmt.setString(4, ot.getAddress()[i]);
-//						stmt.setString(5, ot.getIdnumber()[i]);
-//						stmt.setString(6, ot.getIdcardurl1()[i]);
-//						stmt.setString(7, ot.getIdcardurl2()[i]);
-//						stmt.setString(8, ot.getInfourl()[i]);
-//						stmt.setString(9, ot.getPhotourl()[i]);
-//						stmt.setLong(10, id);
-//						
-//						stmt.addBatch();
-//					}
-//					stmt.executeBatch();
-//				}
-//			});
-//			ts.commit();
-//			session.flush();
-//			session.clear();
-//			return true;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return false;
-//		} finally {
-//			HibernateSessionFactory.closeSession();
-//		}
-//	}
-	
-	
+	// @Override
+	// public boolean addOrder(Order o, final OrderTraineeForm ot) {
+	// try {
+	// Session session = HibernateSessionFactory.getSession();
+	// Transaction ts = session.beginTransaction();
+	//
+	// final long id = (Long) session.save(o);
+	// session.doWork(new Work() {
+	// @Override
+	// public void execute(Connection conn) throws SQLException {
+	// String sql = "insert into order_trainee" +
+	// "(name,sex,birthday,address,idnumber,idcardurl1,idcardurl2,infourl,photourl,order_id) "
+	// +
+	// "value(?,?,?,?,?,?,?,?,?,?)";
+	// PreparedStatement stmt = conn.prepareStatement(sql);
+	// conn.setAutoCommit(false);
+	// for(int i=0;i<ot.getName().length;i++){
+	// stmt.setString(1, ot.getName()[i]);
+	// stmt.setInt(2, ot.getSex()[i]);
+	// stmt.setLong(3, ot.getBirthday()[i]);
+	// stmt.setString(4, ot.getAddress()[i]);
+	// stmt.setString(5, ot.getIdnumber()[i]);
+	// stmt.setString(6, ot.getIdcardurl1()[i]);
+	// stmt.setString(7, ot.getIdcardurl2()[i]);
+	// stmt.setString(8, ot.getInfourl()[i]);
+	// stmt.setString(9, ot.getPhotourl()[i]);
+	// stmt.setLong(10, id);
+	//
+	// stmt.addBatch();
+	// }
+	// stmt.executeBatch();
+	// }
+	// });
+	// ts.commit();
+	// session.flush();
+	// session.clear();
+	// return true;
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// return false;
+	// } finally {
+	// HibernateSessionFactory.closeSession();
+	// }
+	// }
+
 }

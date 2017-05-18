@@ -109,7 +109,13 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public Object getBoardList(Integer start, Integer limit) throws Exception {
 		List li = bDao.getBoardList(start, limit);
-		return JsonObject.getResult(1, "获取公告列表", li);
+		Long count = bDao.getBoardCount();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", li);
+		map.put("count",  count);
+		
+		return JsonObject.getResult(1, "获取公告列表", map);
 	}
 
 	@Override

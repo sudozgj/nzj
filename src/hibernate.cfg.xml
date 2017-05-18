@@ -14,12 +14,15 @@
 	<property name="myeclipse.connection.profile">shsmis</property>
 	<property name="hibernate.proxool.pool_alias">proxoolPool</property>
 	<property name="hibernate.proxool.xml">ProxoolConf.xml</property>
+	<property name="connection.characterEncoding">utf8</property>
 	<property name="connection.provider_class">
 		org.hibernate.connection.ProxoolConnectionProvider
 	</property>
 
 	<property name="hibernate.jdbc.batch_size">50</property>
-	<property name="hibernate.connection.release_mode">after_transaction</property>
+	<property name="hibernate.connection.release_mode">
+		after_transaction
+	</property>
 
 	<property name="myeclipse.connection.profile">nzj</property>
 	<mapping resource="org/model/Aunt.hbm.xml" />
@@ -50,6 +53,8 @@
 
 	<mapping resource="org/model/Board.hbm.xml" />
 	
+	<mapping resource="org/model/Article.hbm.xml" />
+
 	<mapping resource="org/model/Order.hbm.xml" />
 	<mapping resource="org/model/OrderAccount.hbm.xml" />
 	<mapping resource="org/model/OrderTrainee.hbm.xml" />
