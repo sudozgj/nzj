@@ -15,9 +15,65 @@
 
 <script>
 	$(function() {
-		getOrderList();
+		getOrderList();		//初始化加载订单列表
 		
-		function getOrderList(){
+		$("#addT").click(function() {		//添加学员信息
+			var of = new FormData(document.getElementById("otForm"));
+
+			$.ajax({
+				type : "post",
+				url : "addOrderTrainee", 
+				data : of,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(data) {
+					if (data.code == -999) {
+						alert(data.msg);
+						location.href = "login.html";
+					} else if (data.code == 1) {
+						alert(data.msg);
+						location.reload();
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(data) {
+					alert("服务器连接异常");
+				}
+			});
+		});
+		
+		$("#addO").click(function(){		//添加订单
+			$.ajax({
+				type : "post",
+				url : "addOrder", 
+				data : {
+					"preparer" : $("#preparer").val()
+				},
+				async : false,
+				cache : false,
+				success : function(data) {
+					if (data.code == -999) {
+						alert(data.msg);
+						location.href = "login.html";
+					} else if (data.code == 1) {
+						getOrderList();
+						$("#orderId").val(data.data);
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(data) {
+					alert("服务器连接异常");
+				}
+			});		
+		});
+		
+	});
+	
+	function getOrderList(){		//获取订单列表，并显示到表格上
 			$.ajax({
 				type : "post",
 				url : "getOrderList",
@@ -44,71 +100,15 @@
 					}
 				},
 				error : function(data) {
-					alert("服务器连接异常");
+					alert("getOrderList error");
 				}
 			});
 		}
-
-		$("#addT").click(function() {
-			var of = new FormData(document.getElementById("otForm"));
-
-			$.ajax({
-				type : "post",
-				url : "addOrderTrainee", //页面一加载，就初始化未审核的用户信息列表
-				data : of,
-				async : false,
-				cache : false,
-				contentType : false,
-				processData : false,
-				success : function(data) {
-					if (data.code == -999) {
-						alert(data.msg);
-						location.href = "login.html";
-					} else if (data.code == 1) {
-						alert(data.msg);
-						location.reload();
-					} else {
-						alert(data.msg);
-					}
-				},
-				error : function(data) {
-					alert("服务器连接异常");
-				}
-			});
-		});
-		
-		$("#addO").click(function(){
-			$.ajax({
-				type : "post",
-				url : "addOrder", //页面一加载，就初始化未审核的用户信息列表
-				data : {
-					"preparer" : $("#preparer").val()
-				},
-				async : false,
-				cache : false,
-				success : function(data) {
-					if (data.code == -999) {
-						alert(data.msg);
-						location.href = "login.html";
-					} else if (data.code == 1) {
-						getOrderList();
-						$("#orderId").val(data.data);
-					} else {
-						alert(data.msg);
-					}
-				},
-				error : function(data) {
-					alert("服务器连接异常");
-				}
-			});		
-		});
-		
-	});
 	
-	function delO(o){
+	function delO(o){				//删除订单
 		$.ajax({
 			type : "post",
-			url : "deleteOrder", //页面一加载，就初始化未审核的用户信息列表
+			url : "deleteOrder", 
 			data : {
 				"id" : o
 			},
@@ -127,11 +127,10 @@
 		});	
 	}
 	
-	function getOT(o){
-		//alert(o);
+	function getOT(o){			//根据订单id，获取学员列表
 		$.ajax({
 			type : "post",
-			url : "getOrderTraineeList", //页面一加载，就初始化未审核的用户信息列表
+			url : "getOrderTraineeList", 
 			data : {
 				"orderId" : o
 			},

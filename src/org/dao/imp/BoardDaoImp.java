@@ -131,7 +131,7 @@ public class BoardDaoImp implements BoardDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts=session.beginTransaction();
 			
-			String sql = "from Board where title like :key or description like :key";
+			String sql = "from Board where title like :key or description like :key or name like :key";
 			Query query = session.createQuery(sql);
 			
 			query.setString("key", "%"+key+"%");
