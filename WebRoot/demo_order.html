@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>管理员审核用户界面</title>
+<title>填写订单学员界面</title>
 <link rel="shortcut icon" href="logo.png">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="this is my page">
@@ -87,13 +87,15 @@
 						var ol = "";
 						var d = data.data.result;
 						for ( var i = 0; i < d.length; i++) {
-							ol += "<tr>" + "<td>" + d[i].id + "</td>" + "<td>"
-									+ d[i].preparer + "</td>" + "<td>"
-									+ d[i].status + "</td>" + "<td>" + d[i].time
-									+ "</td>" 
-											+"<td>"+"<input type='button' value='删除' onclick='delO("+d[i].id+")' />"
-											+"<input type='button' value='查看' onclick='getOT("+d[i].id+")' />"
-									+"</td>"
+							ol += "<tr>" 
+									+ "<td>" + d[i].id + "</td>" 
+									+ "<td>"+ d[i].preparer + "</td>" 
+									+ "<td>" + d[i].time+ "</td>" 
+									+"<td>"+"<input type='button' value='删除' onclick='delO("+d[i].id+")' />"+"</td>"
+									+"<td>"+"<input type='button' value='查看' onclick='getOT("+d[i].id+")' />"+"</td>"
+									+ "<td>"+ d[i].status + "</td>" 
+									+ "<td>"+ d[i].description + "</td>"
+									+ "<td>"+"<input type='button' value='提交订单' onclick='submitO("+d[i].id+")' /></td>"  
 								+ "</tr>";
 						}
 						$("#oList tbody").html(ol);
@@ -161,6 +163,29 @@
 			}
 		});	
 	}
+	
+	function submitO(o){
+		$.ajax({
+			type : "post",
+			url : "commitOrder", 
+			data : {
+				"id" : o
+			},
+			async : false,
+			cache : false,
+			success : function(data) {
+				if(data.code==1){
+					alert(data.msg);
+					location.reload();
+				}else{
+					alert(data.msg);	
+				}
+			},
+			error : function(data) {
+				alert("服务器连接异常");
+			}
+		});	
+	}
 </script>
 </head>
 <body>
@@ -170,9 +195,12 @@
 			<tr>
 				<th>id</th>
 				<th>填表人</th>
-				<th>状态</th>
 				<th>时间</th>
 				<th>操作</th>
+				<th>学员</th>
+				<th>状态</th>
+				<th>备注</th>
+				<th>提交</th>
 			</tr>
 		</thead>
 		<tbody></tbody>

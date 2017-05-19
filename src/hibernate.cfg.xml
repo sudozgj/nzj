@@ -52,12 +52,13 @@
 	<mapping resource="org/model/ShareEmployer.hbm.xml" />
 
 	<mapping resource="org/model/Board.hbm.xml" />
-	
+
 	<mapping resource="org/model/Article.hbm.xml" />
 
 	<mapping resource="org/model/Order.hbm.xml" />
 	<mapping resource="org/model/OrderAccount.hbm.xml" />
 	<mapping resource="org/model/OrderTrainee.hbm.xml" />
+	<mapping resource="org/model/OrderCheck.hbm.xml" />
 
 	<mapping resource="org/view/VAunt.hbm.xml" />
 	<mapping resource="org/view/VUser.hbm.xml" />
@@ -68,6 +69,7 @@
 	<mapping resource="org/view/VJob.hbm.xml" />
 	<mapping resource="org/view/VLanguage.hbm.xml" />
 	<mapping resource="org/view/VSkill.hbm.xml" />
+	<mapping resource="org/view/VOrder.hbm.xml" />
 
 </session-factory>
 </hibernate-configuration>

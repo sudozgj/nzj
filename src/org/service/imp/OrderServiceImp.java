@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.Form.OrderTraineeForm;
+import org.dao.OrderAccountDao;
 import org.dao.OrderDao;
 import org.dao.OrderTraineeDao;
 import org.model.Order;
+import org.model.OrderAccount;
+import org.model.OrderCheck;
 import org.model.OrderTrainee;
 import org.model.User;
 import org.service.OrderService;
@@ -31,6 +34,8 @@ public class OrderServiceImp implements OrderService {
 	private OrderDao oDao;
 	@Autowired
 	private OrderTraineeDao otDao;
+	@Autowired
+	private OrderAccountDao oaDao;
 
 	@Override
 	public Object addOrder(HttpSession session, Order o) {
@@ -39,7 +44,6 @@ public class OrderServiceImp implements OrderService {
 		if (u != null) {
 			long id = u.getId();
 			o.setUserId(id);
-			o.setStatus(1);
 			o.setTime(new Date().getTime()/1000);
 			long oid = oDao.addOrder(o);
 			if (oid != -1) {
@@ -167,4 +171,64 @@ public class OrderServiceImp implements OrderService {
 		return JsonObject.getResult(1, "获取订单列表", map);
 	}
 
+	@Override
+	public Object getOrderStatus(Long id) {
+		OrderCheck oc = oDao.getOrderCheck(id);
+		return JsonObject.getResult(1, "获取订单状态", oc);
+	}
+
+	@Override
+	public Object commitOrder(Long id, Integer status) {
+		if(oDao.updateOrderStatus(id, status,"--"))
+			return JsonObject.getResult(1, "提交订单成功", true);
+		else
+			return JsonObject.getResult(0, "提交订单失败", false);
+	}
+
+	@Override
+	public Object getUnAckOrderList(Integer start, Integer limit) {
+		List li = oDao.getUnAckOrderList(start, limit);
+		long count = oDao.getUnAckOrderCount();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", li);
+		map.put("count", count);
+		
+		return JsonObject.getResult(1, "获取未通过审核的订单列表", map);
+	}
+
+	@Override
+	public Object checkOrder(Long orderId, Integer status, String description) {
+		if(oDao.updateOrderStatus(orderId, status, description))
+			return JsonObject.getResult(1, "审核订单通过成功", true);
+		else
+			return JsonObject.getResult(0, "审核订单通过失败", false);
+	}
+
+	@Override
+	public Object unCheckOrder(Long orderId, Integer status, String description) {
+		if(oDao.updateOrderStatus(orderId, status, description))
+			return JsonObject.getResult(1, "审核订单不通过成功", true);
+		else
+			return JsonObject.getResult(0, "审核订单不通过失败", false);
+	}
+
+	@Override
+	public Object addOrderAccount(OrderAccount oa) {
+		if(oaDao.addOrderAccount(oa)!=-1)
+			return JsonObject.getResult(1, "添加订单账目信息表成功", true);
+		else
+			return JsonObject.getResult(0, "添加订单账目信息表失败", false);
+	}
+
+	@Override
+	public Object getOrderTraineeCount(Long orderId) {
+		long count = otDao.getOrderTraineeCount(orderId);
+		if(count!=-1){
+			return JsonObject.getResult(1, "获取订单学员总数", count);
+		}else{
+			return JsonObject.getResult(0, "获取订单学员总数错误", false);
+		}
+	}
+	
 }

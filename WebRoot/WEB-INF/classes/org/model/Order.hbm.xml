@@ -13,9 +13,6 @@
         <property name="preparer" type="java.lang.String">
             <column name="preparer" not-null="true" />
         </property>
-        <property name="status" type="java.lang.Integer">
-            <column name="status" not-null="true" />
-        </property>
         <property name="time" type="java.lang.Long">
             <column name="time" not-null="true" />
         </property>

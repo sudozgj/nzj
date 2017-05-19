@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.Form.OrderTraineeForm;
 import org.model.Order;
+import org.model.OrderAccount;
 import org.model.OrderTrainee;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -60,4 +61,57 @@ public interface OrderService {
 	 */
 	public Object getOrderTraineeList(Long orderId,Integer start, Integer limit);
 	
+	/**
+	 * 6获取订单状态
+	 * @param id
+	 * @return
+	 */
+	public Object getOrderStatus(Long id);
+	
+	/**
+	 * 7提交订单状态
+	 * @return
+	 */
+	public Object commitOrder(Long id,Integer status);
+	
+	/**
+	 * 8获取未通过审核的订单列表
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public Object getUnAckOrderList(Integer start,Integer limit);
+	
+	/**
+	 * 9订单审核通过
+	 * @param orderId
+	 * @param status
+	 * @param description
+	 * @return
+	 */
+	public Object checkOrder(Long orderId,Integer status,String description);
+	
+	/**
+	 * 10订单审核不通过
+	 * @param orderId
+	 * @param status
+	 * @param description
+	 * @return
+	 */
+	public Object unCheckOrder(Long orderId,Integer status,String description);
+	
+	/**
+	 * 11添加订单账目信息
+	 * @param prepare
+	 * @param quantity
+	 * @return
+	 */
+	public Object addOrderAccount(OrderAccount oa);
+	
+	/**
+	 * 12获取订单的学员数
+	 * @param orderId
+	 * @return
+	 */
+	public Object getOrderTraineeCount(Long orderId);
 }

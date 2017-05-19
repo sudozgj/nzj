@@ -3,6 +3,8 @@ package org.dao;
 import java.util.List;
 
 import org.model.Order;
+import org.model.OrderCheck;
+import org.view.VOrderId;
 
 public interface OrderDao {
 	// -----------------------------------增---------------------------------------
@@ -21,6 +23,14 @@ public interface OrderDao {
 	 */
 	public boolean deleteOrder(long id);
 	// -----------------------------------改---------------------------------------
+	/**
+	 * 3.1修改订单的状态（-1：为提交，0：未审核，1：审核不过，2：审核通过）
+	 * @param id
+	 * @param status
+	 * @param description
+	 * @return
+	 */
+	public boolean updateOrderStatus(long id,Integer status,String description);
 	// -----------------------------------查---------------------------------------
 	/**
 	 * 4.1获取当前用户的订单列表
@@ -28,11 +38,27 @@ public interface OrderDao {
 	 * @param limit
 	 * @return
 	 */
-	public List<Order> getOrderList(Long userId,Integer start,Integer limit);
+	public List<VOrderId> getOrderList(Long userId,Integer start,Integer limit);
 	/**
 	 * 4.2获取当前用户的订单总数
 	 * @param userId
 	 * @return
 	 */
 	public long getOrderCount(Long userId);
+	/**
+	 * 4.3通过订单id获取订单的审核状态
+	 * @param id
+	 * @return
+	 */
+	public OrderCheck getOrderCheck(Long id);
+	/**
+	 * 4.4获取未审核通过的订单
+	 * @return
+	 */
+	public List getUnAckOrderList(Integer start,Integer limit);
+	/**
+	 * 4.5获取未通过审核的订单的总数
+	 * @return
+	 */
+	public long getUnAckOrderCount();
 }

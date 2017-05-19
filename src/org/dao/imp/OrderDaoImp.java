@@ -1,5 +1,9 @@
 package org.dao.imp;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dao.OrderDao;
@@ -7,10 +11,15 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
+import org.model.Board;
 import org.model.Order;
-import org.model.Pact;
+import org.model.OrderCheck;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VOrder;
+import org.view.VOrderId;
+
 
 @Service
 public class OrderDaoImp implements OrderDao {
@@ -21,28 +30,47 @@ public class OrderDaoImp implements OrderDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			long id = (Long) session.save(o);
+			final long id = (Long) session.save(o);
+			
+			session.doWork(new Work() {
+				@Override
+				public void execute(Connection conn) throws SQLException {
+					String sql = "insert into order_check(status,description,order_id) values(?,?,?)";
+					PreparedStatement stmt = conn.prepareStatement(sql);
+					conn.setAutoCommit(false);
+					
+					stmt.setInt(1, -1);
+					stmt.setString(2, "未提交");
+					stmt.setLong(3, id);
+					stmt.addBatch();
+					stmt.executeBatch();
+				}
+			});
 			ts.commit();
+			session.flush();
+			session.clear();
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
+		}finally{
+			HibernateSessionFactory.closeSession();
 		}
 	}
 
 	@Override
-	public List<Order> getOrderList(Long userId, Integer start, Integer limit) {
+	public List<VOrderId> getOrderList(Long userId, Integer start, Integer limit) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
 			Query query = session
-					.createQuery("from Order where userId = ? order by id desc");
+					.createQuery("from VOrder v where v.id.userId = ? order by v.id.status");
 			query.setParameter(0, userId);
 			if (start == null) {
 				start = 0;
 			}
-			query.setParameter(0, userId);
+			query.setFirstResult(start);
 			if (limit == null) {
 				limit = 15;
 				query.setMaxResults(limit);
@@ -51,9 +79,14 @@ public class OrderDaoImp implements OrderDao {
 			} else {
 				query.setMaxResults(limit);
 			}
-			List<Order> li = query.list();
-
-			return li;
+			
+			List<VOrder> li = query.list();
+			List<VOrderId> list = new ArrayList<>();
+			for(VOrder v:li){
+				list.add(v.getId());
+			}
+			
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -108,49 +141,103 @@ public class OrderDaoImp implements OrderDao {
 		}
 	}
 
-	// @Override
-	// public boolean addOrder(Order o, final OrderTraineeForm ot) {
-	// try {
-	// Session session = HibernateSessionFactory.getSession();
-	// Transaction ts = session.beginTransaction();
-	//
-	// final long id = (Long) session.save(o);
-	// session.doWork(new Work() {
-	// @Override
-	// public void execute(Connection conn) throws SQLException {
-	// String sql = "insert into order_trainee" +
-	// "(name,sex,birthday,address,idnumber,idcardurl1,idcardurl2,infourl,photourl,order_id) "
-	// +
-	// "value(?,?,?,?,?,?,?,?,?,?)";
-	// PreparedStatement stmt = conn.prepareStatement(sql);
-	// conn.setAutoCommit(false);
-	// for(int i=0;i<ot.getName().length;i++){
-	// stmt.setString(1, ot.getName()[i]);
-	// stmt.setInt(2, ot.getSex()[i]);
-	// stmt.setLong(3, ot.getBirthday()[i]);
-	// stmt.setString(4, ot.getAddress()[i]);
-	// stmt.setString(5, ot.getIdnumber()[i]);
-	// stmt.setString(6, ot.getIdcardurl1()[i]);
-	// stmt.setString(7, ot.getIdcardurl2()[i]);
-	// stmt.setString(8, ot.getInfourl()[i]);
-	// stmt.setString(9, ot.getPhotourl()[i]);
-	// stmt.setLong(10, id);
-	//
-	// stmt.addBatch();
-	// }
-	// stmt.executeBatch();
-	// }
-	// });
-	// ts.commit();
-	// session.flush();
-	// session.clear();
-	// return true;
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// return false;
-	// } finally {
-	// HibernateSessionFactory.closeSession();
-	// }
-	// }
+	@Override
+	public boolean updateOrderStatus(long id, Integer status,String description) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			String sql = "update order_check o set o.status=?,o.description=? where order_id=?";
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setParameter(0, status);
+			sqlQuery.setParameter(1, description);
+			sqlQuery.setParameter(2, id);
+			sqlQuery.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
 
+	@Override
+	public OrderCheck getOrderCheck(Long id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts=  session.beginTransaction();
+			
+			Query query = session.createQuery("from OrderCheck where orderId=?");
+			query.setParameter(0, id);
+			
+			query.setMaxResults(1);
+			OrderCheck q = (OrderCheck) query.uniqueResult();
+			
+			return q;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List getUnAckOrderList(Integer start, Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("from VOrder v where (v.id.status = 1 or v.id.status =0) order by v.id.id desc");
+			
+			
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				query.setMaxResults(limit);
+			}else if(limit==-1){
+				
+			}else{
+				query.setMaxResults(limit);
+			}
+			List<VOrder> li = query.list();
+			
+			List<VOrderId> list = new ArrayList<>();
+			for(VOrder v:li){
+				list.add(v.getId());
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getUnAckOrderCount() {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("select count(v.id.id) from VOrder v where (v.id.status = 1 or v.id.status =0)");
+			query.setMaxResults(1);
+			long id= (Long) query.uniqueResult();
+			
+			return id;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+	
 }

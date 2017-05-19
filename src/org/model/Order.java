@@ -10,7 +10,6 @@ public class Order implements java.io.Serializable {
 
 	private Long id;
 	private String preparer;
-	private Integer status;
 	private Long time;
 	private Long userId;
 
@@ -21,9 +20,8 @@ public class Order implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Order(String preparer, Integer status, Long time, Long userId) {
+	public Order(String preparer, Long time, Long userId) {
 		this.preparer = preparer;
-		this.status = status;
 		this.time = time;
 		this.userId = userId;
 	}
@@ -44,14 +42,6 @@ public class Order implements java.io.Serializable {
 
 	public void setPreparer(String preparer) {
 		this.preparer = preparer;
-	}
-
-	public Integer getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
 	}
 
 	public Long getTime() {
