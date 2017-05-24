@@ -28,11 +28,11 @@ var pageInitModule = (function (mod) {
     };
     mod.setWidth = function () {
         if ($(window).width() < 768) {
-            $(".sidebar").css({ left: -220 });
+            $(".sidebar").css({ left: -70 });
             $(".all").css({ marginLeft: 0 });
         } else {
             $(".sidebar").css({ left: 0 });
-            $(".all").css({ marginLeft: 220 });
+            $(".all").css({ marginLeft: 70 });
         }
     };
     mod.setScrollToTop = function () {
@@ -47,12 +47,12 @@ var pageInitModule = (function (mod) {
         $('[data-target="sidebar"]').click(function () {
             var asideleft = $(".sidebar").offset().left;
             if (asideleft == 0) {
-                $(".sidebar").animate({ left: -220 });
+                $(".sidebar").animate({ left: -70 });
                 $(".all").animate({ marginLeft: 0 });
             }
             else {
                 $(".sidebar").animate({ left: 0 });
-                $(".all").animate({ marginLeft: 220 });
+                $(".all").animate({ marginLeft: 70 });
             }
         });
         $(".has-sub>a").click(function () {

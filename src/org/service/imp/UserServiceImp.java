@@ -187,6 +187,7 @@ public class UserServiceImp implements UserService {
 
 				iUrl = url2;
 			}
+			ud.setSupport(0);
 			ud.setCharterurl(cUrl);
 			ud.setIdcardurl(iUrl);
 			if (udDao.addUserDetail(ud) != -1) {
@@ -275,7 +276,6 @@ public class UserServiceImp implements UserService {
 	public Object getUser(HttpSession session) {
 		User u = (User) session.getAttribute("user");
 		if (u == null) {
-			System.out.println("	getUser--未登录");
 			return JsonObject.getResult(-999, "请先登录", false);
 		}
 		VUserId v = uDao.getUserById(u.getId());

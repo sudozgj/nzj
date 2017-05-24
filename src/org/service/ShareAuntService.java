@@ -65,30 +65,35 @@ public interface ShareAuntService {
 	 * @return
 	 */
 	public Object setUnShareAunt(long id);
-	
+
 	/**
 	 * 8查询全部已共享的阿姨列表
+	 * 
 	 * @param start
 	 * @param limit
 	 * @return
 	 */
 	public Object getAllShareAuntList(Integer start, Integer limit);
-	
+
 	/**
 	 * 9获取搜索后的共享列表
+	 * 
 	 * @param key
 	 * @param start
 	 * @param limit
 	 * @return
 	 */
-	public Object getSearchShareAuntList(String key, Integer start, Integer limit);
-	
+	public Object getSearchShareAuntList(String key, Integer start,
+			Integer limit);
+
 	/**
 	 * 10获取本地的共享阿姨列表
-	 * @param session
+	 * 
+	 * @param sessions
 	 * @param start
 	 * @param limit
 	 * @return
 	 */
-	public Object getLocalShareAuntList(HttpSession session,Integer start,Integer limit);
+	public Object getLocalShareAuntList(HttpSession session, Integer start,
+			Integer limit);
 }

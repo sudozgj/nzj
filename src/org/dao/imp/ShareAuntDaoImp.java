@@ -266,14 +266,15 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 	}
 
 	@Override
-	public List<ShareAunt> getLocalShareAuntList(String address, Integer start,
+	public List<ShareAunt> getLocalShareAuntList(Integer share,String address, Integer start,
 			Integer limit) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "from ShareAunt where share=1 and address like :key";
+			String sql = "from ShareAunt where share=? and address like :key";
 			Query query = session.createQuery(sql);
+			query.setParameter(0, share);
 			
 			query.setString("key", "%"+address+"%");
 
@@ -302,14 +303,15 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 	}
 
 	@Override
-	public long getLocalShareAuntCount(String address) {
+	public long getLocalShareAuntCount(Integer share,String address) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select count(id) from ShareAunt where share=1 and address like :key)";
+			String sql = "select count(id) from ShareAunt where share=? and address like :key)";
 			Query query = session.createQuery(sql);
-
+			query.setParameter(0, share);
+			
 			query.setString("key", "%"+address+"%");
 			
 			query.setMaxResults(1);

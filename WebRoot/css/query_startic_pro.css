@@ -494,3 +494,55 @@
 #joinTrace_pager span.normalsize {
 	font-size: 12px;
 }
+
+
+.page_con {
+	clear: both;
+	height: 30px;
+	line-height: 30px;
+	margin-top: 20px;
+	color: #999999;
+}
+
+.page_con a {
+	padding: 4px 8px;
+	margin: 10px 3px;
+	font-size: 12px;
+	border: 1px solid #DFDFDF;
+	background-color: #FFF;
+	color: #9d9d9d;
+	text-decoration: none;
+}
+
+.page_con span {
+	padding: 4px 8px;
+	margin: 10px 3px;
+	font-size: 14px;
+}
+
+.page_con span.disabled {
+	padding: 4px 8px;
+	margin: 10px 3px;
+	font-size: 12px;
+	border: 1px solid #DFDFDF;
+	background-color: #FFF;
+	color: #DFDFDF;
+}
+
+.page_con span.curr {
+	padding: 4px 8px;
+	margin: 10px 3px;
+	font-size: 12px;
+	border: 1px solid #FF6600;
+	background-color: #FF6600;
+	color: #FFF;
+}
+
+.page_con a:hover {
+	background-color: #FFEEE5;
+	border: 1px solid #FF6600;
+}
+
+.page_con span.normalsize {
+	font-size: 12px;
+}

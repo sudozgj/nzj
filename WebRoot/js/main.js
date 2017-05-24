@@ -1,23 +1,7 @@
 //var mainUrl = "http://192.168.1.1.226:8080/nzj/";
 var mainUrl = "";
 $(document).ready(function() {
-	
-	for(var i = 0; i < 3; i++) {
-		$('.nannyUl').append("<li id='nannyUl" + i + "' class='nannyClass'><img class='nannyUlImg' src='image/" + (i + 1) + ".png' /><a style='margin-left: 30px;' href='#a" + i + "'>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a></li>")
-	}
-	//新闻栏列表
-	var newText = ['未来家政行业的发展趋势', '你选择成为一名月嫂到底有前途吗？', '林志玲摇身一变成为月嫂！？', '某月嫂月入上万']
-	for(var i = 0; i < 4; i++) {
-		$('#newsUl').append("<li id='newsUl" + i + "' class='newsClass'>" + "<a title='" + newText[i] + "' href='#a" + i + "'>" + newText[i] + "</a>" + "</li>")
-	}
-	//公告栏列表
-	var noticeUlText = ['《家政服务法律规及政策》', '《国务院办公厅关于发展家庭服务业的指导意见》', '《北京市人民政府办公厅关于鼓励发展家政服务业（"家七条"）的意见》', '《家政服务2017年规范》', '《2017年最新家政免责申明》', '《近日，商务部制定并下发了（家政服务合同）范本》'];
-	for(var i = 0; i < 5; i++) {
-		$('.noticeUl').append("<li style='list-style-type:none;' id='noticeUl" + i + "' class='noticeClass'><img style='width: 20px; height: 30px;' src='image/file.png' /><a title='" + noticeUlText[i] + "' href='#a" + i + "'>" + noticeUlText[i] + "</a><img style='width: 20px; height: 30px;' src='image/dowload.png' /></li>")
-	}
-	//	  alert(getCookie("username"));
 	getDateShow();
-
 });
 
 //每隔30分钟提示用户登录失效
@@ -65,7 +49,7 @@ function getCookie(name) {
 var t = null;
 t = setTimeout(getDateShow, 1000); //开始执行
 function getDateShow() {
-	clearTimeout(t); //清除定时器
+//	clearTimeout(t); //清除定时器
 	var date = new Date();
 	var seperator1 = "-";
 	var seperator2 = ":";

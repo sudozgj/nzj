@@ -8,17 +8,21 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.dao.ShareEmployerDao;
+import org.dao.UserDao;
 import org.model.ShareEmployer;
 import org.model.User;
 import org.service.ShareEmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tool.JsonObject;
+import org.view.VUserId;
 
 @Service
 public class ShareEmployerServiceImp implements ShareEmployerService {
 	@Autowired
 	private ShareEmployerDao seDao;
+	@Autowired
+	private UserDao uDao;
 
 	@Override
 	public Object addShareEmployer(HttpSession session, ShareEmployer se) {
@@ -60,11 +64,11 @@ public class ShareEmployerServiceImp implements ShareEmployerService {
 		if (u != null) {
 			List li = seDao.getShareEmployerList(1, start, limit, u.getId());
 			Long count = seDao.getShareEmployerCount(u.getId(), 1);
-			
+
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("result", li);
 			map.put("count", count);
-			
+
 			return JsonObject.getResult(1, "获取共享客户列表", map);
 		} else {
 			return JsonObject.getResult(-999, "请先登录，获取共享客户列表", false);
@@ -78,11 +82,11 @@ public class ShareEmployerServiceImp implements ShareEmployerService {
 		if (u != null) {
 			List li = seDao.getShareEmployerList(0, start, limit, u.getId());
 			Long count = seDao.getShareEmployerCount(u.getId(), 0);
-			
+
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("result", li);
-			map.put("count",  count);
-			
+			map.put("count", count);
+
 			return JsonObject.getResult(1, "获取未共享客户列表", map);
 		} else {
 			return JsonObject.getResult(-999, "请先登录，才能获取未共享列表", false);
@@ -109,25 +113,57 @@ public class ShareEmployerServiceImp implements ShareEmployerService {
 	public Object getAllShareEmployerList(Integer start, Integer limit) {
 		List li = seDao.getAllShareEmployerList(1, start, limit);
 		Long count = seDao.getAllShareEmployerCount(1);
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", li);
-		map.put("count",  count);
-		
-		return JsonObject.getResult(1, "获取全部共享的客户列表",map);
+		map.put("count", count);
+
+		return JsonObject.getResult(1, "获取全部共享的客户列表", map);
 	}
 
 	@Override
 	public Object getSearchShareEmployerList(String key, Integer start,
 			Integer limit) {
 		List li = seDao.getSearchShareEmployerList(key, start, limit);
-		Long count =seDao.getSearchShareEmployerCount(key);
-		
+		Long count = seDao.getSearchShareEmployerCount(key);
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", li);
-		map.put("count",  count);
-		
+		map.put("count", count);
+
 		return JsonObject.getResult(1, "获取搜索后的共享客户列表", map);
+	}
+
+	@Override
+	public Object getLocalShareEmployerList(HttpSession session, Integer start,
+			Integer limit) {
+
+		User user = (User) session.getAttribute("user");
+		if (user == null) { // 说明是游客登录，则没有地址信息，故选用全部列表返回
+			List li = seDao.getAllShareEmployerList(1, start, limit);
+			Long count = seDao.getAllShareEmployerCount(1);
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", li);
+			map.put("count", count);
+
+			return JsonObject.getResult(1, "游客登录，获取全部共享的客户列表", map);
+
+		} else {
+			VUserId v = uDao.getUserById(user.getId());
+			String ad = v.getAddress();
+			ad = ad.split("-")[1];
+			System.out.println("	地址：" + ad);
+			List li = seDao.getLocalShareEmployerList(1, ad, start, limit);
+			long count = seDao.getLocalShareEmployerCount(1, ad);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", li);
+			map.put("count",  count);
+			
+			return JsonObject.getResult(1, "用户登录，获取本地的共享的客户列表",map);
+		}
+
 	}
 
 }

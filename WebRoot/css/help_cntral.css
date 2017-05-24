@@ -1,3 +1,7 @@
+html,body{
+	height:100%;
+}
+
 .main_employer{
 	width: 1000px;
 	height: 100%;
@@ -12,7 +16,19 @@
 	margin-top: 15px;
 }
 
-#add_aunt_form label{
+#mod_share_aunt div{
+	margin-top: 15px;
+}
+
+#add_share_clientele div{
+	margin-top: 15px;
+}
+
+#mod_share_clientele div{
+	margin-top: 15px;
+}
+
+form label{
 	color: red;
 }
 
@@ -45,5 +61,9 @@
 
 #add_aunt_form input{
 	width: 175px;
+}
+
+#myTabContent span{
+	font-weight:bold;
 }
 

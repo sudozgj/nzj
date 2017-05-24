@@ -8,17 +8,21 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.dao.ShareAuntDao;
+import org.dao.UserDao;
 import org.model.ShareAunt;
 import org.model.User;
 import org.service.ShareAuntService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tool.JsonObject;
+import org.view.VUserId;
 
 @Service
 public class ShareAuntServiceImp implements ShareAuntService {
 	@Autowired
 	private ShareAuntDao saDao;
+	@Autowired
+	private UserDao uDao;
 
 	@Override
 	public Object addShareAunt(HttpSession session, ShareAunt sa) {
@@ -136,12 +140,28 @@ public class ShareAuntServiceImp implements ShareAuntService {
 	public Object getLocalShareAuntList(HttpSession session, Integer start,
 			Integer limit) {
 		User user = (User) session.getAttribute("user");
-		if(user==null){		//说明没有登录，则没有地址信息，则选用全部列表返回
+		if(user==null){		//说明时游客登录，则没有地址信息，则选用全部列表返回
+			List li  =saDao.getAllShareAuntList(1, start, limit);
+			Long count = saDao.getAllShareAuntCount(1);
 			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", li);
+			map.put("count",  count);
+			
+			return JsonObject.getResult(1, "游客登录，获取全部共享的阿姨列表",map);
 		}else{
+			VUserId v = uDao.getUserById(user.getId());
+			String ad = v.getAddress();
+			ad=ad.split("-")[1];
+			System.out.println("	地址："+ad);
+			List li  =saDao.getLocalShareAuntList(1, ad, start, limit);
+			Long count = saDao.getLocalShareAuntCount(1, ad);
 			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", li);
+			map.put("count",  count);
+			
+			return JsonObject.getResult(1, "用户登录，获取本地的共享的阿姨列表",map);
 		}
-		
-		return null;
 	}
 }

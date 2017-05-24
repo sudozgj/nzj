@@ -19,7 +19,26 @@
 			<mvc:exclude-mapping path="/fonts/**"/>
 			<mvc:exclude-mapping path="/css/**"/>
 			<mvc:exclude-mapping path="/jsp/.*"/>
+			
+			<mvc:exclude-mapping path="/getSession" />
 			<mvc:exclude-mapping path="/getLogList" />
+			<mvc:exclude-mapping path="/logout" />
+			<mvc:exclude-mapping path="/getUser" />
+			
+			<mvc:exclude-mapping path="/getArticleList" />
+			<mvc:exclude-mapping path="/getSearchArticleList" />
+			
+			<mvc:exclude-mapping path="/getBoardList" />
+			<mvc:exclude-mapping path="/getSearchBoardList" />
+			
+			<mvc:exclude-mapping path="/getLocalShareAuntList" />
+			<mvc:exclude-mapping path="/getAllShareAuntList" />
+			<mvc:exclude-mapping path="/getSearchShareAuntList" />
+			
+			<mvc:exclude-mapping path="/getLocalShareEmployerList" />
+			<mvc:exclude-mapping path="/getAllShareEmployerList" />
+			<mvc:exclude-mapping path="/getSearchShareEmployerList" />
+			
 			<bean class="org.interceptor.LogInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

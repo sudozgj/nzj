@@ -33,45 +33,52 @@ public class ShareEmployerController {
 		return seService.updateShareEmployer(se);
 	}
 
-	@RequestMapping("/getShareEmployerList")
+	@RequestMapping("/getShareEmployerList")		//当前用户自己的
 	@ResponseBody
 	public Object getShareEmployerList(HttpSession session, Integer start,
 			Integer limit) throws Exception {
 		return seService.getShareEmployerList(session, start, limit);
 	}
 
-	@RequestMapping("/getUnShareEmployerList")
+	@RequestMapping("/getUnShareEmployerList")		//当前用户自己的
 	@ResponseBody
 	public Object getUnShareEmployerList(HttpSession session, Integer start,
 			Integer limit) throws Exception {
 		return seService.getUnShareEmployerList(session, start, limit);
 	}
 
-	@RequestMapping("/setShareEmployer")
+	@RequestMapping("/setShareEmployer")			//当前用户自己的
 	@ResponseBody
 	public Object setShareEmployer(long id) throws Exception {
 		return seService.setShareEmployer(id);
 	}
 
-	@RequestMapping("/setUnShareEmployer")
+	@RequestMapping("/setUnShareEmployer")			//当前用户自己的
 	@ResponseBody
 	public Object setUnShareEmployer(long id) throws Exception {
 		return seService.setUnShareEmployer(id);
 	}
 
-	@RequestMapping("/getAllShareEmployerList")
+	@RequestMapping("/getAllShareEmployerList")		////主页，全部
 	@ResponseBody
 	public Object getAllShareAuntList(Integer start, Integer limit)
 			throws Exception {
 		return seService.getAllShareEmployerList(start, limit);
 	}
 
-	@RequestMapping("/getSearchEmployerList")
+	@RequestMapping("/getSearchShareEmployerList")		//主页，全部
 	@ResponseBody
 	public Object getSearchEmployerList(String key, Integer start, Integer limit)
 			throws Exception {
 		System.out.println("	key:"+key);
 		return seService.getSearchShareEmployerList(key, start, limit);
+	}
+	
+	@RequestMapping("/getLocalShareEmployerList")	//主页，全部
+	@ResponseBody
+	public Object getLocalShareEmployerList(HttpSession session, Integer start,
+			Integer limit)throws Exception{
+		return seService.getLocalShareEmployerList(session, start, limit);
 	}
 
 }

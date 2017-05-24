@@ -1,20 +1,21 @@
-body {
+
+#ModUser{
 	text-align: center;
 	color: #3d3b4f;
 }
 
-a{
+#ModUser a{
 	/*text-decoration:none;*/
 	float: right;
 	margin-right: 30px;
 	color: #3d3b4f;
 }
 
-a:hover{
+#ModUser a:hover{
 	color: #f8bbd0;
 }
 
-.clsContent {
+#ModUser .clsContent {
 	margin: 100px auto 0 auto;
 	width: 800px;
 	height: 600px;
@@ -22,33 +23,33 @@ a:hover{
 	background: #FFFFFF;
 }
 
-.user_head {
+#ModUser .user_head {
 	width: 100%;
 	height: 40px;
 	padding-top: 10px;
 	background: #f8bbd0;
 }
 
-.user_head h3 {
+#ModUser .user_head h3 {
 	padding: 0px;
 	margin: 0;
 }
 
-.clsContent form {
+#ModUser .clsContent form {
 	width: 100%;
 	height: 560px;
 }
 
-#user_info {
+#ModUser #user_info {
 	padding-top: 50px;
 	
 }
 
-#user_info div {
+#ModUser #user_info div {
 	height: 60px;
 }
 
-#user_info_label {
+#ModUser #user_info_label {
 	float: left;
 	width: 360px;
 	height: 60px;
@@ -61,7 +62,7 @@ a:hover{
 	background: #e0e0e0;
 }*/
 
-#user_info_text {
+#ModUser #user_info_text {
 	float: left;
 	width: 430px;
 	height: 60px;
@@ -70,13 +71,13 @@ a:hover{
 	/*background: #FFB733;*/
 }
 
-#user_info_text input{
+#ModUser #user_info_text input{
 	padding-left: 25px;
 	border: none;
 	outline: none;
 }
 
-#btn_user_info{
+#ModUser #btn_user_info{
 	border-radius: 10px;
 	width: 80px;
 	height: 35px;
@@ -87,12 +88,12 @@ a:hover{
 	outline: none;
 }
 
-#btn_user_info:hover{
+#ModUser #btn_user_info:hover{
 	color: #FFFFFF;
 }
 
 
-#user_mod_label {
+#ModUser #user_mod_label {
 	float: left;
 	width: 250px;
 	height: 40px;
@@ -101,7 +102,7 @@ a:hover{
 	/*background: #1B6D85;*/
 }
 
-#user_mod_text {
+#ModUser #user_mod_text {
 	float: left;
 	width: 340px;
 	height: 40px;
@@ -111,11 +112,11 @@ a:hover{
 	/*background: #FFB733;*/
 }
 
-#user_mod div{
+#ModUser div{
 	margin-top: 20px;
 }
 
-#user_mod label{
+#ModUser label{
 	color: red;
 }
 

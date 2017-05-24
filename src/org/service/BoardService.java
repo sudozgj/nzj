@@ -54,5 +54,5 @@ public interface BoardService {
 	 * @param limit
 	 * @return
 	 */
-	public Object getSearchBoardList(String key,Integer start,Integer limit);
+	public Object getSearchBoardList(HttpSession session,String key,Integer start,Integer limit);
 }

@@ -139,14 +139,31 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public Object getSearchBoardList(String key, Integer start, Integer limit) {
+	public Object getSearchBoardList(HttpSession session,String key, Integer start, Integer limit) {
 		List li = bDao.getSearchBoardList(key, start, limit);
 		Long count = bDao.getSearchBoardCount(key);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", li);
-		map.put("count",  count);
-		
-		return JsonObject.getResult(1, "获取搜索后的公告列表", map);
+		User u = (User) session.getAttribute("user");
+		if(u==null){			//游客登录
+			List list = new ArrayList<>();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("title", "--");
+			map.put("description", "--");
+			map.put("name", "--");
+			map.put("time", "--");
+			map.put("url", "--");
+			list.add(map);
+			Map<String, Object> map1 = new HashMap<String, Object>();
+			map1.put("result", li);
+			map1.put("count",  1);
+			
+			return JsonObject.getResult(0, "请先登录，才能查看公告", map1);
+		}else{					//
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", li);
+			map.put("count",  count);
+			
+			return JsonObject.getResult(1, "获取搜索后的公告列表", map);
+		}
 	}
 }

@@ -4262,7 +4262,7 @@ tbody.collapse.in {
 	float: left;
 	min-width: 160px;
 	padding: 5px 0;
-	margin: 2px 0 0 -40px;
+	/*margin: 2px 0 0 -40px;*/
 	font-size: 14px;
 	text-align: left;
 	list-style: none;
@@ -5524,12 +5524,13 @@ fieldset[disabled] .navbar-default .btn-link:hover {
 }
 
 .navbar-inverse {
-	background: url(../image/top.png);
-	/*background-color: #f48fb1;
-	background:-webkit-gradient(linear, 0 0, 0 bottom, from(#f8bbd0), to(#f48fb1));  
+	/*background: url(../image/top.png);*/
+	background-color: #F6F6F6;
+	/*background:-webkit-gradient(linear, 0 0, 0 bottom, from(#f8bbd0), to(#f48fb1));  
 	background:-moz-linear-gradient(linear, 0 0, 0 bottom, from(#f8bbd0), to(#f48fb1));  
 	background:-o-linear-gradient(linear, 0 0, 0 bottom, from(#f8bbd0), to(#f48fb1));  */
-	border-color: #080808;
+	/*right: 180px;
+	border-color: #FFFFFF;*/
 }
 
 .navbar-inverse .navbar-brand {

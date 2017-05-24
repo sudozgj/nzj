@@ -7,7 +7,6 @@ import org.dao.ShareEmployerDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.model.ShareAunt;
 import org.model.ShareEmployer;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
@@ -234,7 +233,7 @@ public class ShareEmployerDaoImp implements ShareEmployerDao {
 				query.setMaxResults(limit);
 			}
 
-			List<ShareAunt> li = query.list();
+			List<ShareEmployer> li = query.list();
 
 			return li;
 		} catch (Exception e) {
@@ -255,6 +254,67 @@ public class ShareEmployerDaoImp implements ShareEmployerDao {
 			Query query = session.createQuery(sql);
 
 			query.setString("key", "%"+key+"%");
+			
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<ShareEmployer> getLocalShareEmployerList(Integer share,
+			String address, Integer start, Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "from ShareEmployer where share=? and address like :key";
+			Query query = session.createQuery(sql);
+			query.setParameter(0, share);
+			
+			query.setString("key", "%"+address+"%");
+
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				query.setMaxResults(limit);
+			} else if (limit == -1) {
+
+			} else {
+				query.setMaxResults(limit);
+			}
+
+			List<ShareEmployer> li = query.list();
+
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getLocalShareEmployerCount(Integer share, String address) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "select count(id) from ShareEmployer where share=? and address like :key)";
+			Query query = session.createQuery(sql);
+			query.setParameter(0, share);
+			
+			query.setString("key", "%"+address+"%");
 			
 			query.setMaxResults(1);
 			Long count = (Long) query.uniqueResult();

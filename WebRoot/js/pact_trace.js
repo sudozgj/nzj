@@ -111,11 +111,6 @@ function updateJointrace(eachData){
     $('.salary').val(eachData.salary);
     $('.remark').val(eachData.remark);
     $('#btn_pact_trace_mod').click(function() {
-////		if($("#name").val() == '' || $("#phone").val() == '' || $("#eTime").val() == '' || $("#content").val() == '') {
-////			alert("标有'*'号为必填信息");
-////		} else if(!/^[0-9]*$/.test($("#phone").val())) {
-////			alert("手机号码输入格式错误");
-////		} else {
 			var formData = new FormData(document.getElementById("modjoinTraceForm"));
 			$.ajax({
 				type: "post",
@@ -143,7 +138,6 @@ function updateJointrace(eachData){
 					alert("error");
 				}
 			});
-////		};
 	});
 };
 

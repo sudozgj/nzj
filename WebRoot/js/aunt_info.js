@@ -1,12 +1,12 @@
 var json = null;
 var total = null;
 $(function() {
-	$('#tdLanguages').children('button').hide();
-	$('#tdCookingId').children('button').hide();
-	$('#tdSkillId').children('button').hide();
-	$('#tdApplianceId').children('button').hide();
-	$('#tdJobId').children('button').hide();
-	$('#tdCertificateId').children('button').hide();
+	$('#tdLanguages').children('span').hide();
+	$('#tdCookingId').children('span').hide();
+	$('#tdSkillId').children('span').hide();
+	$('#tdApplianceId').children('span').hide();
+	$('#tdJobId').children('span').hide();
+	$('#tdCertificateId').children('span').hide();
 	//refreshData(20,1,10,json.length);
 	var pageSize = 20;
 	var pageNo = 1;
@@ -488,44 +488,44 @@ $(function() {
 	$('#tdLanguages').mouseover(function() {
 		$('#tdLanguages').children('span').show()
 	});
-	$('#tdLanguages').mouseout(function() {
-		$('#tdLanguages').children('span').hide()
-	});
+//	$('#tdLanguages').mouseout(function() {
+//		$('#tdLanguages').children('span').hide()
+//	});
 	//鼠标经过语言复选框是显示保存按钮
 	$('#tdCookingId').mouseover(function() {
 		$('#tdCookingId').children('span').show()
 	});
-	$('#tdCookingId').mouseout(function() {
-		$('#tdCookingId').children('span').hide()
-	});
+//	$('#tdCookingId').mouseout(function() {
+//		$('#tdCookingId').children('span').hide()
+//	});
 	//鼠标经过语言复选框是显示保存按钮
 	$('#tdSkillId').mouseover(function() {
 		$('#tdSkillId').children('span').show()
 	});
-	$('#tdSkillId').mouseout(function() {
-		$('#tdSkillId').children('span').hide()
-	});
+//	$('#tdSkillId').mouseout(function() {
+//		$('#tdSkillId').children('span').hide()
+//	});
 	//鼠标经过语言复选框是显示保存按钮
 	$('#tdApplianceId').mouseover(function() {
 		$('#tdApplianceId').children('span').show()
 	});
-	$('#tdApplianceId').mouseout(function() {
-		$('#tdApplianceId').children('span').hide()
-	});
+//	$('#tdApplianceId').mouseout(function() {
+//		$('#tdApplianceId').children('span').hide()
+//	});
 	//鼠标经过语言复选框是显示保存按钮
 	$('#tdJobId').mouseover(function() {
 		$('#tdJobId').children('span').show()
 	});
-	$('#tdJobId').mouseout(function() {
-		$('#tdJobId').children('span').hide()
-	});
+//	$('#tdJobId').mouseout(function() {
+//		$('#tdJobId').children('span').hide()
+//	});
 	//鼠标经过语言复选框是显示保存按钮
 	$('#tdCertificateId').mouseover(function() {
 		$('#tdCertificateId').children('span').show()
 	});
-	$('#tdCertificateId').mouseout(function() {
-		$('#tdCertificateId').children('span').hide()
-	});
+//	$('#tdCertificateId').mouseout(function() {
+//		$('#tdCertificateId').children('span').hide()
+//	});
 });
 
 //添加阿姨信息时初始化表

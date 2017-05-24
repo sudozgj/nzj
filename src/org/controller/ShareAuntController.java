@@ -33,51 +33,52 @@ public class ShareAuntController {
 		return saService.updateShareAunt(sa);
 	}
 
-	@RequestMapping("/getShareAuntList")
+	@RequestMapping("/getShareAuntList")		//当前用户自己的
 	@ResponseBody
 	public Object getShareAuntList(HttpSession session, Integer start,
 			Integer limit) throws Exception {
 		return saService.getShareAuntList(session, start, limit);
 	}
 
-	@RequestMapping("/getUnShareAuntList")
+	@RequestMapping("/getUnShareAuntList")		//当前用户自己的
 	@ResponseBody
 	public Object getUnShareAuntList(HttpSession session, Integer start,
 			Integer limit) throws Exception {
 		return saService.getUnShareAuntList(session, start, limit);
 	}
 
-	@RequestMapping("/setShareAunt")
+	@RequestMapping("/setShareAunt")			//当前用户自己的
 	@ResponseBody
 	public Object setShareAunt(long id) throws Exception {
 		return saService.setShareAunt(id);
 	}
 
-	@RequestMapping("/setUnShareAunt")
+	@RequestMapping("/setUnShareAunt")			//当前用户自己的
 	@ResponseBody
 	public Object setUnShareAunt(long id) throws Exception {
 		return saService.setUnShareAunt(id);
 	}
 
-	@RequestMapping("/getAllShareAuntList")
+	@RequestMapping("/getAllShareAuntList")		//主页，全部
 	@ResponseBody
 	public Object getAllShareAuntList(Integer start, Integer limit)
 			throws Exception {
 		return saService.getAllShareAuntList(start, limit);
 	}
-	
-	@RequestMapping("/getSearchShareAuntList")
+
+	@RequestMapping("/getSearchShareAuntList")	//主页，全部
 	@ResponseBody
 	public Object getSearchShareAuntList(String key, Integer start,
-			Integer limit)throws Exception{
-		System.out.println("	key:"+key);
+			Integer limit) throws Exception {
+		System.out.println("	key:" + key);
 		return saService.getSearchShareAuntList(key, start, limit);
 	}
-	
-	@RequestMapping("/getLocalShareAuntList")
+
+	@RequestMapping("/getLocalShareAuntList")	//主页，当前用户的
 	@ResponseBody
-	public Object getLocalShareAuntList(HttpSession session,Integer start, Integer limit){
-		return null;
+	public Object getLocalShareAuntList(HttpSession session, Integer start,
+			Integer limit) throws Exception{
+		return saService.getLocalShareAuntList(session, start, limit);
 	}
-	
+
 }

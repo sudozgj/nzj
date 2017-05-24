@@ -50,9 +50,9 @@ public class BoardController {
 
 	@RequestMapping("/getSearchBoardList")
 	@ResponseBody
-	public Object getSearchBoardList(String key, Integer start, Integer limit)
+	public Object getSearchBoardList(HttpSession session,String key, Integer start, Integer limit)
 			throws Exception {
 		System.out.println("	key:"+key);
-		return bService.getSearchBoardList(key, start, limit);
+		return bService.getSearchBoardList(session,key, start, limit);
 	}
 }
