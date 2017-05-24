@@ -23,6 +23,7 @@ public class Aunt implements java.io.Serializable {
 	private String idnumber;
 	private String phone;
 	private String address;
+	private Integer status;
 	private Long userId;
 
 	// Constructors
@@ -35,7 +36,7 @@ public class Aunt implements java.io.Serializable {
 	public Aunt(String name, Integer age, String sign, String native_,
 			Integer sex, String education, Integer marriage, String nation,
 			Double height, Double weight, Double sigh, String idnumber,
-			String phone, String address, Long userId) {
+			String phone, String address, Integer status, Long userId) {
 		this.name = name;
 		this.age = age;
 		this.sign = sign;
@@ -50,6 +51,7 @@ public class Aunt implements java.io.Serializable {
 		this.idnumber = idnumber;
 		this.phone = phone;
 		this.address = address;
+		this.status = status;
 		this.userId = userId;
 	}
 
@@ -173,6 +175,14 @@ public class Aunt implements java.io.Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Long getUserId() {

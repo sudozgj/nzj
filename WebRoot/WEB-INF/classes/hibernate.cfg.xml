@@ -55,10 +55,13 @@
 
 	<mapping resource="org/model/Article.hbm.xml" />
 
-	<mapping resource="org/model/Order.hbm.xml" />
 	<mapping resource="org/model/OrderAccount.hbm.xml" />
-	<mapping resource="org/model/OrderTrainee.hbm.xml" />
 	<mapping resource="org/model/OrderCheck.hbm.xml" />
+	<mapping resource="org/model/Orders.hbm.xml" />
+	<mapping resource="org/model/OrderTrainee.hbm.xml" />
+	<mapping resource="org/model/Trainee.hbm.xml" />
+
+	<mapping resource="org/model/Log.hbm.xml" />
 
 	<mapping resource="org/view/VAunt.hbm.xml" />
 	<mapping resource="org/view/VUser.hbm.xml" />
@@ -70,6 +73,7 @@
 	<mapping resource="org/view/VLanguage.hbm.xml" />
 	<mapping resource="org/view/VSkill.hbm.xml" />
 	<mapping resource="org/view/VOrder.hbm.xml" />
+	<mapping resource="org/view/VLog.hbm.xml" />
 
 </session-factory>
 </hibernate-configuration>

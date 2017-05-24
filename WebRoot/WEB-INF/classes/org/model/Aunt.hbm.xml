@@ -52,6 +52,9 @@
         <property name="address" type="java.lang.String">
             <column name="address" not-null="true" />
         </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" not-null="true" />
+        </property>
         <property name="userId" type="java.lang.Long">
             <column name="user_id" not-null="true" />
         </property>

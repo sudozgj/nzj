@@ -46,72 +46,87 @@ public class AuntController {
 			throws Exception {
 		return aService.getAuntList(session, start, limit);
 	}
-	
+
 	@RequestMapping("/updateAunt")
 	@ResponseBody
-	public Object updateAunt(Aunt a)throws Exception{
+	public Object updateAunt(Aunt a) throws Exception {
 		return aService.updateAunt(a);
 	}
-	
+
 	@RequestMapping("/updateAuntLanguage")
 	@ResponseBody
-	public Object updateAuntLanguage(long AuntId, long[] id)throws Exception{
+	public Object updateAuntLanguage(long AuntId, long[] id) throws Exception {
 		return aService.updateAuntLanguage(AuntId, id);
 	}
-	
+
 	@RequestMapping("/updateAuntCooking")
 	@ResponseBody
-	public Object updateAuntCooking(long AuntId, long[] id)throws Exception{
+	public Object updateAuntCooking(long AuntId, long[] id) throws Exception {
 		return aService.updateAuntCooking(AuntId, id);
 	}
-	
+
 	@RequestMapping("/updateAuntSkill")
 	@ResponseBody
-	public Object updateAuntSkill(long AuntId, long[] id)throws Exception{
+	public Object updateAuntSkill(long AuntId, long[] id) throws Exception {
 		return aService.updateAuntSkill(AuntId, id);
 	}
-	
+
 	@RequestMapping("/updateAuntAppliance")
 	@ResponseBody
-	public Object updateAuntAppliance(long AuntId, long[] id)throws Exception{
+	public Object updateAuntAppliance(long AuntId, long[] id) throws Exception {
 		return aService.updateAuntAppliance(AuntId, id);
 	}
-	
+
 	@RequestMapping("/updateAuntCertificate")
 	@ResponseBody
-	public Object updateAuntCertificate(long AuntId, long[] id)throws Exception{
+	public Object updateAuntCertificate(long AuntId, long[] id)
+			throws Exception {
 		return aService.updateAuntCertificate(AuntId, id);
 	}
-	
+
 	@RequestMapping("/updateAuntJob")
 	@ResponseBody
-	public Object updateAuntJob(long AuntId, long[] id)throws Exception{
+	public Object updateAuntJob(long AuntId, long[] id) throws Exception {
 		return aService.updateAuntJob(AuntId, id);
 	}
-	
+
 	@RequestMapping("/updateAuntContact")
 	@ResponseBody
-	public Object updateAuntContact(long AuntId, AuntContactForm c)throws Exception{
+	public Object updateAuntContact(long AuntId, AuntContactForm c)
+			throws Exception {
 		return aService.updateAuntContact(AuntId, c);
 	}
-	
+
 	@RequestMapping("/updataAuntWork")
 	@ResponseBody
-	public Object updataAuntWork(long AuntId, AuntWorkForm w)throws Exception{
+	public Object updataAuntWork(long AuntId, AuntWorkForm w) throws Exception {
 		return aService.updataAuntWork(AuntId, w);
 	}
-	
+
 	@RequestMapping("/updateAuntPhoto")
 	@ResponseBody
 	public Object updateAuntPhoto(HttpServletRequest request, long AuntId,
-			@RequestParam("file") CommonsMultipartFile file)throws Exception{
+			@RequestParam("file") CommonsMultipartFile file) throws Exception {
 		return aService.updateAuntPhoto(request, AuntId, file);
 	}
 
 	@RequestMapping("/getAuntById")
 	@ResponseBody
-	public Object getAuntById(Long id)throws Exception{
+	public Object getAuntById(Long id) throws Exception {
 		return aService.getAuntById(id);
 	}
-	
+
+	@RequestMapping("/getAuntListByStatus")
+	@ResponseBody
+	public Object getAuntListByStatus(HttpSession session, Integer status,
+			Integer start, Integer limit, Long userId) throws Exception {
+		return aService.getAuntListByStatus(session, status, start, limit,
+				userId);
+	}
+
+	@RequestMapping("/updateAuntStauts")
+	@ResponseBody
+	public Object updateAuntStauts(Long AuntId, Integer status)throws Exception{
+		return aService.updateAuntStauts(AuntId, status);
+	}
 }

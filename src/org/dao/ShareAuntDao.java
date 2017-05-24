@@ -73,4 +73,18 @@ public interface ShareAuntDao {
 	 * @return
 	 */
 	public Long getSearchShareAuntCount(String key);
+	/**
+	 * 4.7获取某地区的共享阿姨列表
+	 * @param address
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<ShareAunt> getLocalShareAuntList(String address,Integer start,Integer limit);
+	/**
+	 * 4.8获取某地区的共享阿姨总数
+	 * @param address
+	 * @return
+	 */
+	public long getLocalShareAuntCount(String address);
 }

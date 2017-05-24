@@ -58,6 +58,9 @@
             <key-property name="url" type="java.lang.String">
                 <column name="url" />
             </key-property>
+            <key-property name="status" type="java.lang.Integer">
+                <column name="status" />
+            </key-property>
         </composite-id>
     </class>
 </hibernate-mapping>

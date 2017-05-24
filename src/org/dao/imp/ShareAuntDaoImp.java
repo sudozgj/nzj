@@ -213,7 +213,7 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "from ShareAunt where share=1 and (skill like :key or remark like :key)";
+			String sql = "from ShareAunt where share=1 and (skill like :key or address like :key)";
 			Query query = session.createQuery(sql);
 			
 			query.setString("key", "%"+key+"%");
@@ -248,10 +248,69 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select count(id) from ShareAunt where share=1 and (skill like :key or remark like :key)";
+			String sql = "select count(id) from ShareAunt where share=1 and (skill like :key or address like :key)";
 			Query query = session.createQuery(sql);
 
 			query.setString("key", "%"+key+"%");
+			
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<ShareAunt> getLocalShareAuntList(String address, Integer start,
+			Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "from ShareAunt where share=1 and address like :key";
+			Query query = session.createQuery(sql);
+			
+			query.setString("key", "%"+address+"%");
+
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				query.setMaxResults(limit);
+			} else if (limit == -1) {
+
+			} else {
+				query.setMaxResults(limit);
+			}
+
+			List<ShareAunt> li = query.list();
+
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getLocalShareAuntCount(String address) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "select count(id) from ShareAunt where share=1 and address like :key)";
+			Query query = session.createQuery(sql);
+
+			query.setString("key", "%"+address+"%");
 			
 			query.setMaxResults(1);
 			Long count = (Long) query.uniqueResult();

@@ -46,8 +46,6 @@ public class ShareEmployerServiceImp implements ShareEmployerService {
 
 	@Override
 	public Object updateShareEmployer(ShareEmployer se) {
-		if (se.getRemark() == null)
-			se.setRemark("");
 		se.setTime(new Date().getTime() / 1000);
 		if (seDao.updateShareEmployer(se))
 			return JsonObject.getResult(1, "修改共享信息成功", true);

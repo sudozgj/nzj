@@ -49,6 +49,12 @@
             <key-property name="did" type="java.lang.Long">
                 <column name="did" />
             </key-property>
+            <key-property name="support" type="java.lang.Integer">
+                <column name="support" />
+            </key-property>
+            <key-property name="clock" type="java.lang.Long">
+                <column name="clock" />
+            </key-property>
         </composite-id>
     </class>
 </hibernate-mapping>

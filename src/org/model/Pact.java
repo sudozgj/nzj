@@ -23,6 +23,7 @@ public class Pact implements java.io.Serializable {
 	private String time;
 	private String salary;
 	private String remark;
+	private Long employerId;
 
 	// Constructors
 
@@ -33,7 +34,8 @@ public class Pact implements java.io.Serializable {
 	/** minimal constructor */
 	public Pact(Long userId, Long ptime, String code, String ename,
 			String ephone, String eaddress, String econtent, String duration,
-			Double cost, String aname, String aphone, String time, String salary) {
+			Double cost, String aname, String aphone, String time,
+			String salary, Long employerId) {
 		this.userId = userId;
 		this.ptime = ptime;
 		this.code = code;
@@ -47,13 +49,14 @@ public class Pact implements java.io.Serializable {
 		this.aphone = aphone;
 		this.time = time;
 		this.salary = salary;
+		this.employerId = employerId;
 	}
 
 	/** full constructor */
 	public Pact(Long userId, Long ptime, String code, String ename,
 			String ephone, String eaddress, String econtent, String duration,
 			Double cost, String aname, String aphone, String time,
-			String salary, String remark) {
+			String salary, String remark, Long employerId) {
 		this.userId = userId;
 		this.ptime = ptime;
 		this.code = code;
@@ -68,6 +71,7 @@ public class Pact implements java.io.Serializable {
 		this.time = time;
 		this.salary = salary;
 		this.remark = remark;
+		this.employerId = employerId;
 	}
 
 	// Property accessors
@@ -190,6 +194,14 @@ public class Pact implements java.io.Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Long getEmployerId() {
+		return this.employerId;
+	}
+
+	public void setEmployerId(Long employerId) {
+		this.employerId = employerId;
 	}
 
 }

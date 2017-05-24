@@ -1,11 +1,12 @@
-package org.test;
-
-import org.dao.ArticleDao;
-import org.dao.imp.ArticleDaoImp;
-
-public class test08 {
-	public static void main(String[] args) {
-		ArticleDao aDao = new ArticleDaoImp();
-		System.out.println(aDao.getArticleFstrById(6));
-	}
-}
+//package org.test;
+//
+//import org.dao.OrderDao;
+//import org.dao.imp.OrderDaoImp;
+//
+//public class test08 {
+//	public static void main(String[] args) {
+//		OrderDao oDao = new OrderDaoImp();
+//		
+//		System.out.println(oDao.getUserIdByOrderId(48));
+//	}
+//}

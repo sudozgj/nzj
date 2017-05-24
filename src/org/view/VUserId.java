@@ -22,6 +22,8 @@ public class VUserId implements java.io.Serializable {
 	private String charterurl;
 	private String idcardurl;
 	private Long did;
+	private Integer support;
+	private Long clock;
 
 	// Constructors
 
@@ -32,7 +34,7 @@ public class VUserId implements java.io.Serializable {
 	/** minimal constructor */
 	public VUserId(Long id, Long phone, Integer rank, Integer ack,
 			String username, String company, String contact, Long telephone,
-			Long dphone, String address, Long did) {
+			Long dphone, String address, Long did, Integer support, Long clock) {
 		this.id = id;
 		this.phone = phone;
 		this.rank = rank;
@@ -44,13 +46,15 @@ public class VUserId implements java.io.Serializable {
 		this.dphone = dphone;
 		this.address = address;
 		this.did = did;
+		this.support = support;
+		this.clock = clock;
 	}
 
 	/** full constructor */
 	public VUserId(Long id, Long phone, String time, Integer rank, Integer ack,
 			String username, String company, String contact, Long telephone,
 			Long dphone, String address, String charterurl, String idcardurl,
-			Long did) {
+			Long did, Integer support, Long clock) {
 		this.id = id;
 		this.phone = phone;
 		this.time = time;
@@ -65,6 +69,8 @@ public class VUserId implements java.io.Serializable {
 		this.charterurl = charterurl;
 		this.idcardurl = idcardurl;
 		this.did = did;
+		this.support = support;
+		this.clock = clock;
 	}
 
 	// Property accessors
@@ -181,6 +187,22 @@ public class VUserId implements java.io.Serializable {
 		this.did = did;
 	}
 
+	public Integer getSupport() {
+		return this.support;
+	}
+
+	public void setSupport(Integer support) {
+		this.support = support;
+	}
+
+	public Long getClock() {
+		return this.clock;
+	}
+
+	public void setClock(Long clock) {
+		this.clock = clock;
+	}
+
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -235,7 +257,13 @@ public class VUserId implements java.io.Serializable {
 						.getIdcardurl().equals(castOther.getIdcardurl())))
 				&& ((this.getDid() == castOther.getDid()) || (this.getDid() != null
 						&& castOther.getDid() != null && this.getDid().equals(
-						castOther.getDid())));
+						castOther.getDid())))
+				&& ((this.getSupport() == castOther.getSupport()) || (this
+						.getSupport() != null && castOther.getSupport() != null && this
+						.getSupport().equals(castOther.getSupport())))
+				&& ((this.getClock() == castOther.getClock()) || (this
+						.getClock() != null && castOther.getClock() != null && this
+						.getClock().equals(castOther.getClock())));
 	}
 
 	public int hashCode() {
@@ -270,6 +298,10 @@ public class VUserId implements java.io.Serializable {
 				+ (getIdcardurl() == null ? 0 : this.getIdcardurl().hashCode());
 		result = 37 * result
 				+ (getDid() == null ? 0 : this.getDid().hashCode());
+		result = 37 * result
+				+ (getSupport() == null ? 0 : this.getSupport().hashCode());
+		result = 37 * result
+				+ (getClock() == null ? 0 : this.getClock().hashCode());
 		return result;
 	}
 

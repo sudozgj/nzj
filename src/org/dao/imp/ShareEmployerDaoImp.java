@@ -216,7 +216,7 @@ public class ShareEmployerDaoImp implements ShareEmployerDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "from ShareEmployer where share=1 and (content like :key or remark like :key)";
+			String sql = "from ShareEmployer where share=1 and (content like :key or address like :key)";
 			Query query = session.createQuery(sql);
 
 			query.setString("key", "%" + key + "%");
@@ -251,7 +251,7 @@ public class ShareEmployerDaoImp implements ShareEmployerDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			String sql = "select count(id) from ShareEmployer where share=1 and (content like :key or remark like :key)";
+			String sql = "select count(id) from ShareEmployer where share=1 and (content like :key or address like :key)";
 			Query query = session.createQuery(sql);
 
 			query.setString("key", "%"+key+"%");

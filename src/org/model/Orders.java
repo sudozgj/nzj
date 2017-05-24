@@ -1,10 +1,10 @@
 package org.model;
 
 /**
- * Order entity. @author MyEclipse Persistence Tools
+ * Orders entity. @author MyEclipse Persistence Tools
  */
 
-public class Order implements java.io.Serializable {
+public class Orders implements java.io.Serializable {
 
 	// Fields
 
@@ -16,11 +16,11 @@ public class Order implements java.io.Serializable {
 	// Constructors
 
 	/** default constructor */
-	public Order() {
+	public Orders() {
 	}
 
 	/** full constructor */
-	public Order(String preparer, Long time, Long userId) {
+	public Orders(String preparer, Long time, Long userId) {
 		this.preparer = preparer;
 		this.time = time;
 		this.userId = userId;

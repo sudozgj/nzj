@@ -78,10 +78,10 @@ public class AuntServiceImp implements AuntService {
 
 			String photoName = file.getOriginalFilename();
 			// String path = request.getRealPath("/"); // 项目路径
-			if(photoName.equals("")){
+			if (photoName.equals("")) {
 				return JsonObject.getResult(0, "图片不能为空", false);
 			}
-			
+
 			photoName = new Date().getTime() / 1000 + "_"
 					+ new Random().nextInt(10)
 					+ photoName.substring(photoName.indexOf("."));
@@ -111,7 +111,7 @@ public class AuntServiceImp implements AuntService {
 			// -----------------------文件传输完成------------------------
 
 			a.setUserId(u.getId()); // 将阿姨所属的加盟商给添加进去
-
+			a.setStatus(0); // 初始化阿姨的状态为待岗
 			boolean bb = aDao.addAunt(a, languageId, cookingId, skillId,
 					applianceId, certificateId, jobId, c, w, url);
 			if (bb) { // 添加阿姨
@@ -253,8 +253,8 @@ public class AuntServiceImp implements AuntService {
 
 		File f = new File(fPath);
 		file.transferTo(f);
-		//------------------------图片上传完成-----------------------------
-		
+		// ------------------------图片上传完成-----------------------------
+
 		if (aphDao.updatePhotoByAuntId(AuntId, url))
 			return JsonObject.getResult(1, "修改阿姨工作经历成功", true);
 		else
@@ -263,7 +263,9 @@ public class AuntServiceImp implements AuntService {
 
 	@Override
 	public Object getAuntById(Long id) {
-		VAuntId v=  aDao.getAuntById(id);
+		VAuntId v = aDao.getAuntById(id);
+		if (v == null)
+			return JsonObject.getResult(0, "阿姨id不合法", false);
 		Map<String, Object> aMap = new HashMap();
 		Long aid = v.getId();
 		aMap.put("id", aid);
@@ -283,8 +285,7 @@ public class AuntServiceImp implements AuntService {
 		aMap.put("address", v.getAddress());
 		aMap.put("url", v.getUrl()); // 照片通过视图组合进来了，不需要像下面一下添加
 		aMap.put("userId", v.getUserId());
-		
-		
+
 		aMap.put("language", lDao.getLanguageByAuntId(aid));
 		aMap.put("cooking", cDao.getCookingByAuntId(aid));
 		aMap.put("skill", sDao.getSkillByAuntId(aid));
@@ -294,9 +295,33 @@ public class AuntServiceImp implements AuntService {
 
 		aMap.put("contact", acDao.getContactByAuntId(aid));
 		aMap.put("work", awDao.getWorkByAuntId(aid));
-		
-		
+
 		return JsonObject.getResult(1, "阿姨信息", aMap);
+	}
+
+	@Override
+	public Object getAuntListByStatus(HttpSession session, Integer status,
+			Integer start, Integer limit, Long userId) {
+		User u = (User) session.getAttribute("user");
+		if (u != null) {
+			List<VAuntId> li = aDao.getAuntList(start, limit, u.getId());
+			Long count = aDao.getAuntCount(u.getId());
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", li);
+			map.put("count", count);
+			return JsonObject.getResult(1, "阿姨列表", map);
+		} else {
+			return JsonObject.getResult(-999, "请先登录，才能获取阿姨列表", false);
+		}
+	}
+
+	@Override
+	public Object updateAuntStauts(Long AuntId, Integer status) {
+		if(aDao.updateAuntStatus(AuntId, status))
+			return JsonObject.getResult(1, "修改阿姨状态成功", true);
+		else
+			return JsonObject.getResult(0, "修改阿姨状态失败", false);
 	}
 
 }

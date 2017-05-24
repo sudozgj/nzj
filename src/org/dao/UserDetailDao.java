@@ -32,4 +32,10 @@ public interface UserDetailDao {
 	 * @return
 	 */
 	public boolean getUserDetail(Long userId);
+	/**
+	 * 4.3通过用户id查询用户详细信息
+	 * @param userId
+	 * @return
+	 */
+	public UserDetail getUserDetailById(Long userId);
 }

@@ -33,6 +33,8 @@ public class AuntDaoImp implements AuntDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
+			Thread.sleep(5000);
+			
 			final Long id = (Long) session.save(a);
 			session.doWork(new Work() {
 				@Override
@@ -338,6 +340,88 @@ public class AuntDaoImp implements AuntDao {
 			e.printStackTrace();
 			return null;
 		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<VAuntId> getAuntListByStatus(Integer status, Integer start,
+			Integer limit, Long userId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "select * from v_aunt where user_id=? and status=? order by id desc";
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.addEntity(VAunt.class);
+			sqlQuery.setParameter(0, userId);
+			sqlQuery.setParameter(1, status);
+			
+			if (start == null) {
+				start = 0;
+			}
+			sqlQuery.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				sqlQuery.setMaxResults(limit);
+			} else if (limit == -1) {
+
+			} else {
+				sqlQuery.setMaxResults(limit);
+			}
+			List<VAunt> li = sqlQuery.list();
+			List<VAuntId> list = new ArrayList<>();
+			for (VAunt a : li)
+				list.add(a.getId());
+
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getAuntCountByStatus(Integer status, long userId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query;
+			query = session
+					.createQuery("select count(id) from Aunt where userId=? and status=?");
+			query.setParameter(0, userId);
+			query.setParameter(1, status);
+
+			query.setMaxResults(1);
+			Long count = (Long) query.uniqueResult();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1L;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public boolean updateAuntStatus(Long id, Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("update Aunt u set u.status=? where u.id=?");
+			query.setParameter(0, status);
+			query.setParameter(1, id);
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally{
 			HibernateSessionFactory.closeSession();
 		}
 	}

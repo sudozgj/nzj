@@ -3,6 +3,7 @@ package org.service;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.model.Board;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,7 +46,7 @@ public interface BoardService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Object getBoardList(Integer start, Integer limit) throws Exception;
+	public Object getBoardList(HttpSession session,Integer start, Integer limit) throws Exception;
 	/**
 	 * 5获取搜索后的共享列表
 	 * @param key

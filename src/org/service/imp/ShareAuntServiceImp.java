@@ -47,8 +47,6 @@ public class ShareAuntServiceImp implements ShareAuntService {
 
 	@Override
 	public Object updateShareAunt(ShareAunt sa) {
-		if (sa.getRemark() == null)
-			sa.setRemark("");
 		sa.setTime(new Date().getTime() / 1000);
 		if (saDao.updateShareAunt(sa))
 			return JsonObject.getResult(1, "修改共享信息成功", true);
@@ -132,5 +130,18 @@ public class ShareAuntServiceImp implements ShareAuntService {
 		map.put("count",  count);
 		
 		return JsonObject.getResult(1, "获取搜索后的共享阿姨列表", map);
+	}
+
+	@Override
+	public Object getLocalShareAuntList(HttpSession session, Integer start,
+			Integer limit) {
+		User user = (User) session.getAttribute("user");
+		if(user==null){		//说明没有登录，则没有地址信息，则选用全部列表返回
+			
+		}else{
+			
+		}
+		
+		return null;
 	}
 }

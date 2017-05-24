@@ -22,19 +22,16 @@
 
 			$.ajax({
 				type : "post",
-				url : "addOrderTrainee", 
+				url : "addTrainee", 
 				data : of,
 				async : false,
 				cache : false,
 				contentType : false,
 				processData : false,
 				success : function(data) {
-					if (data.code == -999) {
+					if (data.code == 1) {
 						alert(data.msg);
-						location.href = "login.html";
-					} else if (data.code == 1) {
-						alert(data.msg);
-						location.reload();
+						//location.reload();
 					} else {
 						alert(data.msg);
 					}
@@ -190,6 +187,7 @@
 </head>
 <body>
 	<h3>订单列表</h3>
+	<p>提交过的订单，不能再提交，（按钮应该禁用、或者有提示）</p>
 	<table id="oList" border="1px">
 		<thead>
 			<tr>
@@ -207,18 +205,21 @@
 	</table>
 	<h3>创建订单</h3>
 	填表人：
-	<input type="text" id="preparer" />
+	<input type="text" id="preparer" />s
 	<input type="button" id="addO" value="" />
 	<h3>添加学员</h3>
 	<form id="otForm">
-		订单id：<input type="text" name="orderId" id="orderId" /><br>
-		姓名：<input type="text" name="name" /><br> 性别：<input type="text"
-			name="sex" /><br> 生日：<input type="text" name="birthday" /><br>
-		地址：<input type="text" name="address" /><br> 身份证：<input
-			type="text" name="idnumber" /><br> 身份证正：<input type="file"
-			name="file1" /> 身份证反：<input type="file" name="file2" /> 照片：<input
-			type="file" name="file3" /> 学员信息：<input type="file" name="file4" />
-	</form><br>
+		姓名：<input type="text" name="name" /><br> 
+		性别：<input type="text" name="sex" /><br> 
+		生日：<input type="text" name="birthday" /><br>
+		地址：<input type="text" name="address" /><br> 
+		身份证：<input type="text" name="idnumber" /><br> 
+		缴费情况：<input type="text" name="pay" /><br>
+		身份证正：<input type="file" name="file1" /> 
+		身份证反：<input type="file" name="file2" /> 
+		照片：<input type="file" name="file3" /> 
+		学员信息：<input type="file" name="file4" />
+	</form>
 	<input type="button" id="addT" value="添加学员" />
 	
 	<!-- 查看添加学员 modal -->

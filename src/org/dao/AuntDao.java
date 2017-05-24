@@ -36,7 +36,14 @@ public interface AuntDao {
 	 * @return
 	 */
 	public boolean updateAunt(Aunt l);
-
+	
+	/**
+	 * 3.2修改阿姨状态
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public boolean updateAuntStatus(Long id,Integer status);
 	// -----------------------------------查---------------------------------------
 	/**
 	 * 4.1获取全部阿姨
@@ -60,4 +67,20 @@ public interface AuntDao {
 	 * @return
 	 */
 	public VAuntId getAuntById(Long id);
+	/**
+	 * 4.5根据状态来筛选当前加盟商的所有阿姨
+	 * @param status
+	 * @param start
+	 * @param limit
+	 * @param userId
+	 * @return
+	 */
+	public List<VAuntId> getAuntListByStatus(Integer status,Integer start, Integer limit,Long userId);
+	/**
+	 * 4.6根据状态获取当前加盟商的阿姨总数
+	 * @param status
+	 * @param userId
+	 * @return
+	 */
+	public long getAuntCountByStatus(Integer status,long userId);
 }

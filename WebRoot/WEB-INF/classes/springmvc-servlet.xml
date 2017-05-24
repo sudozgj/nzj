@@ -19,6 +19,7 @@
 			<mvc:exclude-mapping path="/fonts/**"/>
 			<mvc:exclude-mapping path="/css/**"/>
 			<mvc:exclude-mapping path="/jsp/.*"/>
+			<mvc:exclude-mapping path="/getLogList" />
 			<bean class="org.interceptor.LogInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

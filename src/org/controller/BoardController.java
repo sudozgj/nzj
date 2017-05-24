@@ -3,6 +3,7 @@ package org.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.model.Board;
 import org.service.BoardService;
@@ -43,8 +44,8 @@ public class BoardController {
 
 	@RequestMapping("/getBoardList")
 	@ResponseBody
-	public Object getBoardList(Integer start, Integer limit) throws Exception {
-		return bService.getBoardList(start, limit);
+	public Object getBoardList(HttpSession session,Integer start, Integer limit) throws Exception {
+		return bService.getBoardList(session,start, limit);
 	}
 
 	@RequestMapping("/getSearchBoardList")

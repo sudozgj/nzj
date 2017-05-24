@@ -15,6 +15,7 @@ public class Employer implements java.io.Serializable {
 	private String phone;
 	private String adress;
 	private String content;
+	private Integer status;
 
 	// Constructors
 
@@ -24,23 +25,25 @@ public class Employer implements java.io.Serializable {
 
 	/** minimal constructor */
 	public Employer(Long userId, Long time, String name, String phone,
-			String content) {
+			String content, Integer status) {
 		this.userId = userId;
 		this.time = time;
 		this.name = name;
 		this.phone = phone;
 		this.content = content;
+		this.status = status;
 	}
 
 	/** full constructor */
 	public Employer(Long userId, Long time, String name, String phone,
-			String adress, String content) {
+			String adress, String content, Integer status) {
 		this.userId = userId;
 		this.time = time;
 		this.name = name;
 		this.phone = phone;
 		this.adress = adress;
 		this.content = content;
+		this.status = status;
 	}
 
 	// Property accessors
@@ -99,6 +102,14 @@ public class Employer implements java.io.Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

@@ -2,6 +2,7 @@ package org.service.imp;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,9 +10,11 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.dao.BoardDao;
 import org.model.Board;
+import org.model.User;
 import org.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,15 +110,32 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public Object getBoardList(Integer start, Integer limit) throws Exception {
-		List li = bDao.getBoardList(start, limit);
-		Long count = bDao.getBoardCount();
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", li);
-		map.put("count",  count);
-		
-		return JsonObject.getResult(1, "获取公告列表", map);
+	public Object getBoardList(HttpSession session,Integer start, Integer limit) throws Exception {
+		User u = (User) session.getAttribute("user");
+		if(u==null){
+			List li = new ArrayList<>();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("title", "--");
+			map.put("description", "--");
+			map.put("name", "--");
+			map.put("time", "--");
+			map.put("url", "--");
+			li.add(map);
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			map2.put("result", li);
+			map2.put("count",  1);
+			
+			return JsonObject.getResult(0, "请先登录，才能查看公告", map2);
+		}else{
+			List li = bDao.getBoardList(start, limit);
+			Long count = bDao.getBoardCount();
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", li);
+			map.put("count",  count);
+			
+			return JsonObject.getResult(1, "获取公告列表", map);
+		}
 	}
 
 	@Override

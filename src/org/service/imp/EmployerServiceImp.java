@@ -34,6 +34,7 @@ public class EmployerServiceImp implements EmployerService {
 			e.setUserId(u.getId());
 			//将时间戳转换为Integer类型存入数据库
 			e.setTime(Long.parseLong(ChangeTime.date2TimeStamp(eTime, "yyyy-MM-dd")));
+			e.setStatus(0);		//初始化客户的状态为新单状态
 			if (eDao.addEmployer(e) != -1) {
 				return JsonObject.getResult(1, "添加成功", true);
 			} else {

@@ -50,11 +50,24 @@ public interface AuntService {
 
 	/**
 	 * 3.2通过id获取阿姨完整信息
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public Object getAuntById(Long id);
-	
+
+	/**
+	 * 3.3根据状态来获取当前加盟商的所有阿姨列表
+	 * 
+	 * @param status
+	 * @param start
+	 * @param limit
+	 * @param userId
+	 * @return
+	 */
+	public Object getAuntListByStatus(HttpSession session, Integer status,
+			Integer start, Integer limit, Long userId);
+
 	/**
 	 * 4修改阿姨基本信息（不包括从表）
 	 * 
@@ -145,4 +158,12 @@ public interface AuntService {
 	public Object updateAuntPhoto(HttpServletRequest request, long AuntId,
 			@RequestParam("file") CommonsMultipartFile file)
 			throws IllegalStateException, IOException;
+	
+	/**
+	 * 5修改阿姨状态（0待岗， 1上岗， -1黑名单）
+	 * @param AuntId
+	 * @param status
+	 * @return
+	 */
+	public Object updateAuntStauts(Long AuntId,Integer status);
 }

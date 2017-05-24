@@ -304,7 +304,7 @@ public class UserServiceImp implements UserService {
 	public Object ackUser(Long id, Integer rank, Long pid) {
 		if (uDao.updateUser(id, rank, 1)
 				&& ulDao.addUserLink(new UserLink(pid, id)) != -1) {
-
+			ucDao.updateUserCheck(id, 1, "审核通过");
 			return JsonObject.getResult(1, "审核确认用户成功", true);
 		} else
 			return JsonObject.getResult(0, "审核确认用户失败", false);

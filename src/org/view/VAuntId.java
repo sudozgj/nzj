@@ -25,6 +25,7 @@ public class VAuntId implements java.io.Serializable {
 	private String address;
 	private Long userId;
 	private String url;
+	private Integer status;
 
 	// Constructors
 
@@ -37,7 +38,7 @@ public class VAuntId implements java.io.Serializable {
 			String native_, Integer sex, String education, Integer marriage,
 			String nation, Double height, Double weight, Double sigh,
 			String idnumber, String phone, String address, Long userId,
-			String url) {
+			String url, Integer status) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
@@ -55,6 +56,7 @@ public class VAuntId implements java.io.Serializable {
 		this.address = address;
 		this.userId = userId;
 		this.url = url;
+		this.status = status;
 	}
 
 	// Property accessors
@@ -195,6 +197,14 @@ public class VAuntId implements java.io.Serializable {
 		this.url = url;
 	}
 
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -257,7 +267,10 @@ public class VAuntId implements java.io.Serializable {
 						.getUserId().equals(castOther.getUserId())))
 				&& ((this.getUrl() == castOther.getUrl()) || (this.getUrl() != null
 						&& castOther.getUrl() != null && this.getUrl().equals(
-						castOther.getUrl())));
+						castOther.getUrl())))
+				&& ((this.getStatus() == castOther.getStatus()) || (this
+						.getStatus() != null && castOther.getStatus() != null && this
+						.getStatus().equals(castOther.getStatus())));
 	}
 
 	public int hashCode() {
@@ -296,6 +309,8 @@ public class VAuntId implements java.io.Serializable {
 				+ (getUserId() == null ? 0 : this.getUserId().hashCode());
 		result = 37 * result
 				+ (getUrl() == null ? 0 : this.getUrl().hashCode());
+		result = 37 * result
+				+ (getStatus() == null ? 0 : this.getStatus().hashCode());
 		return result;
 	}
 

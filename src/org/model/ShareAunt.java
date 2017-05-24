@@ -10,7 +10,7 @@ public class ShareAunt implements java.io.Serializable {
 
 	private Long id;
 	private String skill;
-	private String remark;
+	private String address;
 	private String contact;
 	private String phone;
 	private Long time;
@@ -23,22 +23,11 @@ public class ShareAunt implements java.io.Serializable {
 	public ShareAunt() {
 	}
 
-	/** minimal constructor */
-	public ShareAunt(String skill, String contact, String phone, Long time,
-			Long userId, Integer share) {
-		this.skill = skill;
-		this.contact = contact;
-		this.phone = phone;
-		this.time = time;
-		this.userId = userId;
-		this.share = share;
-	}
-
 	/** full constructor */
-	public ShareAunt(String skill, String remark, String contact, String phone,
-			Long time, Long userId, Integer share) {
+	public ShareAunt(String skill, String address, String contact,
+			String phone, Long time, Long userId, Integer share) {
 		this.skill = skill;
-		this.remark = remark;
+		this.address = address;
 		this.contact = contact;
 		this.phone = phone;
 		this.time = time;
@@ -64,12 +53,12 @@ public class ShareAunt implements java.io.Serializable {
 		this.skill = skill;
 	}
 
-	public String getRemark() {
-		return this.remark;
+	public String getAddress() {
+		return this.address;
 	}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getContact() {

@@ -119,11 +119,11 @@ public class UserController {
 		return uService.getUserCheckById(userId);
 	}
 
-	@RequestMapping("/updateUserCheck")
+	@RequestMapping("/updateUserCheck")			//审核不通过，并填写信息
 	@ResponseBody
 	public Object updateUserCheck(Long userId, Integer status,
 			String description) throws Exception {
-		return uService.updateUserCheck(userId, status, description);
+		return uService.updateUserCheck(userId, 0, description);
 	}
 
 }

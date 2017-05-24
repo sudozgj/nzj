@@ -10,35 +10,11 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <property name="name" type="java.lang.String">
-            <column name="name" not-null="true" />
-        </property>
-        <property name="sex" type="java.lang.Integer">
-            <column name="sex" not-null="true" />
-        </property>
-        <property name="birthday" type="java.lang.Long">
-            <column name="birthday" not-null="true" />
-        </property>
-        <property name="address" type="java.lang.String">
-            <column name="address" not-null="true" />
-        </property>
-        <property name="idnumber" type="java.lang.String">
-            <column name="idnumber" not-null="true" />
-        </property>
-        <property name="idcardurl1" type="java.lang.String">
-            <column name="idcardurl1" not-null="true" />
-        </property>
-        <property name="idcardurl2" type="java.lang.String">
-            <column name="idcardurl2" not-null="true" />
-        </property>
-        <property name="infourl" type="java.lang.String">
-            <column name="infourl" not-null="true" />
-        </property>
-        <property name="photourl" type="java.lang.String">
-            <column name="photourl" not-null="true" />
-        </property>
         <property name="orderId" type="java.lang.Long">
             <column name="order_id" not-null="true" />
+        </property>
+        <property name="traineeId" type="java.lang.Long">
+            <column name="trainee_id" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

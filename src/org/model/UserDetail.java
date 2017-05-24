@@ -18,6 +18,7 @@ public class UserDetail implements java.io.Serializable {
 	private String address;
 	private String charterurl;
 	private String idcardurl;
+	private Integer support;
 
 	// Constructors
 
@@ -27,7 +28,8 @@ public class UserDetail implements java.io.Serializable {
 
 	/** minimal constructor */
 	public UserDetail(Long userId, String username, String company,
-			String contact, Long telephone, Long dphone, String address) {
+			String contact, Long telephone, Long dphone, String address,
+			Integer support) {
 		this.userId = userId;
 		this.username = username;
 		this.company = company;
@@ -35,12 +37,13 @@ public class UserDetail implements java.io.Serializable {
 		this.telephone = telephone;
 		this.dphone = dphone;
 		this.address = address;
+		this.support = support;
 	}
 
 	/** full constructor */
 	public UserDetail(Long userId, String username, String company,
 			String contact, Long telephone, Long dphone, String address,
-			String charterurl, String idcardurl) {
+			String charterurl, String idcardurl, Integer support) {
 		this.userId = userId;
 		this.username = username;
 		this.company = company;
@@ -50,10 +53,13 @@ public class UserDetail implements java.io.Serializable {
 		this.address = address;
 		this.charterurl = charterurl;
 		this.idcardurl = idcardurl;
+		this.support = support;
 	}
 
+	// Property accessors
+
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
@@ -61,7 +67,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public Long getUserId() {
-		return userId;
+		return this.userId;
 	}
 
 	public void setUserId(Long userId) {
@@ -69,7 +75,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public void setUsername(String username) {
@@ -77,7 +83,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getCompany() {
-		return company;
+		return this.company;
 	}
 
 	public void setCompany(String company) {
@@ -85,7 +91,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getContact() {
-		return contact;
+		return this.contact;
 	}
 
 	public void setContact(String contact) {
@@ -93,7 +99,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public Long getTelephone() {
-		return telephone;
+		return this.telephone;
 	}
 
 	public void setTelephone(Long telephone) {
@@ -101,7 +107,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public Long getDphone() {
-		return dphone;
+		return this.dphone;
 	}
 
 	public void setDphone(Long dphone) {
@@ -109,7 +115,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(String address) {
@@ -117,7 +123,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getCharterurl() {
-		return charterurl;
+		return this.charterurl;
 	}
 
 	public void setCharterurl(String charterurl) {
@@ -125,10 +131,19 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	public String getIdcardurl() {
-		return idcardurl;
+		return this.idcardurl;
 	}
 
 	public void setIdcardurl(String idcardurl) {
 		this.idcardurl = idcardurl;
 	}
+
+	public Integer getSupport() {
+		return this.support;
+	}
+
+	public void setSupport(Integer support) {
+		this.support = support;
+	}
+
 }

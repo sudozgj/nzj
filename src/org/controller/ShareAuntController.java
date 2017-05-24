@@ -74,4 +74,10 @@ public class ShareAuntController {
 		return saService.getSearchShareAuntList(key, start, limit);
 	}
 	
+	@RequestMapping("/getLocalShareAuntList")
+	@ResponseBody
+	public Object getLocalShareAuntList(HttpSession session,Integer start, Integer limit){
+		return null;
+	}
+	
 }
