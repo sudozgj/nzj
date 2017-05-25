@@ -29,28 +29,28 @@ public class TraineeDaoImp implements TraineeDao {
 		}
 	}
 
-	@Override
-	public boolean getOrderTrainee(Long trainee_id) {
-		try {
-			Session session = HibernateSessionFactory.getSession();
-			Transaction ts = session.beginTransaction();
-
-			Query query = session
-					.createQuery("from OrderTrainee where traineeId=?");
-			query.setParameter(0, trainee_id);
-			query.setMaxResults(1);
-			OrderTrainee ot = (OrderTrainee) query.uniqueResult();
-			
-			if(ot==null)
-				return false;
-			else
-				return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}finally{
-			HibernateSessionFactory.closeSession();
-		}
-	}
+//	@Override
+//	public boolean getOrderTrainee(Long trainee_id) {
+//		try {
+//			Session session = HibernateSessionFactory.getSession();
+//			Transaction ts = session.beginTransaction();
+//
+//			Query query = session
+//					.createQuery("from OrderTrainee where traineeId=?");
+//			query.setParameter(0, trainee_id);
+//			query.setMaxResults(1);
+//			OrderTrainee ot = (OrderTrainee) query.uniqueResult();
+//			
+//			if(ot==null)
+//				return false;
+//			else
+//				return true;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return false;
+//		}finally{
+//			HibernateSessionFactory.closeSession();
+//		}
+//	}
 
 }

@@ -1,5 +1,7 @@
 package org.dao;
 
+import java.util.List;
+
 import org.model.Orders;
 
 public interface OrderDao {
@@ -8,4 +10,5 @@ public interface OrderDao {
 	//-----------------------------------删---------------------------------------
 	//-----------------------------------改---------------------------------------
 	//-----------------------------------查---------------------------------------	
+	public List getOrderList();
 }

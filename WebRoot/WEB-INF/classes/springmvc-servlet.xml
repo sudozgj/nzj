@@ -39,6 +39,8 @@
 			<mvc:exclude-mapping path="/getAllShareEmployerList" />
 			<mvc:exclude-mapping path="/getSearchShareEmployerList" />
 			
+			<mvc:exclude-mapping path="/getModuleList" />	<!-- 测试，待删 -->
+			
 			<bean class="org.interceptor.LogInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

@@ -1,5 +1,7 @@
 package org.dao.imp;
 
+import java.util.List;
+
 import org.dao.OrderDao;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -25,6 +27,12 @@ public class OrderDaoImp implements OrderDao{
 		}finally{
 			HibernateSessionFactory.closeSession();
 		}
+	}
+
+	@Override
+	public List getOrderList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

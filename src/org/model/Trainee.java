@@ -20,6 +20,7 @@ public class Trainee implements java.io.Serializable {
 	private String photourl;
 	private Integer pay;
 	private Integer bind;
+	private Long userId;
 
 	// Constructors
 
@@ -30,7 +31,8 @@ public class Trainee implements java.io.Serializable {
 	/** full constructor */
 	public Trainee(String name, Integer sex, Long birthday, String address,
 			String idnumber, String idcardurl1, String idcardurl2,
-			String infourl, String photourl, Integer pay,Integer bind) {
+			String infourl, String photourl, Integer pay, Integer bind,
+			Long userId) {
 		this.name = name;
 		this.sex = sex;
 		this.birthday = birthday;
@@ -41,7 +43,8 @@ public class Trainee implements java.io.Serializable {
 		this.infourl = infourl;
 		this.photourl = photourl;
 		this.pay = pay;
-		this.bind=bind;
+		this.bind = bind;
+		this.userId = userId;
 	}
 
 	// Property accessors
@@ -135,10 +138,19 @@ public class Trainee implements java.io.Serializable {
 	}
 
 	public Integer getBind() {
-		return bind;
+		return this.bind;
 	}
 
 	public void setBind(Integer bind) {
 		this.bind = bind;
 	}
+
+	public Long getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 }

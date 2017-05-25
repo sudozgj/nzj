@@ -63,6 +63,10 @@
 
 	<mapping resource="org/model/Log.hbm.xml" />
 
+	<mapping resource="org/model/Staff.hbm.xml" />
+	
+	<mapping resource="org/model/Module.hbm.xml" />	<!-- 测试用，待删 -->
+
 	<mapping resource="org/view/VAunt.hbm.xml" />
 	<mapping resource="org/view/VUser.hbm.xml" />
 

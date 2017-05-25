@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.dao.TraineeDao;
 import org.model.Trainee;
+import org.model.User;
 import org.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +24,15 @@ public class TraineeServiceImp implements TraineeService {
 	private TraineeDao tDao;
 
 	@Override
-	public Object addTrainee(HttpServletRequest request, Trainee t,
-			CommonsMultipartFile file1, CommonsMultipartFile file2,
+	public Object addTrainee(HttpSession session, HttpServletRequest request,
+			Trainee t, CommonsMultipartFile file1, CommonsMultipartFile file2,
 			CommonsMultipartFile file3, CommonsMultipartFile file4)
 			throws IllegalStateException, IOException {
+
+		User user = (User) session.getAttribute("user");
+		if(user==null){
+			return JsonObject.getResult(-999, "请先登录，才能添加学员", false);
+		}
 		
 		String f1Name = file1.getOriginalFilename();
 		String f2Name = file2.getOriginalFilename();
@@ -34,7 +41,7 @@ public class TraineeServiceImp implements TraineeService {
 
 		if (f1Name.equals("") || f2Name.equals("") || f3Name.equals("")
 				|| f4Name.equals("")) {
-			return JsonObject.getResult(0, "上传的不能有空", false);
+			return JsonObject.getResult(0, "上传的内容不能有空", false);
 		}
 
 		f1Name = new Date().getTime() / 1000 + "_" + new Random().nextInt(10)
@@ -90,11 +97,12 @@ public class TraineeServiceImp implements TraineeService {
 		t.setPhotourl(url3);
 		t.setInfourl(url4);
 
-		t.setBind(0);
+		t.setBind(0); // 初始化绑定标志为0，表示未绑定订单
+		t.setUserId(user.getId());	//绑定学员所属的用户
 		if (tDao.addTrainee(t) != -1)
 			return JsonObject.getResult(1, "添加学员成功", true);
 		else
-			return JsonObject.getResult(0, "添加学员失败", false);
+			return JsonObject.getResult(-1, "添加学员失败", false);
 	}
 
 }

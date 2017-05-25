@@ -1,11 +1,22 @@
 package org.dao;
 
-import org.model.Trainee;
+import org.model.Staff;
 
-public interface TraineeDao {
+public interface StaffDao {
 	//-----------------------------------增---------------------------------------
-	public long addTrainee(Trainee o);
+	/**
+	 * 1.1添加员工
+	 * @param o
+	 * @return
+	 */
+	public long addStaff(Staff o);
 	//-----------------------------------删---------------------------------------
 	//-----------------------------------改---------------------------------------
 	//-----------------------------------查---------------------------------------	
+	/**
+	 * 4.1查看登录电话是否可用
+	 * @param phone
+	 * @return
+	 */
+	public Staff getStaff(Long phone);
 }

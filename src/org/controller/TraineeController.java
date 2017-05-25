@@ -1,6 +1,7 @@
 package org.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.model.Trainee;
 import org.service.TraineeService;
@@ -18,13 +19,14 @@ public class TraineeController {
 
 	@RequestMapping("/addTrainee")
 	@ResponseBody
-	public Object addTrainee(HttpServletRequest request, Trainee t,
-			@RequestParam("file1") CommonsMultipartFile file1,
+	public Object addTrainee(HttpSession session, HttpServletRequest request,
+			Trainee t, @RequestParam("file1") CommonsMultipartFile file1,
 			@RequestParam("file2") CommonsMultipartFile file2,
 			@RequestParam("file3") CommonsMultipartFile file3,
 			@RequestParam("file4") CommonsMultipartFile file4) throws Exception {
-		
-		return tService.addTrainee(request, t, file1, file2, file3, file4);
+
+		return tService.addTrainee(session, request, t, file1, file2, file3,
+				file4);
 	}
 
 }

@@ -43,7 +43,14 @@
             </column>
         </property>
         <property name="bind" type="java.lang.Integer">
-            <column name="bind" not-null="true" />
+            <column name="bind" not-null="true">
+                <comment>是否绑定订单标志，初始化未0,0：未绑定订单 1：已绑定订单</comment>
+            </column>
+        </property>
+        <property name="userId" type="java.lang.Long">
+            <column name="user_id" not-null="true">
+                <comment>学员所属的用户的id</comment>
+            </column>
         </property>
     </class>
 </hibernate-mapping>
