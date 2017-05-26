@@ -33,8 +33,6 @@ public class AuntDaoImp implements AuntDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			Thread.sleep(5000);
-			
 			final Long id = (Long) session.save(a);
 			session.doWork(new Work() {
 				@Override

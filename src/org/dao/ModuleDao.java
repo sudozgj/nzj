@@ -12,4 +12,10 @@ public interface ModuleDao {
 	 * @return
 	 */
 	public List getModuleList();
+	/**
+	 * 4.2获取员工的模块权限列表
+	 * @param sid
+	 * @return
+	 */
+	public List getModuleListByStaffId(long sid);
 }

@@ -13,9 +13,9 @@ public class Staff implements java.io.Serializable {
 	private String password;
 	private String name;
 	private String address;
-	private String photourl;
 	private String job;
 	private Long time;
+	private String photourl;
 	private Long userId;
 
 	// Constructors
