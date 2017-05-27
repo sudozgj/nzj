@@ -41,6 +41,9 @@ public class StaffController {
 	@RequestMapping("/sLogin")
 	@ResponseBody
 	public Object sLogin(HttpSession session,Long phone,String password)throws Exception{
-		return null;
+		System.out.println("	员工登录:");
+		System.out.println("	phone"+phone);
+		System.out.println("	password"+password);
+		return sService.sLogin(session, phone, password);
 	}
 }

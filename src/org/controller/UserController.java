@@ -42,6 +42,7 @@ public class UserController {
 	@ResponseBody
 	public Object logout(HttpSession session) throws Exception {
 		session.removeAttribute("user");
+		session.removeAttribute("staff");
 		return JsonObject.getResult(1, "注销", true);
 	}
 

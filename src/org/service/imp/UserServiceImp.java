@@ -16,6 +16,7 @@ import org.dao.UserCheckDao;
 import org.dao.UserDao;
 import org.dao.UserDetailDao;
 import org.dao.UserLinkDao;
+import org.model.Staff;
 import org.model.User;
 import org.model.UserCheck;
 import org.model.UserDetail;
@@ -72,6 +73,7 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public Object login(HttpSession session, Long phone, String password) {
+		session.removeAttribute("staff"); // 清除员工缓存，防止同时有user和staff登录
 		User u = uDao.getUser(phone, password);
 		if (u != null) {
 			if (u.getAck() != 1) { // 判断账号是否通过审核，没有的话等待审核，或修改用户信息
@@ -90,7 +92,17 @@ public class UserServiceImp implements UserService {
 	@Override
 	public Object getSession(HttpSession session) {
 		User u = (User) session.getAttribute("user");
-		return JsonObject.getResult(1, "session", session.getAttribute("user"));
+		Staff s = (Staff) session.getAttribute("staff");
+		if (u != null && s == null) { 			//说明是user登录
+			return JsonObject.getResult(1, "用户 session", u);
+		} else if (u == null && s != null) {	//说明是staff登录
+			return JsonObject.getResult(2, "员工 session", s);
+		}else if(u==null && s==null){			//游客登录
+			return JsonObject.getResult(0, "无（游客） session", s);
+		}else{
+			System.out.println("	异常，同时有user和staff的缓存");
+			return JsonObject.getResult(-1, "getSession error", false);
+		}
 	}
 
 	@Override
@@ -259,10 +271,10 @@ public class UserServiceImp implements UserService {
 
 			iUrl = url2;
 		}
-		if(cUrl==null)
-			cUrl=" ";
-		if(iUrl==null)
-			iUrl=" ";
+		if (cUrl == null)
+			cUrl = " ";
+		if (iUrl == null)
+			iUrl = " ";
 		ud.setCharterurl(cUrl);
 		ud.setIdcardurl(iUrl);
 

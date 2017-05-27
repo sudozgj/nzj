@@ -110,9 +110,10 @@ public class StaffServiceImp implements StaffService {
 
 	@Override
 	public Object sLogin(HttpSession session, Long phone, String password) {
-		session.removeAttribute("user");		//清楚缓存，防止同时有user和员工登录
+		session.removeAttribute("user");		//清除用户缓存，防止同时有user和员工登录
 		Staff s = sDao.getStaff(phone,password);
 		if(s!=null){
+			s.setPassword("******");
 			session.setAttribute("staff", s);
 			return JsonObject.getResult(1, "success", true);
 		}else{
