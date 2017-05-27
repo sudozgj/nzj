@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.tool.ChangeTime;
 import org.util.HibernateSessionFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Service
 public class PactDaoImp implements PactDao {
@@ -148,6 +150,27 @@ public class PactDaoImp implements PactDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
+	
+	@Override
+	public long getPactCountByStatus (Long id, Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("SELECT COUNT(*) FROM Pact WHERE userId = ? AND status = ?");
+			query.setParameter(0, id);
+			query.setParameter(1, status);
+			query.setMaxResults(1);
+			long pageCount = (long) query.uniqueResult();
+			return pageCount;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
 
 	@Override
 	public boolean addPactTracking(final Long pactId,final PactTrackingForm pt) {
@@ -217,7 +240,7 @@ public class PactDaoImp implements PactDao {
 	}
 
 	@Override
-	public List getPactTrackingList(Long packId) {
+	public List<PactTracking> getPactTrackingList(Long packId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -231,6 +254,40 @@ public class PactDaoImp implements PactDao {
 			e.printStackTrace();
 			return null;
 		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<Pact> getPactListByStatus(Integer start, Integer limit,
+			Long userId, Integer status) {
+		try {
+			System.out.println(userId + status);
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Pact p WHERE p.userId = ? AND p.status = ?");
+			query.setParameter(0, userId);
+			query.setParameter(1, status);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				query.setMaxResults(limit);
+			} else if (limit == -1) {
+				
+			} else {
+				query.setMaxResults(limit);
+			}
+			List<Pact> li = query.list();
+			System.out.println(new ObjectMapper().writeValueAsString(li));
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
 			HibernateSessionFactory.closeSession();
 		}
 	}

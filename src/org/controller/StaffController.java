@@ -1,5 +1,7 @@
 package org.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -27,8 +29,9 @@ public class StaffController {
 
 	@RequestMapping("/deleteStaff")
 	@ResponseBody
-	public Object deleteStaff(Long id) throws Exception {
-		return sService.deleteStaff(id);
+	public Object deleteStaff(HttpSession session, HttpServletRequest request,
+			Long id) throws Exception {
+		return sService.deleteStaff(session,request,id);
 	}
 
 	@RequestMapping("/getStaffList")
@@ -46,4 +49,42 @@ public class StaffController {
 		System.out.println("	password"+password);
 		return sService.sLogin(session, phone, password);
 	}
+	
+	@RequestMapping("/getAllStaffList")
+	@ResponseBody
+	public Object getAllStaffList(Integer start,Integer limit)throws Exception{
+		return sService.getAllStaffList(start, limit);
+	}
+	
+	@RequestMapping("/getStaffById")
+	@ResponseBody
+	public Object getStaffById(HttpSession session)throws Exception{
+		return sService.getStaffById(session);
+	}
+	
+	@RequestMapping("/updateStaff")
+	@ResponseBody
+	public Object updateStaff(HttpSession session, String name, String address,
+			String job)throws Exception{
+		return sService.updateStaff(session, name, address, job);
+	}
+	
+	@RequestMapping("/updateStaffPassword")
+	@ResponseBody
+	public Object updateStaffPassword(HttpSession session, String oPwd,
+			String nPwd)throws Exception{
+		return sService.updateStaffPassword(session, oPwd, nPwd);
+	}
+	
+	@RequestMapping("/updateStaffPhotourl")
+	@ResponseBody
+	public Object updateStaffPhotourl(HttpSession session,
+			HttpServletRequest request,
+			@RequestParam("file") CommonsMultipartFile file)
+			throws IllegalStateException, IOException{
+		return sService.updateStaffPhotourl(session, request, file);
+	}
+	
+	
+	
 }

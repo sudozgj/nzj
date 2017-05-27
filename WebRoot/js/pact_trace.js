@@ -145,7 +145,7 @@ function updateJointrace(eachData){
 //输入框验证
 function onVerify(obj,hint){
 	var hintObj = document.getElementById(hint);
-	hintObj.innerText='唐斌'; 
+	hintObj.innerText=''; 
 	 console.log('innerText cont= '+ hintObj.innerText); 
 };
 

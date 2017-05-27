@@ -9,7 +9,6 @@ public class Pact implements java.io.Serializable {
 	// Fields
 
 	private Long id;
-	private Long userId;
 	private Long ptime;
 	private String code;
 	private String ename;
@@ -23,6 +22,8 @@ public class Pact implements java.io.Serializable {
 	private String time;
 	private String salary;
 	private String remark;
+	private Integer status;
+	private Long userId;
 	private Long employerId;
 
 	// Constructors
@@ -32,11 +33,10 @@ public class Pact implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Pact(Long userId, Long ptime, String code, String ename,
-			String ephone, String eaddress, String econtent, String duration,
-			Double cost, String aname, String aphone, String time,
-			String salary, Long employerId) {
-		this.userId = userId;
+	public Pact(Long ptime, String code, String ename, String ephone,
+			String eaddress, String econtent, String duration, Double cost,
+			String aname, String aphone, String time, String salary,
+			Integer status, Long userId, Long employerId) {
 		this.ptime = ptime;
 		this.code = code;
 		this.ename = ename;
@@ -49,15 +49,16 @@ public class Pact implements java.io.Serializable {
 		this.aphone = aphone;
 		this.time = time;
 		this.salary = salary;
+		this.status = status;
+		this.userId = userId;
 		this.employerId = employerId;
 	}
 
 	/** full constructor */
-	public Pact(Long userId, Long ptime, String code, String ename,
-			String ephone, String eaddress, String econtent, String duration,
-			Double cost, String aname, String aphone, String time,
-			String salary, String remark, Long employerId) {
-		this.userId = userId;
+	public Pact(Long ptime, String code, String ename, String ephone,
+			String eaddress, String econtent, String duration, Double cost,
+			String aname, String aphone, String time, String salary,
+			String remark, Integer status, Long userId, Long employerId) {
 		this.ptime = ptime;
 		this.code = code;
 		this.ename = ename;
@@ -71,6 +72,8 @@ public class Pact implements java.io.Serializable {
 		this.time = time;
 		this.salary = salary;
 		this.remark = remark;
+		this.status = status;
+		this.userId = userId;
 		this.employerId = employerId;
 	}
 
@@ -82,14 +85,6 @@ public class Pact implements java.io.Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
 	}
 
 	public Long getPtime() {
@@ -194,6 +189,22 @@ public class Pact implements java.io.Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Long getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Long getEmployerId() {

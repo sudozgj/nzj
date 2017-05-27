@@ -59,7 +59,7 @@ public class UserController {
 		return uService.getValidateCode(session, phone);
 	}
 
-	@RequestMapping("/getUser")
+	@RequestMapping("/getUser")				//获取当前用户的信息
 	@ResponseBody
 	public Object getUser(HttpSession session) throws Exception {
 		return uService.getUser(session);

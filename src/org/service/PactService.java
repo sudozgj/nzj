@@ -59,4 +59,14 @@ public interface PactService {
 	 * @return
 	 */
 	public Object getPactTrackingList(Long packId);
+	/**
+	 * 9.分状态遍历合同
+	 * 0正常 -1暂停 -2退单
+	 * @param start
+	 * @param limit
+	 * @param userId
+	 * @param status
+	 * @return
+	 */
+	public Object getPactListByStatus(HttpSession session, Integer start, Integer limit, Long userId, Integer status);
 }

@@ -30,7 +30,15 @@ public class LogInterceptor implements HandlerInterceptor {
 		String action = request.getServletPath().substring(1);		//请求的接口名
 		System.out.println("\n"+request.getContextPath()+"——"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"——"+action);
 
-		if(action.equals("login") || action.equals("register")){
+		if(action.equals("sLogin")){
+			String phone = request.getParameter("phone");
+			
+			LogDao lDao = new LogDaoImp();
+			Log log = new Log(Long.parseLong(phone),action,new Date().getTime()/1000);
+			lDao.addLog(log);
+			return true;
+		}else if(action.equals("login") || action.equals("register")){
+			
 			String phone = request.getParameter("phone");
 			
 			LogDao lDao = new LogDaoImp();

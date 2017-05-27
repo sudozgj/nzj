@@ -9,13 +9,13 @@ public class Employer implements java.io.Serializable {
 	// Fields
 
 	private Long id;
-	private Long userId;
-	private Long time;
 	private String name;
+	private Long time;
 	private String phone;
-	private String adress;
+	private String address;
 	private String content;
 	private Integer status;
+	private Long userId;
 
 	// Constructors
 
@@ -24,26 +24,26 @@ public class Employer implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Employer(Long userId, Long time, String name, String phone,
-			String content, Integer status) {
-		this.userId = userId;
-		this.time = time;
+	public Employer(String name, Long time, String phone, String content,
+			Integer status, Long userId) {
 		this.name = name;
+		this.time = time;
 		this.phone = phone;
 		this.content = content;
 		this.status = status;
+		this.userId = userId;
 	}
 
 	/** full constructor */
-	public Employer(Long userId, Long time, String name, String phone,
-			String adress, String content, Integer status) {
-		this.userId = userId;
-		this.time = time;
+	public Employer(String name, Long time, String phone, String address,
+			String content, Integer status, Long userId) {
 		this.name = name;
+		this.time = time;
 		this.phone = phone;
-		this.adress = adress;
+		this.address = address;
 		this.content = content;
 		this.status = status;
+		this.userId = userId;
 	}
 
 	// Property accessors
@@ -56,12 +56,12 @@ public class Employer implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Long getUserId() {
-		return this.userId;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Long getTime() {
@@ -72,14 +72,6 @@ public class Employer implements java.io.Serializable {
 		this.time = time;
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getPhone() {
 		return this.phone;
 	}
@@ -88,12 +80,12 @@ public class Employer implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	public String getAdress() {
-		return this.adress;
+	public String getAddress() {
+		return this.address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getContent() {
@@ -110,6 +102,14 @@ public class Employer implements java.io.Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Long getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 }

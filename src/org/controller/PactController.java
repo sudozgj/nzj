@@ -40,6 +40,13 @@ public class PactController {
 		return pService.getPactList(sesion, start, limit);
 	}
 	
+	@RequestMapping("/getPactListByStatus")
+	@ResponseBody
+	public Object getPactListByStatus (HttpSession session, Integer start, Integer limit,
+			Long userId, Integer status) {
+		return pService.getPactListByStatus(session, start, limit, userId, status);
+	}
+	
 	//----------------------------------PactTracking 合同服务跟踪------------------------------------
 	
 	@RequestMapping("/addPactTracking")

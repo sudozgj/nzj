@@ -9,9 +9,9 @@ public class PactTracking implements java.io.Serializable {
 	// Fields
 
 	private Long id;
+	private Long ttime;
+	private String content;
 	private Long pactId;
-	private String content;	//进展
-	private Long ttime;		//时间
 
 	// Constructors
 
@@ -20,10 +20,10 @@ public class PactTracking implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public PactTracking(Long pactId, String content, Long ttime) {
-		this.pactId = pactId;
-		this.content = content;
+	public PactTracking(Long ttime, String content, Long pactId) {
 		this.ttime = ttime;
+		this.content = content;
+		this.pactId = pactId;
 	}
 
 	// Property accessors
@@ -36,12 +36,12 @@ public class PactTracking implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Long getPactId() {
-		return this.pactId;
+	public Long getTtime() {
+		return this.ttime;
 	}
 
-	public void setPactId(Long pactId) {
-		this.pactId = pactId;
+	public void setTtime(Long ttime) {
+		this.ttime = ttime;
 	}
 
 	public String getContent() {
@@ -52,12 +52,12 @@ public class PactTracking implements java.io.Serializable {
 		this.content = content;
 	}
 
-	public Long getTtime() {
-		return this.ttime;
+	public Long getPactId() {
+		return this.pactId;
 	}
 
-	public void setTtime(Long ttime) {
-		this.ttime = ttime;
+	public void setPactId(Long pactId) {
+		this.pactId = pactId;
 	}
 
 }

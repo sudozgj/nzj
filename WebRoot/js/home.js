@@ -47,9 +47,9 @@ $(document).ready(function() {
 				var shareEmployerList = '';
 				for(var i = 0; i < data.data.result.length; i++) {
 					shareEmployerList += "<div class='shareEmployerBox'>"
-					shareEmployerList += "<div class='shareEmployerTitle'>"+data.data.result[i].contact+"</div>"
+//					shareEmployerList += "<div class='shareEmployerTitle'>"+data.data.result[i].contact+"</div>"
 					shareEmployerList += "<div class='shareEmployerContent'>"+data.data.result[i].content+"</div>"
-					shareEmployerList += "<div class='shareEmployerButtom'>地址;"+data.data.result[i].address+"&nbsp;&nbsp;&nbsp;&nbsp;联系电话:"+data.data.result[i].phone+"&nbsp;&nbsp;&nbsp;&nbsp;发表时间:"+changeTime(data.data.result[i].time)+"</div>"
+					shareEmployerList += "<div class='shareEmployerButtom'>联系人:"+data.data.result[i].contact+"&nbsp;&nbsp;&nbsp;&nbsp;地址;"+data.data.result[i].address+"&nbsp;&nbsp;&nbsp;&nbsp;联系电话:"+data.data.result[i].phone+"&nbsp;&nbsp;&nbsp;&nbsp;发表时间:"+changeTime(data.data.result[i].time)+"</div>"
 					shareEmployerList += "</div>";
 				}
 				$("#shareEmployer").prepend(shareEmployerList);
@@ -123,7 +123,8 @@ $(document).ready(function() {
 				}
 				$('.noticeUl').html(noticeList);
 			}else if(data.code == 0){
-				$('.noticeUl').html('没登录');
+				$('.noticeUl').html("<div class='noticeTs'>登录后,才能预览公告哦!</div>");
+//				$('.noticeUl').html("<img style='width: 160px; height: 180px;' src='image/dhk.png' />");
 			}else {
 				alert(data.msg);
 			}
@@ -235,7 +236,9 @@ function seek() {
 					noticeList += "</li>"
 				}
 				$('.noticeUl').html(noticeList);
-			} else {
+			}else if(data.code == 0){
+				$('.noticeUl').html("<img style='width: 160px; height: 180px;' src='image/dhk.png' />");
+			}else {
 				alert(data.msg);
 			}
 

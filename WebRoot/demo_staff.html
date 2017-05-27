@@ -46,7 +46,7 @@
 	function getStaffList(){
 		$.ajax({
 			type : "post",
-			url : "getStaffList", 
+			url : "getAllStaffList", 	//获取全部员工列表
 			async : false,
 			cache : false,
 			success : function(data) {
@@ -122,6 +122,11 @@
 </script>
 </head>
 <body>
+	<form action="sLogin" id="">
+		电话:<input type="text" name="phone" />
+		密码:<input type="text" name="password" />
+		<input type="submit" >
+	</form>
 	<h3>员工列表</h3>
 	<div style="width: 200px;">
 		<table id="sTable" class="table table-bordered" >

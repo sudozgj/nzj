@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.Form.PactTrackingForm;
 import org.dao.PactDao;
+import org.model.Employer;
 import org.model.Pact;
 import org.model.PactTracking;
 import org.model.User;
@@ -103,5 +104,26 @@ public class PactServiceImp implements PactService {
 	public Object getPactTrackingList(Long packId) {
 		List li = pDao.getPactTrackingList(packId);
 		return JsonObject.getResult(1, "获取合同跟踪情况列表", li);
+	}
+
+	@Override
+	public Object getPactListByStatus (HttpSession session, Integer start, Integer limit,
+			Long userId, Integer status) {
+		Map<String, Object> map = new HashMap<>();
+		User u = (User)session.getAttribute("user");
+		if (u == null) {
+			System.out.println("	getPactListByStatus--未登录");
+			return JsonObject.getResult(-999, "请先登录", "getPactListByStatus");
+		}
+		if (status == -2 || status == -1 || status == 0) {
+			List<Pact> li = pDao.getPactListByStatus(start, limit, u.getId(), status);
+			long count = pDao.getPactCountByStatus(u.getId(), status);
+			map.put("count", count);
+			map.put("result", li);
+			return JsonObject.getResult(1, "获取列表", map);
+		} else {
+			map.put("状态码输入错误", "0:正常 -1:暂停 -2:退单");
+			return JsonObject.getResult(0, "数据获取失败", map);
+		}
 	}
 }

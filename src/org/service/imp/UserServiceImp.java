@@ -98,10 +98,10 @@ public class UserServiceImp implements UserService {
 		} else if (u == null && s != null) {	//说明是staff登录
 			return JsonObject.getResult(2, "员工 session", s);
 		}else if(u==null && s==null){			//游客登录
-			return JsonObject.getResult(0, "无（游客） session", s);
+			return JsonObject.getResult(0, "无（游客） session", null);
 		}else{
 			System.out.println("	异常，同时有user和staff的缓存");
-			return JsonObject.getResult(-1, "getSession error", false);
+			return JsonObject.getResult(-1, "getSession error", null);
 		}
 	}
 

@@ -100,12 +100,18 @@ public class StaffDaoImp implements StaffDao {
 	}
 
 	@Override
-	public boolean updateStaff(Staff s) {
+	public boolean updateStaff(long id,String name,String address,String job) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			session.update(s);
+			Query query = session.createQuery("update Staff s set s.name=?,s.address=?,s.job=? where s.id=?");
+			query.setParameter(0, name);
+			query.setParameter(1, address);
+			query.setParameter(2, job);
+			query.setParameter(3, id);
+			
+			query.executeUpdate();
 			ts.commit();
 			return true;
 		} catch (Exception e) {
@@ -181,6 +187,138 @@ public class StaffDaoImp implements StaffDao {
 			query.setParameter(1, password);
 			query.setMaxResults(1);
 			Staff s = (Staff) query.uniqueResult();
+			return s;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List getAllStaffList(Integer start, Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			String sql = "from Staff";
+			Query query = session.createQuery(sql);
+
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+				query.setMaxResults(limit);
+			} else if (limit == -1) {
+
+			} else {
+				query.setMaxResults(limit);
+			}
+			List<Staff> li = query.list();
+
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getAllStaffCount() {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("select count(id) from Staff");
+			query.setMaxResults(1);
+			long count = (Long) query.uniqueResult();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Staff getStaffById(long sid) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts=session.beginTransaction();
+			
+			Query query = session.createQuery("from Staff where id=?");
+			query.setParameter(0, sid);
+			query.setMaxResults(1);
+			Staff s = (Staff) query.uniqueResult();
+			
+			return s;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public boolean updateStaffPassword(long id, String password) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session.createQuery("update Staff s set s.password=? where s.id=?");
+			query.setParameter(0, password);
+			query.setParameter(1, id);
+			
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public boolean updateStaffPhotourl(long id, String photourl) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session.createQuery("update Staff s set s.photourl=? where s.id=?");
+			query.setParameter(0, photourl);
+			query.setParameter(1, id);
+			
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public String getStaffPhotourlById(long id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts=  session.beginTransaction();
+			
+			Query query = session.createQuery("select photourl from Staff where id=?");
+			query.setParameter(0, id);
+			query.setMaxResults(1);
+			String s = (String) query.uniqueResult();
 			return s;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -23,6 +23,7 @@ public interface PactDao {
 	// -----------------------------------删---------------------------------------
 	/**
 	 * 2.1删除当前用户的合同
+	 * 删除合同时连带服务跟踪数据一同删除
 	 * @param id
 	 * @return
 	 */
@@ -68,9 +69,27 @@ public interface PactDao {
 	 */
 	public long getPactCountById(Long id);
 	/**
-	 * 4.4根据合同号获取服务跟踪情况列表
+	 * 4.4根据合同状态遍历合同
+	 * 0正常 -1暂停 -2退单
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public long getPactCountByStatus (Long id, Integer status);
+	/**
+	 * 4.5根据合同号获取服务跟踪情况列表
 	 * @param packId
 	 * @return
 	 */
-	public List getPactTrackingList(Long packId);
+	public List<PactTracking> getPactTrackingList(Long packId);
+	/**
+	 * 4.6根据合同状态遍历合同
+	 * 0正常 -1暂停 -2退单
+	 * @param start
+	 * @param limit
+	 * @param userId
+	 * @param status
+	 * @return
+	 */
+	public List<Pact> getPactListByStatus (Integer start, Integer limit, Long userId, Integer status);
 }

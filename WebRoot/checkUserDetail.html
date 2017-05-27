@@ -89,7 +89,7 @@
 											$("#eid").val(data.data.did);
 											$("#euid").val(data.data.id);
 											$("#eusername").val(data.data.username);
-
+                                            $("#support").val(data.data.support);
 											$("#ecompany").val(data.data.company);
 											$("#econtact").val(data.data.contact);
 											$("#etelephone").val(data.data.telephone);
@@ -118,6 +118,12 @@
 				}
 
 				$("#addButton").click(function() {
+					//      	if($("#eusername").val()==''||$("#ecompany").val()==''||$("#econtact").val()==''||$("#etelephone").val()==''||$("#edphone").val()==''||$("#eaddress").val()==''||){
+					//      		
+					//      	}else{
+					//      		
+					//      	};
+					//      	!/^1[0-9]{10}$/;.test($("#phone").val())
 					var udf = new FormData(document.getElementById("udForm"));
 					$.ajax({
 						type: "post",
@@ -235,12 +241,12 @@
 
 		<!-- 添加用户信息 modal -->
 		<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-			<div class="modal-dialog modal-lg">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="myModalLabel">注册成功，请继续完善用户信息，并提交审核</h4>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" style="text-align: left;">
 						<form role="form" id="udForm">
 							<input type="hidden" name="userId" id="uid" />
 							<div class="form-group">
@@ -249,35 +255,36 @@
 							</div>
 							<div class="form-group">
 								<label for="company">公司</label>
-								<input type="text" class="form-control" name="company" id="company" placeholder="请输入密码">
+								<input type="text" class="form-control" name="company" id="company" placeholder="请输入公司">
 							</div>
 							<div class="form-group">
 								<label for="contact">联系人</label>
-								<input type="text" class="form-control" name="contact" id="contact" placeholder="请输入密码">
+								<input type="text" class="form-control" name="contact" id="contact" placeholder="请输入联系人">
 							</div>
 							<div class="form-group">
 								<label for="telephone">联系电话</label>
-								<input type="text" class="form-control" name="telephone" id="telephone" placeholder="请输入密码">
+								<input type="text" class="form-control" name="telephone" id="telephone" placeholder="请输入联系电话">
 							</div>
 							<div class="form-group">
 								<label for="dphone">联系座机</label>
-								<input type="text" class="form-control" name="dphone" id="dphone" placeholder="请输入密码">
+								<input type="text" class="form-control" name="dphone" id="dphone" placeholder="请输入联系座机">
 							</div>
 							<div class="form-group">
 								<label for="address">联系地址</label>
-								<input type="text" class="form-control" name="address" id="address" placeholder="请输入密码">
+								<input type="text" class="form-control" name="address" id="address" placeholder="请输入地址">
 							</div>
 							<div class="form-group">
 								<label for="file1">营业执照（可选）</label>
-								<input type="file" class="form-control" name="file1" id="file1" placeholder="请输入密码">
+								<input type="file" class="form-control" name="file1" id="file1">
 							</div>
 							<div class="form-group">
 								<label for="file2">身份证照（可选）</label>
-								<input type="file" class="form-control" name="file2" id="file2" placeholder="请输入密码">
+								<input type="file" class="form-control" name="file2" id="file2">
 							</div>
 						</form>
 					</div>
 					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 						<button type="button" class="btn btn-primary" id="addButton">确定</button>
 					</div>
 				</div>
@@ -289,13 +296,14 @@
 		<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
 			<div class="modal-dialog modal-lg" style="width: 800px;">
 				<div class="modal-content">
-					<div class="modal-header" style="text-align: center;">
+					<div class="modal-header" style="text-align: left;">
 						<h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
 					</div>
 					<div class="modal-body">
-						<form role="form" id="ueForm" style="padding: 30px 100px 30px 100px; text-align: center;">
+						<form role="form" id="ueForm" style="padding: 30px 100px 30px 100px; text-align: left;">
 							<input type="hidden" name="id" id="eid" />
 							<input type="hidden" name="userId" id="euid" />
+							<input type="hidden" name="support" id="support" />
 							<div class="form-group">
 								<label for="eusername">用&nbsp;&nbsp;户&nbsp;&nbsp;名</label>
 								<input type="text" name="username" id="eusername" />
@@ -331,6 +339,7 @@
 						</form>
 					</div>
 					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 						<button type="button" class="btn btn-primary" id="editBtn">确定</button>
 					</div>
 				</div>

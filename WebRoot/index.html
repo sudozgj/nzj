@@ -54,7 +54,13 @@
 				//				$(window).resize(function() {
 				//					alert('宽：'+w+'高：'+h);
 				//				});
+            $(".dropdown").mouseover(function () {
+		        $(this).addClass("open");
+		    });
 
+		    $(".dropdown").mouseleave(function(){
+		        $(this).removeClass("open");
+		    })
 			});
 			//添加共享保姆
 	$('#add_share_aunt_btn').click(function() {
@@ -174,8 +180,8 @@
 					<div class="topMenu">
 						<ul style="float: right; padding-left: 15px;">
 							<li class="dropdown" style="list-style-type:none;">
-								<div id="dropdownMenu1" data-toggle="dropdown" title="用户"><img style="margin-top: -8px;" src="image/yh.png" /><label>用户</label></div>
-								<ul class="dropdown-menu" role="menu">
+								<div id="dropdownMenu1" data-toggle="dropdown"><img style="margin-top: -8px;" src="image/yh.png" /><label>用户</label></div>
+								<ul class="dropdown-menu" role="menu" style="margin: 0 0 0 -40px; ">
 									<li>
 										<a href="" data-toggle='modal' data-target='#ModUser'><i class="fa fa-user"></i>&nbsp;修改用户信息</a>
 									</li>
@@ -192,40 +198,52 @@
 						</ul>
 						<ul style="float: right; padding-left: 15px; ">
 							<li class="dropdown" style="list-style-type:none;">
-								<div id="dropdownMenu1" data-toggle="dropdown" title="设置"><img src="image/sz.png" /><label>设置</label></div>
-								<ul class="dropdown-menu" role="menu" style="margin: 0 0 0 -40px; ">
+								<div id="dropdownMenu1" data-toggle="dropdown"><img src="image/sz.png" /><label>设置</label></div>
+								<!--<ul class="dropdown-menu" role="menu" >
 									<li>
-										<a href=""><i class="fa fa-user"></i>设置1</a>
+										<a href=""><i class="fa fa-user"></i>&nbsp;设置1</a>
 									</li>
 									<li class="divider"></li>
 									<li>
-										<a href=""><i class="fa fa-key"></i>设置2</a>
+										<a href=""><i class="fa fa-key"></i>&nbsp;设置2</a>
 									</li>
 									<li class="divider"></li>
 									<li>
-										<a href=""><i class="fa fa-power-off"></i>设置3</a>
+										<a href=""><i class="fa fa-power-off"></i>&nbsp;设置3</a>
 									</li>
-								</ul>
+								</ul>-->
 							</li>
 						</ul>
-						
 						<ul style="float: right; padding-left: 15px;">
 							<li class="dropdown" style="list-style-type:none;">
-								<div id="dropdownMenu1" data-toggle="dropdown" title="新增"><img style="margin-bottom: 5px;" src="image/tj.png" /><label>新增</label></div>
+								<div id="dropdownMenu1" data-toggle="dropdown"><img style="margin-bottom: 5px;" src="image/tj.png" /><label>新增</label></div>
 								<ul class="dropdown-menu" role="menu">
 									<li>
-										<a href="" data-toggle='modal' data-target='#add_share_aunt'><i class="fa fa-female"></i>新增共享保姆</a>
+										<a href="" data-toggle='modal' data-target='#add_share_aunt'><i class="fa fa-female"></i>&nbsp;新增共享保姆</a>
 									</li>
 									<li class="divider"></li>
 									<li>
-										<a href="" data-toggle='modal' data-target='#add_share_clientele'><i class="fa fa-user"></i>新增共享客户</a>
+										<a href="" data-toggle='modal' data-target='#add_share_clientele'><i class="fa fa-user"></i>&nbsp;新增共享客户</a>
 									</li>
 								</ul>
 							</li>
 						</ul>
 						<ul style="float: right; padding-left: 15px;">
 							<li class="dropdown" style="list-style-type:none;">
-								<div id="dropdownMenu1" data-toggle="dropdown" title="消息">
+								<div id="dropdownMenu1" data-toggle="dropdown" style="width: 90px;"><img style="margin-bottom: 5px;" src="image/admin.png" /><label>管理员</label></div>
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										<a href="adminCheck.html" target="f"><i class="fa fa-check-square-o"></i>&nbsp;用户审核</a>
+									</li>
+									<li>
+										<a href="article.html" target="f"><i class="fa fa-newspaper-o"></i>&nbsp;新闻发布</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<ul style="float: right; padding-left: 15px;">
+							<li class="dropdown" style="list-style-type:none;">
+								<div id="dropdownMenu1" data-toggle="dropdown">
 									<i class="fa fa-bell-o"></i><span class="label label-warning">10</span>
 								</div>
 								<ul class="dropdown-menu" role="menu">

@@ -9,6 +9,10 @@ import org.model.Staff;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+/**
+ * @author Administrator
+ * 
+ */
 public interface StaffService {
 
 	/**
@@ -28,10 +32,11 @@ public interface StaffService {
 	 * @param id
 	 * @return
 	 */
-	public Object deleteStaff(Long id);
+	public Object deleteStaff(HttpSession session, HttpServletRequest request,
+			Long id);
 
 	/**
-	 * 3获取员当前用户工列表
+	 * 3获取当前用户的员工列表
 	 * 
 	 * @param session
 	 * @param start
@@ -39,13 +44,66 @@ public interface StaffService {
 	 * @return
 	 */
 	public Object getStaffList(HttpSession session, Integer start, Integer limit);
-	
+
 	/**
 	 * 4员工登录
+	 * 
 	 * @param session
 	 * @param phone
 	 * @param password
 	 * @return
 	 */
-	public Object sLogin(HttpSession session,Long phone,String password);
+	public Object sLogin(HttpSession session, Long phone, String password);
+
+	/**
+	 * 5获取全部员工列表
+	 * 
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public Object getAllStaffList(Integer start, Integer limit);
+
+	/**
+	 * 6获取当前员工的信息
+	 * 
+	 * @param session
+	 * @return
+	 */
+	public Object getStaffById(HttpSession session);
+
+	/**
+	 * 7修改员工基本信息
+	 * 
+	 * @param session
+	 * @param name
+	 * @param address
+	 * @param job
+	 * @return
+	 */
+	public Object updateStaff(HttpSession session, String name, String address,
+			String job);
+
+	/**
+	 * 8修改员工密码
+	 * 
+	 * @param session
+	 * @param oPwd
+	 * @param nPwd
+	 * @return
+	 */
+	public Object updateStaffPassword(HttpSession session, String oPwd,
+			String nPwd);
+
+	/**
+	 * 9修改员工照片
+	 * 
+	 * @param session
+	 * @param file
+	 * @return
+	 */
+	public Object updateStaffPhotourl(HttpSession session,
+			HttpServletRequest request,
+			@RequestParam("file") CommonsMultipartFile file)
+			throws IllegalStateException, IOException;
 }
