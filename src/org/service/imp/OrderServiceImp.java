@@ -1,6 +1,9 @@
 package org.service.imp;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +33,45 @@ public class OrderServiceImp implements OrderService{
 		}else{
 			return JsonObject.getResult(0, "请先登录，才能添加订单", false);
 		}
+	}
+
+	@Override
+	public Object deleteOrdder(Long id) {
+		if(oDao.deleteOrder(id))
+			return JsonObject.getResult(1, "删除订单成功", true);
+		else
+			return JsonObject.getResult(0, "删除订单失败", false);
+	}
+	
+	@Override
+	public Object commitOrder(Long id,Integer status) {
+		if(oDao.updateOrderStatus(id, status,"等待审核"))
+			return JsonObject.getResult(1, "提交订单成功", true);
+		else
+			return JsonObject.getResult(0, "提交订单失败", false);
+	}
+	
+	@Override
+	public Object getOrderList(HttpSession session, Integer start, Integer limit) {
+		User u = (User) session.getAttribute("user");
+		if(u==null)
+			return JsonObject.getResult(0, "请先登录，才能获取订单列表", false);
+		else{
+			List li = oDao.getOrderList(u.getId(), start, limit);
+			long count = oDao.getOrderCount(u.getId());
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("count", count);
+			map.put("result", li);
+			return JsonObject.getResult(1, "获取当前用户订单列表", map);
+		}
+	}
+
+	@Override
+	public Object getOrderListByStatus(HttpSession session, Integer status,
+			Integer start, Integer limit) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

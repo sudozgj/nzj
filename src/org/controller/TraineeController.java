@@ -29,4 +29,23 @@ public class TraineeController {
 				file4);
 	}
 
+	@RequestMapping("/deleteTrainee")
+	@ResponseBody
+	public Object deleteTrainee(Long id) throws Exception {
+		return tService.deleteTrainee(id);
+	}
+
+	@RequestMapping("/getTraineeListByOrderId")
+	@ResponseBody
+	public Object getTraineeListByOrderId(Long orderId, Integer start,
+			Integer limit) throws Exception {
+		return tService.getTraineeListByOrderId(orderId, start, limit);
+	}
+
+	@RequestMapping("/getUnBindTraineeList")
+	@ResponseBody
+	public Object getUnBindTraineeList(HttpSession session, Integer start,
+			Integer limit) throws Exception {
+		return tService.getUnBindTraineeList(session, start, limit);
+	}
 }

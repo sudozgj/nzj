@@ -3,6 +3,9 @@ package org.service.imp;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +33,10 @@ public class TraineeServiceImp implements TraineeService {
 			throws IllegalStateException, IOException {
 
 		User user = (User) session.getAttribute("user");
-		if(user==null){
+		if (user == null) {
 			return JsonObject.getResult(-999, "请先登录，才能添加学员", false);
 		}
-		
+
 		String f1Name = file1.getOriginalFilename();
 		String f2Name = file2.getOriginalFilename();
 		String f3Name = file3.getOriginalFilename();
@@ -98,11 +101,53 @@ public class TraineeServiceImp implements TraineeService {
 		t.setInfourl(url4);
 
 		t.setBind(0); // 初始化绑定标志为0，表示未绑定订单
-		t.setUserId(user.getId());	//绑定学员所属的用户
+		t.setUserId(user.getId()); // 绑定学员所属的用户
 		if (tDao.addTrainee(t) != -1)
 			return JsonObject.getResult(1, "添加学员成功", true);
 		else
 			return JsonObject.getResult(-1, "添加学员失败", false);
+	}
+
+	@Override
+	public Object deleteTrainee(Long id) {
+		if (tDao.deleteTrainee(id))
+			return JsonObject.getResult(1, "删除学员成功", true);
+		else
+			return JsonObject.getResult(0, "删除学员失败", false);
+	}
+
+	@Override
+	public Object getTraineeListByOrderId(Long orderId, Integer start,
+			Integer limit) {
+		List li = tDao.getTraineeListByOrderId(orderId, start, limit);
+
+		if (li.size() == 0)
+			return JsonObject.getResult(0, "该订单暂无学员，请为其添加学员", false);
+
+		long count = tDao.getTraineeCountByOrderId(orderId);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("count", count);
+		map.put("result", li);
+
+		return JsonObject.getResult(1, "获取学员列表", map);
+	}
+
+	@Override
+	public Object getUnBindTraineeList(HttpSession session, Integer start,
+			Integer limit) {
+		User u = (User) session.getAttribute("user");
+		if (u == null)
+			return JsonObject.getResult(0, "请先登录，才能获取为绑定订单的学员列表", false);
+
+		List li = tDao.getUnBindTraineeList(u.getId(), start, limit);
+		long count = tDao.getUnBindTraineeCount(u.getId());
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("count", count);
+		map.put("result", li);
+
+		return JsonObject.getResult(1, "获取未绑定订单的学员列表", map);
 	}
 
 }
