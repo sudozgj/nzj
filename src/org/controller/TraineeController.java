@@ -48,4 +48,12 @@ public class TraineeController {
 			Integer limit) throws Exception {
 		return tService.getUnBindTraineeList(session, start, limit);
 	}
+	
+	@RequestMapping("/getTraineeListByUserId")
+	@ResponseBody
+	public Object getTraineeListByUserId(HttpSession session, Integer start,
+			Integer limit)throws Exception{
+		return tService.getTraineeListByUserId(session, start, limit);
+	}
+	
 }

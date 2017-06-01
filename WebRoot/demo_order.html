@@ -17,9 +17,11 @@
 	$(function() {
 		getOrderList();		//初始化加载订单列表
 		
-		setBindList();		//初始化绑定列表
+		setBindList();		//初始化订单绑定列表
 		
 		getUnBindTraineeList();	//初始化未绑定订单的学员列表
+		
+		getUserTraineeList();	//初始化当前用户的学员列表
 		
 		$("#addT").click(function() {		//添加学员信息
 			var of = new FormData(document.getElementById("otForm"));
@@ -34,8 +36,7 @@
 				processData : false,
 				success : function(data) {
 					if (data.code == 1) {
-						alert(data.msg);
-						//location.reload();
+						location.reload();
 					} else {
 						alert(data.msg);
 					}
@@ -69,7 +70,27 @@
 				error : function(data) {
 					alert("服务器连接异常");
 				}
-			});		
+			});
+		});
+		
+		$("#bindBtn").click(function(){		//提交绑定按钮
+			var of = new FormData(document.getElementById("bindForm"));
+		
+			$.ajax({
+				type : "post",
+				url : "bindOrderAndTrainee", 
+				data : of,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(data) {
+					
+				},
+				error : function(data) {
+					alert("bindOrderAndTrainee error");
+				}
+			});
 		});
 		
 	});
@@ -194,10 +215,10 @@
 		});	
 	}
 	
-	function setBindList(){
+	function setBindList(){				//获取东单列表，并初始化到绑定列表上
 		$.ajax({
 			type : "post",
-			url : "getOrderList",
+			url : "getOrderList",		//获取订单列表
 			async : false,
 			cache : false,
 			success : function(data) {
@@ -207,7 +228,7 @@
 					var b = "";
 					var d = data.data.result;
 					for ( var i = 0; i < d.length; i++) {
-						b += "<option>"+d[i].id+"-"+d[i].preparer+"</option>";
+						b += "<option value='"+d[i].id+"'>"+d[i].id+"-"+d[i].preparer+"</option>";
 					}
 					$("#bindList").html(b);
 				}
@@ -221,7 +242,7 @@
 	function getUnBindTraineeList(){		//getUnBindTraineeList	初始化未绑定的学员选择框
 		$.ajax({
 			type: "post",
-			url: "getUnBindTraineeList",			//获取模块权限列表
+			url: "getTraineeListByUserId",			//获取模块权限列表
 			//data : {},
 			async: false,
 			cache: false,
@@ -240,34 +261,72 @@
 			}
 		});
 	}
+	
+	function getUserTraineeList(){		//获取当前用户的学员列表，并初始化表格
+		$.ajax({
+			type: "post",
+			url: "getUnBindTraineeList",			//获取模块权限列表
+			//data : {},
+			async: false,
+			cache: false,
+			success: function(data) {
+				var a="";
+				var d = data.data.result;
+				for(var i=0;i<d.length;i++){
+					a+="<tr>"
+							+"<td>"+d[i].id+"</td>"
+							+"<td>"+d[i].name+"</td>"
+							+"<td>"+d[i].sex+"</td>"
+							+"<td>"+d[i].birthday+"</td>"
+							+"<td>"+d[i].address+"</td>"
+							+"<td>"+d[i].idnumber+"</td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].idcardurl1+"' /></td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].idcardurl2+"' /></td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].infourl+"' /></td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].photourl+"' /></td>"
+						+"</tr>";
+				}
+				//$("#ms").after('<p>好</p>');
+				$("#tList tbody").html(a);
+			},
+			error: function(data) {
+				alert("error");
+			}
+		});
+	}
 </script>
 </head>
 <body>
 	<h3>订单列表</h3>（到时候用标签页，大致分为全部的，未提交的，未审核的，未绑定的）
 	<p>提交过的订单，不能再提交，（按钮应该禁用、或者有提示）</p>
-	<table id="oList" border="1px">
-		<thead>
-			<tr>
-				<th>id</th>
-				<th>填表人</th>
-				<th>时间</th>
-				<th>操作</th>
-				<th>学员</th>
-				<th>状态</th>
-				<th>备注</th>
-				<th>提交</th>
-			</tr>
-		</thead>
-		<tbody></tbody>
-	</table>
+	<div style="width:600px">
+		<table id="oList" class="table table-bordered">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>填表人</th>
+					<th>时间</th>
+					<th>操作</th>
+					<th>学员</th>
+					<th>状态</th>
+					<th>备注</th>
+					<th>提交</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+	
 	<h3>创建订单</h3>
 	填表人：
 	<input type="text" id="preparer" />
-	<input type="button" id="addO" value="" />
+	<input type="button" id="addO" value="创建订单" class="btn btn-primary" />
 	
-	<h3>添加学员</h3>
+	
+	<h3>学员</h3>
 	<div border="2px">
 		<div id="ld" style="float:left">
+			<h4>添加学员</h4>
 			<form id="otForm">
 				姓名：<input type="text" name="name" /><br> 
 				性别：<input type="text" name="sex" /><br> 
@@ -280,10 +339,11 @@
 				照片：<input type="file" name="file3" /> 
 				学员信息：<input type="file" name="file4" />
 			</form>
-			<input type="button" id="addT" value="添加学员" />
+			<input type="button" class="btn btn-primary" id="addT" value="添加学员" />
 		</div>
 		<div id="rd" style="float:left">
-			<table id="tList" border="1px">
+			<h4>学员列表</h4>
+			<table id="tList" class="table table-bordered">
 				<thead>
 					<tr>
 						<th>id</th>
@@ -305,9 +365,12 @@
 	<div style="clear:both"></div>
 	
 	<h3>绑定学员</h3>
-	<select id="bindList">
-		<option>无</option>
-	</select>
+	<form id="bindForm">
+		<select id="bindList" name="orderId">
+			<option>无</option>
+		</select>
+		<input type="button" class="btn btn-primary" id="bindBtn" value="绑定" />
+	</form>
 	
 	<!-- 查看添加学员 modal -->
 	<div class="modal fade" id="otModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">

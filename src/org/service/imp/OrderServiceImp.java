@@ -70,8 +70,18 @@ public class OrderServiceImp implements OrderService{
 	@Override
 	public Object getOrderListByStatus(HttpSession session, Integer status,
 			Integer start, Integer limit) {
-		// TODO Auto-generated method stub
-		return null;
+		User u = (User) session.getAttribute("user");
+		if(u==null)
+			return JsonObject.getResult(0, "请先登录，才能通过状态获取订单列表", false);
+		else{
+			List li = oDao.getOrderListByStatus(u.getId(), status, start, limit);
+			long count = oDao.getOrderCountByStatus(u.getId(), status);
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("count", count);
+			map.put("result", li);
+			return JsonObject.getResult(1, "获取当前用户订单列表", map);
+		}
 	}
 
 }

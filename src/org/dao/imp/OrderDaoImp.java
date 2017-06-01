@@ -152,13 +152,14 @@ public class OrderDaoImp implements OrderDao {
 	}
 
 	@Override
-	public List getOrderListByStatus(long id,Integer status, Integer start,
+	public List getOrderListByStatus(long id, Integer status, Integer start,
 			Integer limit) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
-			Transaction ts= session.beginTransaction();
-			
-			Query query = session.createQuery("from VOrderCheck v where v.id.userId=? and v.id.status=?");
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("from VOrderCheck v where v.id.userId=? and v.id.status=?");
 			query.setParameter(0, id);
 			query.setParameter(1, status);
 			if (start == null) {
@@ -182,14 +183,44 @@ public class OrderDaoImp implements OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getOrderCountByStatus(long id, Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("select count(v.id.id) from VOrderCheck v where v.id.userId=? and v.id.status=?");
+			
+			query.setParameter(0, id);
+			query.setParameter(1, status);
+			
+			query.setMaxResults(1);
+			long count = (long) query.uniqueResult();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
 		}finally{
 			HibernateSessionFactory.closeSession();
 		}
 	}
 
 	@Override
-	public long getOrderCountByStatus(Integer status) {
-		// TODO Auto-generated method stub
+	public long bindOrderAndTrainee(long id, long[] tid) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return 0;
 	}
 

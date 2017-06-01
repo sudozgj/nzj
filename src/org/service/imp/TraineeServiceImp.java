@@ -150,4 +150,21 @@ public class TraineeServiceImp implements TraineeService {
 		return JsonObject.getResult(1, "获取未绑定订单的学员列表", map);
 	}
 
+	@Override
+	public Object getTraineeListByUserId(HttpSession session, Integer start,
+			Integer limit) {
+		User u = (User) session.getAttribute("user");
+		if(u==null)
+			return JsonObject.getResult(0, "请先登录，才能获取学员学员列表", false);
+		
+		List li = tDao.getTraineeListByUserId(u.getId(), start, limit);
+		long count = tDao.getTraineeCountByUserId(u.getId());
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("count", count);
+		map.put("result", li);
+
+		return JsonObject.getResult(1, "获取当前用户的学员列表", map);
+	}
+
 }

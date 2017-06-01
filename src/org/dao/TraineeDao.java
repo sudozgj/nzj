@@ -65,5 +65,5 @@ public interface TraineeDao {
 	 * @param userId
 	 * @return
 	 */
-	public long getTraineeCount(Long userId);
+	public long getTraineeCountByUserId(Long userId);
 }

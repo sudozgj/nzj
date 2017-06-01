@@ -12,6 +12,14 @@ public interface OrderDao {
 	 * @return
 	 */
 	public long addOrder(Orders o);
+	
+	/**
+	 * 1.2绑定订单和学员，同时设置学员绑定状态为1
+	 * @param id
+	 * @param tid
+	 * @return
+	 */
+	public long bindOrderAndTrainee(long id,long[] tid);
 	//-----------------------------------删---------------------------------------
 	/**
 	 * 2.1删除订单
@@ -59,5 +67,5 @@ public interface OrderDao {
 	 * @param status
 	 * @return
 	 */
-	public long getOrderCountByStatus(Integer status);
+	public long getOrderCountByStatus(long id,Integer status);
 }
